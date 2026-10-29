@@ -1,0 +1,2490 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>남양주시 위반건축물 해체신고 안내</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="남양주시 진건읍 위반건축물 해체신고·허가 대상 확인과 제출서류 준비를 휴대폰으로 안내합니다(시범운영).">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* =========================================================
+   위반건축물 해체신고 안내 – 휴대폰 우선 화면
+   배치: 상단 제목줄 + 한 화면 한 과제 + 하단 탭 메뉴(엄지로 누르기 쉬운 위치)
+   색은 아래 변수만 바꾸면 전체에 반영됩니다(밝은 화면/어두운 화면 모두).
+   ========================================================= */
+:root {
+  --navy: #102c54;        /* 제목줄·처음 화면 띠 */
+  --navy-ink: #ffffff;    /* 띠 위 글자 */
+  --navy-soft: #c3d3ec;   /* 띠 위 보조 글자 */
+  --accent: #1d5bd8;      /* 주요 버튼·선택 */
+  --accent-ink: #ffffff;
+  --accent-soft: #e8effc;
+  --bg: #f2f5f9;          /* 바탕(청색 기운의 회색) */
+  --surface: #ffffff;     /* 목록·카드 바탕 */
+  --ink: #15202f;
+  --muted: #536176;
+  --line: #dae1ea;
+  --warn-bg: #fff5dc;
+  --warn-line: #e9c25d;
+  --warn-ink: #6e4a00;
+  --ok-bg: #e5f4eb;
+  --ok-ink: #17603a;
+  --bad-bg: #fcebea;
+  --bad-ink: #9a2219;
+  --focus: #f0a400;
+  --band-line: rgba(255, 255, 255, .45);
+
+  --font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans KR", system-ui, sans-serif;
+  --fs-xs: .8125rem;
+  --fs-sm: .9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.625rem;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --tabbar-h: 64px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --navy: #0b1d38; --navy-ink: #f1f5fb; --navy-soft: #9fb4d6;
+    --accent: #5b92f5; --accent-ink: #0a1222; --accent-soft: #19294a;
+    --bg: #0d141f; --surface: #151f2e; --ink: #e6ecf5; --muted: #9aa8bc; --line: #26344a;
+    --warn-bg: #33270b; --warn-line: #8a6a1c; --warn-ink: #f3d58c;
+    --ok-bg: #12301f; --ok-ink: #8fd8ac; --bad-bg: #3a1714; --bad-ink: #f4a69e;
+    --focus: #ffc44d; --band-line: rgba(255, 255, 255, .3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --navy: #0b1d38; --navy-ink: #f1f5fb; --navy-soft: #9fb4d6;
+  --accent: #5b92f5; --accent-ink: #0a1222; --accent-soft: #19294a;
+  --bg: #0d141f; --surface: #151f2e; --ink: #e6ecf5; --muted: #9aa8bc; --line: #26344a;
+  --warn-bg: #33270b; --warn-line: #8a6a1c; --warn-ink: #f3d58c;
+  --ok-bg: #12301f; --ok-ink: #8fd8ac; --bad-bg: #3a1714; --bad-ink: #f4a69e;
+  --focus: #ffc44d; --band-line: rgba(255, 255, 255, .3);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: var(--fs-md);
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--bg);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-tap-highlight-color: transparent;
+}
+body::before {
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px);
+  z-index: 60; background: var(--navy);
+}
+h1, h2, h3 { line-height: 1.35; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--fs-xl); font-weight: 700; }
+p { margin: 0; }
+a { color: var(--accent); }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 6px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.muted { color: var(--muted); }
+.small { font-size: var(--fs-sm); }
+.print-only { display: none; }
+
+.wrap {
+  width: 100%; max-width: 640px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.stack { display: flex; flex-direction: column; gap: 18px; padding-block: 20px 28px; }
+.stack > * { min-width: 0; }
+
+.skip-link { position: absolute; left: 12px; top: -80px; z-index: 100; background: var(--accent); color: var(--accent-ink); padding: 10px 16px; border-radius: var(--radius-sm); }
+.skip-link:focus { top: 12px; }
+
+/* ── 상단 제목줄 ── */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: var(--navy); color: var(--navy-ink);
+}
+.topbar-inner { display: flex; align-items: center; gap: 8px; min-height: 56px; }
+.topbar-title { display: flex; flex-direction: column; color: var(--navy-ink); text-decoration: none; line-height: 1.25; min-width: 0; flex: 1; padding-block: 6px; }
+.topbar-name { font-weight: 700; font-size: var(--fs-md); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-sub { font-size: var(--fs-xs); color: var(--navy-soft); }
+.back-btn { display: grid; place-items: center; width: 44px; height: 44px; margin-left: -10px; border-radius: 50%; color: var(--navy-ink); flex: none; }
+.back-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.proto-chip { font-size: var(--fs-xs); font-weight: 600; color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 999px; padding: 1px 10px; flex: none; }
+
+main { padding-bottom: calc(var(--tabbar-h) + env(safe-area-inset-bottom, 0px) + 8px); outline: none; }
+
+/* ── 하단 탭 ── */
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: var(--surface); border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px);
+}
+.tabbar a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: var(--tabbar-h); color: var(--muted); text-decoration: none; font-size: .75rem; font-weight: 600;
+}
+.tabbar svg { width: 25px; height: 25px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tabbar a[aria-current="page"] { color: var(--accent); }
+.tabbar a[aria-current="page"] svg { stroke-width: 2.3; }
+
+/* ── 버튼 ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 52px; padding: 10px 20px; border-radius: var(--radius-sm); border: 1.5px solid transparent;
+  font: inherit; font-weight: 600; font-size: var(--fs-md); text-decoration: none; cursor: pointer; text-align: center;
+  touch-action: manipulation;
+}
+.btn-block { display: flex; width: 100%; }
+.btn-xl { min-height: 58px; font-size: 1.125rem; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { background: var(--surface); color: var(--accent); border-color: var(--line); }
+.btn-danger { background: var(--bad-ink); color: var(--surface); }
+.btn-onband { background: transparent; color: var(--navy-ink); border-color: var(--band-line); margin-top: 10px; }
+.btn:active { transform: translateY(1px); }
+
+/* ── 처음 화면 ── */
+.home-band { background: var(--navy); color: var(--navy-ink); }
+.home-band .wrap { padding-block: 26px 28px; }
+.eyebrow { font-size: var(--fs-sm); color: var(--navy-soft); font-weight: 500; margin-bottom: 8px; }
+.home-band h1 { color: var(--navy-ink); font-size: 1.75rem; }
+.home-lead { color: var(--navy-soft); margin: 12px 0 22px; font-size: var(--fs-md); }
+
+.fact-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fact { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; }
+.fact .k { display: block; font-size: var(--fs-xs); color: var(--muted); }
+.fact .v { display: block; font-size: var(--fs-lg); font-weight: 700; }
+.fact .n { display: block; font-size: var(--fs-xs); color: var(--muted); }
+
+.list-title { font-size: var(--fs-sm); color: var(--muted); font-weight: 600; margin: 0 0 8px 4px; letter-spacing: .02em; }
+.row-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.row-list li + li { border-top: 1px solid var(--line); }
+.row-list a {
+  display: grid; grid-template-columns: 40px 1fr 16px; align-items: center; gap: 12px;
+  padding: 12px 14px; min-height: 64px; color: var(--ink); text-decoration: none;
+}
+.row-ico { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; }
+.row-ico svg, .row-chev { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.row-chev { width: 16px; height: 16px; color: var(--muted); stroke-width: 2.2; }
+.row-text { display: flex; flex-direction: column; min-width: 0; }
+.row-text strong { font-weight: 600; }
+.row-text span { font-size: var(--fs-sm); color: var(--muted); }
+.row-text em { font-style: normal; font-size: var(--fs-xs); color: var(--warn-ink); }
+
+/* ── 공통 패널·안내 ── */
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.panel-plain { padding: 16px; }
+.panel-sum { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; min-height: 56px; font-weight: 600; }
+.panel-sum::-webkit-details-marker { display: none; }
+.panel-val { font-weight: 500; font-size: var(--fs-sm); color: var(--muted); text-align: right; flex: 1; }
+.panel-sum::after { content: ""; flex: none; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin-top: -4px; }
+details[open] > .panel-sum::after { transform: rotate(-135deg); margin-top: 4px; }
+
+.note { background: var(--accent-soft); border-radius: var(--radius-sm); padding: 14px 16px; font-size: var(--fs-sm); display: flex; flex-direction: column; gap: 4px; }
+.note-warn { background: var(--warn-bg); color: var(--warn-ink); }
+.note strong { font-weight: 700; }
+
+.badge {
+  display: inline-block; font-size: .75rem; font-weight: 600; line-height: 1.4; padding: 1px 8px;
+  border-radius: 999px; white-space: nowrap; vertical-align: 1px;
+}
+.badge-check { background: var(--warn-bg); color: var(--warn-ink); border: 1px solid var(--warn-line); }
+.badge-ok { background: var(--ok-bg); color: var(--ok-ink); }
+.badge-cat { background: var(--accent-soft); color: var(--accent); }
+
+/* ── 자가진단 마법사 ── */
+.wiz-progress { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.wiz-progress span { display: block; height: 100%; background: var(--accent); width: 0; transition: width .25s ease; }
+.wiz-count { font-size: var(--fs-sm); color: var(--muted); margin-top: 8px; font-variant-numeric: tabular-nums; }
+.wiz-step { border: 0; margin: 14px 0 0; padding: 0; min-width: 0; }
+.wiz-q { font-size: 1.375rem; font-weight: 700; line-height: 1.4; padding: 0; margin-bottom: 6px; outline: none; }
+.wiz-help { font-size: var(--fs-sm); color: var(--muted); margin-bottom: 16px; }
+.opts { display: flex; flex-direction: column; gap: 10px; }
+.opt { display: block; position: relative; }
+.opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+.opt > span {
+  display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 12px 16px;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-sm); font-weight: 500;
+}
+.opt > span::before {
+  content: ""; flex: none; width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--line); background: var(--surface);
+}
+.opt input[type="checkbox"] + span::before { border-radius: 6px; }
+.opt input:checked + span { border-color: var(--accent); background: var(--accent-soft); }
+.opt input:checked + span::before { border: 7px solid var(--accent); }
+.opt input[type="checkbox"]:checked + span::before { border: 0; background: var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat; }
+.opt input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+.opt small, .opt .opt-t small { display: block; color: var(--muted); font-size: var(--fs-xs); }
+
+.num-wrap { display: flex; align-items: stretch; gap: 10px; }
+.num-input { position: relative; flex: 1; min-width: 0; }
+.num-input input {
+  width: 100%; min-height: 60px; padding: 10px 56px 10px 16px; font: inherit; font-size: 1.5rem; font-weight: 600;
+  color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-sm);
+  font-variant-numeric: tabular-nums;
+}
+.num-input input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+.num-input input:disabled { background: var(--bg); color: var(--muted); }
+.num-input input[aria-invalid="true"] { border-color: var(--bad-ink); }
+.num-input .unit { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; }
+.unknown-btn { min-width: 84px; }
+.unknown-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+.stepper-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius-sm); }
+.stepper-row + .stepper-row { margin-top: 10px; }
+.stepper-label { font-weight: 600; }
+.stepper { display: flex; align-items: center; gap: 6px; }
+.stepper button { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--surface); color: var(--accent); font: inherit; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.stepper button:disabled { color: var(--line); cursor: default; }
+.stepper output { min-width: 3.2em; text-align: center; font-size: 1.375rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stepper-total { margin-top: 10px; font-size: var(--fs-sm); color: var(--muted); }
+.check-unknown { margin-top: 12px; }
+
+.field-error { color: var(--bad-ink); font-weight: 600; font-size: var(--fs-sm); margin-top: 10px; }
+
+.wiz-nav { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; margin-top: 24px; }
+
+/* ── 결과 ── */
+.result { display: flex; flex-direction: column; gap: 14px; outline: none; }
+.verdict { border-radius: var(--radius); padding: 20px; background: var(--surface); border: 2px solid var(--line); display: flex; flex-direction: column; gap: 4px; }
+.verdict .k { font-size: var(--fs-sm); color: var(--muted); }
+.verdict .v { font-size: 1.5rem; font-weight: 700; }
+.verdict.r-CHECK { border-color: var(--warn-line); background: var(--warn-bg); }
+.verdict.r-CHECK .v, .verdict.r-CHECK p, .verdict.r-CHECK .k { color: var(--warn-ink); }
+.verdict.r-REPORT { border-color: var(--accent); }
+.verdict.r-PERMIT { border-color: var(--bad-ink); }
+
+.sec { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.sec > h2 { font-size: var(--fs-md); font-weight: 700; padding: 14px 16px 0; }
+.sec > summary { list-style: none; cursor: pointer; font-size: var(--fs-md); font-weight: 700; padding: 14px 16px; display: flex; justify-content: space-between; gap: 10px; align-items: center; min-height: 52px; }
+.sec > summary::-webkit-details-marker { display: none; }
+.sec > summary::after { content: ""; flex: none; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin-top: -4px; }
+.sec[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
+.sec-body { padding: 10px 16px 16px; }
+details.sec .sec-body { padding-top: 0; }
+
+.todo { list-style: none; margin: 0; padding: 0; counter-reset: todo; }
+.todo li { counter-increment: todo; display: grid; grid-template-columns: 26px 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+.todo li:first-child { border-top: 0; }
+.todo li::before { content: counter(todo); width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: var(--fs-xs); font-weight: 700; display: grid; place-items: center; margin-top: 1px; }
+
+.cmp-list { list-style: none; margin: 0; padding: 0; }
+.cmp-list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+.cmp-list li:first-child { border-top: 0; }
+.cmp-list .lbl { font-weight: 600; }
+.cmp-list .val { font-variant-numeric: tabular-nums; text-align: right; }
+.cmp-list .std { font-size: var(--fs-sm); color: var(--muted); }
+.cmp-list .st { text-align: right; }
+.cmp-within { color: var(--ok-ink); font-weight: 600; font-size: var(--fs-sm); }
+.cmp-outside { color: var(--bad-ink); font-weight: 600; font-size: var(--fs-sm); }
+.cmp-unknown { color: var(--muted); font-weight: 600; font-size: var(--fs-sm); }
+
+.law-list { list-style: none; margin: 0; padding: 0; }
+.law-list li { padding: 12px 0; border-top: 1px solid var(--line); font-size: var(--fs-sm); }
+.law-list li:first-child { border-top: 0; }
+.law-list strong { display: block; font-size: var(--fs-md); margin: 4px 0 2px; }
+.law-meta { display: block; color: var(--muted); font-size: var(--fs-xs); margin-top: 4px; }
+
+.action-col { display: flex; flex-direction: column; gap: 10px; }
+.copy-msg { font-size: var(--fs-sm); color: var(--ok-ink); font-weight: 600; text-align: center; min-height: 1.4em; }
+.copy-fallback { width: 100%; min-height: 160px; font: inherit; font-size: var(--fs-sm); padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); }
+
+/* ── 체크리스트 ── */
+.situation { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px; }
+.seg-label { font-size: var(--fs-sm); font-weight: 600; margin-bottom: 6px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg label { position: relative; flex: 1 1 auto; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; width: 100%; height: 100%; }
+.seg span { display: flex; align-items: center; justify-content: center; min-height: 46px; padding: 6px 12px; border: 1.5px solid var(--line); border-radius: var(--radius-sm); font-size: var(--fs-sm); font-weight: 500; white-space: nowrap; background: var(--surface); }
+.seg input:checked + span { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.seg input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+.progress-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.progress-text { font-weight: 700; font-variant-numeric: tabular-nums; }
+.progress-bar { height: 8px; background: var(--line); border-radius: 999px; overflow: hidden; }
+.progress-bar span { display: block; height: 100%; background: var(--ok-ink); width: 0; transition: width .2s; }
+.toggle { display: flex; align-items: center; gap: 10px; min-height: 44px; font-size: var(--fs-sm); cursor: pointer; }
+.toggle input { width: 22px; height: 22px; accent-color: var(--accent); margin: 0; }
+
+.doc-group { display: flex; flex-direction: column; gap: 8px; }
+.doc-group + .doc-group { margin-top: 22px; }
+.group-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: var(--fs-md); font-weight: 700; }
+.group-desc { font-size: var(--fs-sm); color: var(--muted); margin-top: -4px; }
+.doc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.doc.done { border-color: var(--ok-ink); }
+.doc-check { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; padding: 14px 16px 10px; cursor: pointer; position: relative; }
+.doc-check input { position: absolute; opacity: 0; width: 28px; height: 28px; margin: 0; left: 16px; top: 14px; cursor: pointer; }
+.doc-check .box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--line); background: var(--surface); margin-top: 1px; }
+.doc-check input:checked + .box { border: 0; background: var(--ok-ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat; }
+.doc-check input:focus-visible + .box { outline: 3px solid var(--focus); outline-offset: 2px; }
+.doc-name { font-weight: 600; }
+.doc.done .doc-name { color: var(--ok-ink); }
+.doc-why { display: block; font-size: var(--fs-sm); color: var(--muted); font-weight: 400; margin-top: 2px; }
+.doc details summary { list-style: none; cursor: pointer; padding: 6px 16px 12px 56px; color: var(--accent); font-size: var(--fs-sm); font-weight: 600; min-height: 40px; }
+.doc details summary::-webkit-details-marker { display: none; }
+.doc-detail { padding: 0 16px 14px 56px; font-size: var(--fs-sm); display: flex; flex-direction: column; gap: 8px; }
+.doc-detail b { display: block; font-weight: 600; color: var(--ink); }
+.privacy-note { background: var(--bad-bg); color: var(--bad-ink); border-radius: 8px; padding: 8px 10px; }
+.empty-note { color: var(--muted); font-size: var(--fs-sm); padding: 6px 4px; }
+
+.confirm-row { background: var(--bad-bg); color: var(--bad-ink); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; font-weight: 600; }
+.confirm-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── 절차 타임라인 ── */
+.apply-grid { display: grid; gap: 10px; }
+.timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 17px; top: 18px; bottom: 18px; width: 2px; background: var(--line); }
+.timeline > li { position: relative; padding-left: 50px; }
+.timeline > li + li { margin-top: 8px; }
+.tl-no { position: absolute; left: 0; top: 11px; width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; font-size: var(--fs-sm); font-variant-numeric: tabular-nums; z-index: 1; }
+.timeline .office .tl-no { background: var(--surface); color: var(--muted); border: 2px solid var(--line); }
+.tl-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.tl-card summary { list-style: none; cursor: pointer; padding: 12px 14px; min-height: 58px; display: flex; flex-direction: column; justify-content: center; }
+.tl-card summary::-webkit-details-marker { display: none; }
+.tl-title { font-weight: 600; }
+.tl-meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 2px; }
+.who { font-size: .75rem; font-weight: 600; color: var(--muted); }
+.tl-body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 10px; font-size: var(--fs-sm); }
+.tl-body b { display: block; color: var(--ink); font-weight: 600; font-size: var(--fs-xs); letter-spacing: .02em; }
+.tl-body ul { margin: 0; padding-left: 1.1em; }
+.office-flow { list-style: none; padding: 0; margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 6px 4px; align-items: center; font-size: var(--fs-sm); }
+.office-flow li { background: var(--bg); border-radius: 8px; padding: 6px 10px; font-weight: 600; }
+.office-flow li + li::before { content: "›"; margin: 0 6px 0 -8px; color: var(--muted); }
+
+/* ── FAQ ── */
+.search { position: relative; }
+.search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+.search input { width: 100%; min-height: 52px; padding: 10px 14px 10px 44px; font: inherit; color: var(--ink); background: var(--surface); border: 1.5px solid var(--line); border-radius: 999px; }
+.search input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-soft); }
+.acc-list { display: flex; flex-direction: column; gap: 8px; }
+.acc { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.acc summary { list-style: none; cursor: pointer; padding: 14px 16px; min-height: 58px; display: grid; grid-template-columns: 1fr 12px; gap: 12px; align-items: center; font-weight: 600; }
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after { content: ""; width: 9px; height: 9px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin-top: -4px; }
+.acc[open] summary::after { transform: rotate(-135deg); margin-top: 4px; }
+.acc-body { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 8px; font-size: var(--fs-sm); }
+.acc-short { font-weight: 600; font-size: var(--fs-md); }
+.acc-links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+/* ── 문의 ── */
+.call-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 16px; display: flex; flex-direction: column; gap: 12px; }
+.call-card .dept { font-weight: 700; font-size: var(--fs-lg); }
+.call-card .tel-num { font-size: 1.75rem; font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; user-select: all; }
+.call-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kv { display: grid; grid-template-columns: 5em 1fr; gap: 6px 12px; font-size: var(--fs-sm); margin: 0; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+.link-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.link-list li + li { border-top: 1px solid var(--line); }
+.link-list a { display: grid; grid-template-columns: 1fr 16px; align-items: center; gap: 10px; padding: 12px 16px; min-height: 60px; text-decoration: none; color: var(--ink); }
+.link-list strong { display: block; font-weight: 600; }
+.link-list span { font-size: var(--fs-sm); color: var(--muted); }
+
+/* ── 바닥글 ── */
+.site-footer { padding-block: 8px 24px; }
+.site-footer .wrap { display: flex; flex-direction: column; gap: 10px; font-size: var(--fs-xs); color: var(--muted); }
+.site-footer details { border-top: 1px solid var(--line); padding-top: 10px; }
+.site-footer summary { cursor: pointer; font-weight: 600; min-height: 36px; }
+.site-footer dl { display: grid; grid-template-columns: 6.5em 1fr; gap: 4px 10px; margin: 8px 0 0; }
+.site-footer dd { margin: 0; }
+.site-footer .disclaimer { line-height: 1.7; }
+
+@media (min-width: 720px) {
+  .home-band h1 { font-size: 2.125rem; }
+  .fact-row { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+/* 화면 이동 시 제목에 자동으로 옮겨진 초점은 테두리를 그리지 않음(키보드 탭 이동 초점은 그대로 표시) */
+[tabindex="-1"]:focus { outline: none; }
+/* 숫자 입력칸의 위아래 화살표 숨김(단위 표시와 겹침 방지) */
+.num-input input::-webkit-outer-spin-button, .num-input input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.num-input input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+/* 서식 바로가기 */
+.btn-sm { min-height: 44px; padding: 6px 14px; font-size: var(--fs-sm); }
+.doc-links { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 8px 56px; }
+.form-link { display: grid; grid-template-columns: 1fr 16px; gap: 10px; align-items: center; margin: 6px 0; padding: 10px 12px; min-height: 52px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); text-decoration: none; }
+.form-link strong { display: block; font-weight: 600; color: var(--accent); }
+.form-link span span { font-size: var(--fs-xs); color: var(--muted); }
+@media (max-width: 400px) { .doc-links { padding-left: 16px; } }
+.finder + .finder { margin-top: 10px; }
+.finder-steps { margin: 4px 0 0; padding: 10px 12px 10px 2em; background: var(--bg); border-radius: var(--radius-sm); font-size: var(--fs-sm); display: flex; flex-direction: column; gap: 4px; }
+.law-notes { margin: 6px 0 0; padding-left: 1.1em; color: var(--muted); font-size: var(--fs-xs); }
+/* 안내처: 화면에서 고를 항목 예시 */
+.picks { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 6px; padding: 10px 12px; border: 1px dashed var(--accent); border-radius: var(--radius-sm); background: var(--accent-soft); }
+.picks-title { width: 100%; font-size: var(--fs-xs); font-weight: 600; color: var(--accent); }
+.pick { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-size: var(--fs-sm); overflow: hidden; }
+.pick-k { padding: 4px 8px; background: var(--bg); color: var(--muted); font-size: var(--fs-xs); }
+.pick-v { padding: 4px 8px; font-weight: 600; color: var(--ink); }
+.pick-btn { padding: 4px 12px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.finder-basis { margin-top: 6px; font-size: var(--fs-xs); color: var(--muted); }
+.finder-tel { margin-top: 6px; font-size: var(--fs-sm); }
+.finder-tel b { font-variant-numeric: tabular-nums; user-select: all; }
+/* 직접 입력하는 칸 예시(밑줄 + 커서) */
+.pick-input .pick-v { min-width: 9.5em; border-bottom: 2px solid var(--accent); }
+.pick-input .caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--accent); }
+.pick-note { padding: 4px 8px; font-size: var(--fs-xs); color: var(--accent); font-weight: 600; }
+/* 남양주시 강조 */
+.topbar-name .city { font-weight: 700; color: var(--warn-line); }
+.city-badge { display: inline-block; margin-bottom: 10px; padding: 3px 12px; border-radius: 999px; background: var(--band-line); color: var(--navy-ink); font-size: var(--fs-sm); font-weight: 600; }
+.dept-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 16px; }
+.dept-row strong { display: block; font-weight: 600; }
+.dept-row span span { font-size: var(--fs-sm); color: var(--muted); }
+.dept-tel { font-variant-numeric: tabular-nums; user-select: all; }
+.rich-h { font-weight: 700; color: var(--ink); margin-top: 6px; }
+.rich-ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
+
+</style>
+<style>
+@media print {
+/* 인쇄용(PC 브라우저 메뉴에서 인쇄할 때만 적용) */
+
+body { font-size: 11pt; background: #fff; color: #000; }
+.skip-link, .topbar, .tabbar, .action-col, .wiz, #wizStart, .search, .toggle { display: none !important; }
+.view[hidden] { display: none !important; }
+main { padding: 0; }
+details > *:not(summary) { display: block !important; }
+.doc, .sec, .tl-card, .acc, .verdict { break-inside: avoid; }
+.print-only { display: block !important; }
+
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">본문 바로가기</a>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="back-btn" id="backBtn" href="#home" aria-label="처음 화면으로" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <a class="topbar-title" href="#home">
+      <span class="topbar-name"><b class="city">남양주시</b> 해체신고 안내</span>
+      <span class="topbar-sub" id="topbarSub">경기도 남양주시</span>
+    </a>
+    <span class="proto-chip" id="protoChip" title="정식 운영 전 시범운영 중입니다">시범운영</span>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- 처음 화면 -->
+  <section class="view" data-view="home" aria-labelledby="h-home">
+    <div class="home-band">
+      <div class="wrap">
+        <p class="city-badge">경기도 남양주시 안내 페이지</p>
+        <p class="eyebrow">남양주시 위반건축물 해체신고 민원 안내</p>
+        <h1 id="h-home" tabindex="-1">남양주시 위반건축물<br>해체신고, 이제 쉽게 준비하세요.</h1>
+        <p class="home-lead">해체신고 대상 확인부터 전문가 상담, 석면조사, 철거공사 견적과 제출서류 준비까지 단계별로 안내해 드립니다.</p>
+        <a class="btn btn-primary btn-block btn-xl" href="#diagnosis">내 해체신고 대상 확인하기</a>
+        <a class="btn btn-onband btn-block" href="#procedure">해체신고 준비 시작하기</a>
+      </div>
+    </div>
+    <div class="wrap stack">
+      <div class="fact-row" id="homeFacts"></div>
+      <nav aria-labelledby="h-menu">
+        <h2 class="list-title" id="h-menu">필요한 안내를 고르세요</h2>
+        <ul class="row-list" id="homeMenu"></ul>
+      </nav>
+      <div id="homeContact"></div>
+    </div>
+  </section>
+
+  <!-- 자가진단 (한 화면에 한 문항) -->
+  <section class="view" data-view="diagnosis" aria-labelledby="h-diagnosis" hidden>
+    <div class="wrap stack">
+      <div id="wizIntro">
+        <h1 id="h-diagnosis" tabindex="-1">해체신고·허가 대상 자가진단</h1>
+        <p class="muted">질문에 하나씩 답하면 확인할 사항을 정리해 드립니다. 모르는 질문은 <strong>"모름"</strong>을 누르세요.</p>
+      </div>
+      <div class="wiz" id="wiz" hidden>
+        <div class="wiz-progress" aria-hidden="true"><span id="wizBar"></span></div>
+        <p class="wiz-count" id="wizCount" aria-live="polite"></p>
+        <form id="wizForm" novalidate>
+          <fieldset class="wiz-step" id="wizStep">
+            <legend class="wiz-q" id="wizQ" tabindex="-1"></legend>
+            <p class="wiz-help" id="wizHelp"></p>
+            <div id="wizBody"></div>
+            <p class="field-error" id="wizError" role="alert" hidden></p>
+          </fieldset>
+          <div class="wiz-nav">
+            <button type="button" class="btn btn-ghost" id="wizPrev">이전</button>
+            <button type="submit" class="btn btn-primary" id="wizNext">다음</button>
+          </div>
+        </form>
+      </div>
+      <div id="wizStart">
+        <div class="note note-warn" role="note">
+          <strong>먼저 알려드려요</strong>
+          <p>자가진단 결과는 미리 살펴보기 위한 참고용 안내이며, 신고·허가 대상의 최종 판단은 담당부서에서 합니다. 입력한 내용은 이 휴대폰 안에서만 처리되고 어디에도 전송되지 않습니다.</p>
+        </div>
+        <button type="button" class="btn btn-primary btn-block btn-xl" id="wizBegin">시작하기</button>
+      </div>
+      <div class="result" id="diagResult" tabindex="-1" hidden></div>
+    </div>
+  </section>
+
+  <!-- 제출서류 체크리스트 -->
+  <section class="view" data-view="checklist" aria-labelledby="h-checklist" hidden>
+    <div class="wrap stack">
+      <div>
+        <h1 id="h-checklist" tabindex="-1">제출서류 체크리스트</h1>
+        <p class="muted">내 상황을 고르면 필요한 서류만 보여 드립니다. 준비한 서류를 눌러 체크하세요.</p>
+      </div>
+
+      <details class="panel" id="situationPanel" open>
+        <summary class="panel-sum"><span>내 상황</span><span class="panel-val" id="situationSummary"></span></summary>
+        <form class="situation" id="situationForm">
+          <div class="seg-field">
+            <p class="seg-label" id="sl-applicant">누가 신청하나요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-applicant">
+              <label><input type="radio" name="applicant" value="owner" id="sa-owner"><span>소유자 본인</span></label>
+              <label><input type="radio" name="applicant" value="agent" id="sa-agent"><span>대리인</span></label>
+              <label><input type="radio" name="applicant" value="coowner" id="sa-coowner"><span>공동소유</span></label>
+              <label><input type="radio" name="applicant" value="corp" id="sa-corp"><span>법인</span></label>
+            </div>
+          </div>
+          <div class="seg-field">
+            <p class="seg-label" id="sl-registered">건축물대장에 올라 있나요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-registered">
+              <label><input type="radio" name="registered" value="yes" id="sr-yes"><span>예</span></label>
+              <label><input type="radio" name="registered" value="no" id="sr-no"><span>아니요</span></label>
+              <label><input type="radio" name="registered" value="unknown" id="sr-unknown"><span>모름</span></label>
+            </div>
+          </div>
+          <div class="seg-field">
+            <p class="seg-label" id="sl-asbestos">석면조사 대상인가요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-asbestos">
+              <label><input type="radio" name="asbestos" value="yes" id="ss-yes"><span>예</span></label>
+              <label><input type="radio" name="asbestos" value="no" id="ss-no"><span>아니요</span></label>
+              <label><input type="radio" name="asbestos" value="unknown" id="ss-unknown"><span>모름</span></label>
+            </div>
+          </div>
+          <div class="seg-field">
+            <p class="seg-label" id="sl-contractor">철거는 어떻게 하나요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-contractor">
+              <label><input type="radio" name="contractor" value="company" id="sc-company"><span>업체에 맡김</span></label>
+              <label><input type="radio" name="contractor" value="undecided" id="sc-undecided"><span>아직 모름</span></label>
+            </div>
+          </div>
+        </form>
+      </details>
+
+      <div class="progress-card">
+        <p class="progress-text" id="checkProgress" aria-live="polite"></p>
+        <div class="progress-bar" aria-hidden="true"><span id="checkBar"></span></div>
+        <label class="toggle"><input type="checkbox" id="onlyMissing"><span>아직 준비 안 한 서류만 보기</span></label>
+      </div>
+
+      <div id="checklistGroups"></div>
+
+      <div class="note" role="note">
+        <strong>개인정보 안내</strong>
+        <p>인감증명서·신분증 등은 꼭 필요한 경우에만 제출하세요. 이 화면에는 파일을 올리지 않으며, 체크 표시는 이 휴대폰에만 잠시 남고 창을 닫으면 지워집니다.</p>
+      </div>
+
+      <div class="action-col">
+        <button type="button" class="btn btn-primary btn-block" id="checkCopy">체크리스트 복사하기</button>
+        <button type="button" class="btn btn-ghost btn-block" id="checkReset">체크 모두 지우기</button>
+        <div class="confirm-row" id="checkConfirm" hidden>
+          <p>체크한 내용을 모두 지울까요?</p>
+          <div class="confirm-btns">
+            <button type="button" class="btn btn-danger" id="checkResetYes">지우기</button>
+            <button type="button" class="btn btn-ghost" id="checkResetNo">취소</button>
+          </div>
+        </div>
+        <p class="copy-msg" id="checkCopyMsg" role="status"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 절차 -->
+  <section class="view" data-view="procedure" aria-labelledby="h-procedure" hidden>
+    <div class="wrap stack">
+      <div>
+        <h1 id="h-procedure" tabindex="-1">신청 절차 13단계</h1>
+        <p class="muted">단계를 누르면 무엇을, 왜 해야 하는지와 준비물을 볼 수 있습니다.</p>
+      </div>
+      <div id="applyInfo"></div>
+      <ol class="timeline" id="procedureList"></ol>
+      <div class="panel panel-plain">
+        <h2 class="list-title">행정기관 처리 흐름</h2>
+        <ol class="office-flow" id="officeFlow"></ol>
+        <p class="small muted">이해를 돕기 위한 일반적인 순서이며, 기관 내부 절차와 법정 민원 절차는 다를 수 있습니다.</p>
+      </div>
+      <a class="btn btn-primary btn-block" href="#checklist">제출서류 확인하기</a>
+    </div>
+  </section>
+
+  <!-- 자주 묻는 질문 -->
+  <section class="view" data-view="faq" aria-labelledby="h-faq" hidden>
+    <div class="wrap stack">
+      <h1 id="h-faq" tabindex="-1">자주 묻는 질문</h1>
+      <div class="search">
+        <label for="faqSearch" class="sr-only">질문 검색</label>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>
+        <input id="faqSearch" type="search" placeholder="예) 석면, 건축사, 1,500만 원" autocomplete="off">
+      </div>
+      <p class="small muted" id="faqCount" aria-live="polite"></p>
+      <div class="acc-list" id="faqList"></div>
+    </div>
+  </section>
+
+  <!-- 담당부서 문의 -->
+  <section class="view" data-view="contact" aria-labelledby="h-contact" hidden>
+    <div class="wrap stack">
+      <h1 id="h-contact" tabindex="-1">담당부서 문의</h1>
+      <div id="contactBody"></div>
+    </div>
+  </section>
+
+  <!-- 3단계 예정 메뉴(기본 안내) -->
+  <section class="view" data-view="upcoming" aria-labelledby="h-upcoming" hidden>
+    <div class="wrap stack">
+      <h1 id="h-upcoming" tabindex="-1"></h1>
+      <div id="upcomingBody"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer" id="siteFooter"></footer>
+</main>
+
+<nav class="tabbar" aria-label="주 메뉴">
+  <a href="#home" data-tab="home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-6.5 8 6.5"/><path d="M6.5 9.5V19h11V9.5"/></svg>
+    <span>처음</span>
+  </a>
+  <a href="#diagnosis" data-tab="diagnosis">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6v2.5H9z"/><path d="M8.5 13.5l2.5 2.5 4.5-5"/></svg>
+    <span>자가진단</span>
+  </a>
+  <a href="#checklist" data-tab="checklist">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5V8h4"/><path d="M10 12.5h5M10 16h5"/></svg>
+    <span>제출서류</span>
+  </a>
+  <a href="#procedure" data-tab="procedure">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h5a3 3 0 0 1 3 3v1M16 14v1a3 3 0 0 1-3 3H8"/></svg>
+    <span>절차</span>
+  </a>
+  <a href="#contact" data-tab="contact">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a10 10 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 4.5 6a2 2 0 0 1 2-2z"/></svg>
+    <span>문의</span>
+  </a>
+</nav>
+
+<script>/* data/contacts.js */
+/*
+ * 기관·담당부서 설정 파일
+ * 담당부서, 전화번호, 위치 등이 바뀌면 이 파일만 고치면 됩니다.
+ */
+var HC = window.HC = window.HC || {};
+
+HC.config = {
+  serviceName: '위반건축물 해체신고 안내',
+  serviceFullName: '위반건축물 해체신고 원스톱 민원안내',
+  officialApproved: false, // 기관 공식 서비스로 승인되면 true 로 변경
+  copyrightOfficial: '© 2026 남양주시. All Rights Reserved.',
+  copyrightPrototype: '© 2026 위반건축물 해체신고 안내. All Rights Reserved.',
+
+  office: {
+    org: '남양주시 진건읍',
+    dept: '도시건축과 건축팀',
+    location: '진건읍 청사 3층',
+    phone: '031-590-5859',
+    hours: '' // 민원 응대 시간을 확정하면 입력(예: '평일 09:00~18:00'). 비워 두면 화면에 표시하지 않음
+  },
+
+  application: {
+    period: '7일',
+    fee: '없음',
+    note: '처리기간과 수수료는 공식 민원사무 자료로 최신 여부를 확인해야 합니다. 건축사·석면조사·철거업체에 내는 비용은 행정 수수료와 별개입니다.'
+  },
+
+  // ── 공식 안내처 (2026-10-29 각 누리집에서 주소·전화번호 확인) ──
+  // 행정기관은 특정 전문가·업체를 추천하지 않으며, 아래는 공식 검색 경로 안내입니다.
+  // picks: 민원인이 화면에서 고르거나 쓸 항목 [칸 이름, 값, 'input'(직접 쓰는 칸일 때)] → 화면에 예시로 표시
+  // phone 이 비어 있으면 전화번호를 표시하지 않습니다(공식 번호를 확인한 경우에만 입력).
+
+  // 해체계획서 작성·검토 전문가
+  expertFinders: [
+    { id: 'kgira', name: '경기도건축사회 건축사 검색', desc: '정보광장 > 건축사검색 화면이 바로 열립니다. 건축사 이름이나 사무소 이름으로 찾을 수 있습니다.',
+      url: 'https://kgira.kira.or.kr/memfind/main.do?selectCheck=sc_mf_knameL&textValue=', phone: '031-247-6129', phoneLabel: '경기도건축사회',
+      steps: ['검색칸에 건축사 이름 또는 사무소 이름을 넣고 "검색"을 누릅니다.', '이름을 모르면 아래 "남양주시 건축사사무소 목록"에서 사무소 이름을 먼저 확인하세요.'] },
+    { id: 'ggdata', name: '남양주시 건축사사무소 목록(경기데이터드림)', desc: '경기도가 공개한 건축사사무소 현황 중 남양주시 사무소만 목록으로 보여 줍니다(사무소명·주소).',
+      url: 'https://data.gg.go.kr/portal/data/village/selectServicePage.do?page=1&rows=10&sortColumn=&sortDirection=&infId=7VV6IWKWGKZFH3PG0ELH19127436&infSeq=1&order=&sigunNm=%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C&sigunFlag=41360',
+      basis: '근거: 경기도 「경기도_건축사 사무소 현황」 공개자료(공공데이터포털 등록정보 기준 2025. 9. 25. 수정, 실시간 연계)',
+      phone: '1566-0025', phoneLabel: '공공데이터포털(유료)' },
+    { id: 'kpis', name: '한국기술사회 기술사사무소 검색(KPIS)', desc: '건축구조 등 해당 직무범위를 등록한 기술사사무소를 찾을 수 있습니다.',
+      url: 'https://www.kpea.or.kr/kpis/company/companySearch.do', phone: '1644-0051', phoneLabel: '한국기술사회',
+      picks: [['지역', '경기'], ['분야', '건설']] }
+  ],
+
+  // 철거업체(건설업 등록업체) 확인
+  contractorFinders: [
+    { id: 'kiscon', name: '건설산업지식정보시스템(KISCON) 맞춤형 업체검색', desc: '국토교통부 운영. "공사내용으로 건설업체 찾기" 화면이 바로 열립니다.',
+      url: 'https://www.kiscon.net/gongsi/step_custom02.asp', phone: '', phoneLabel: 'KISCON',
+      picks: [['공사지역', '경기 › 남양주시'], ['공사종류', '해체,철거']],
+      steps: ['위처럼 고른 뒤 "검색"을 누르면 구조물해체·비계공사업으로 등록된 업체 목록이 나옵니다.', '업체의 "상세정보"에서 등록업종과 영업 상태를 확인하세요.'] },
+    { id: 'kosca-gg', name: '대한전문건설협회 경기도회 전문건설업체조회', desc: '전문건설업체를 지역과 업종으로 조회할 수 있습니다.',
+      url: 'https://gyeonggi.kosca.or.kr/const/proconst/search.do?menuId=MENU001577', phone: '031-249-1000', phoneLabel: '대한전문건설협회 경기도회',
+      picks: [['시도구분', '경기'], ['지역구분', '남양주시'], ['구분', '구조물해체·비계']] },
+    { id: 'labor-asb', name: '고용노동부 노동포털 석면해체·제거업자 조회', desc: '석면이 확인된 경우, 고용노동부에 등록된 석면해체·제거업자를 찾을 수 있습니다.',
+      url: 'https://labor.moel.go.kr/inforls/dsgnInst.do', phone: '1350', phoneLabel: '고용노동부 고객상담센터(국번없이, 유료)',
+      picks: [['기관종류', '석면해체제거업자'], ['주소', '경기도 남양주시', 'input']],
+      steps: ['"기관종류" 칸을 눌러 "석면해체제거업자"를 고릅니다.', '"주소" 입력칸에 "경기도 남양주시"라고 직접 쓰고 "검색"을 누릅니다.'] }
+  ],
+
+  // 석면조사기관
+  asbestosFinders: [
+    { id: 'labor-survey', name: '고용노동부 노동포털 석면조사기관 조회', desc: '고용노동부가 지정한 석면조사기관의 주소·전화번호·평가등급을 볼 수 있습니다.',
+      url: 'https://labor.moel.go.kr/inforls/dsgnInst.do', phone: '1350', phoneLabel: '고용노동부 고객상담센터(국번없이, 유료)',
+      picks: [['기관종류', '석면조사기관'], ['주소', '경기도 남양주시', 'input']],
+      steps: ['화면 위쪽 "기관종류" 칸을 눌러 목록에서 "석면조사기관"을 고릅니다.', '"주소" 입력칸에 "경기도 남양주시"라고 직접 씁니다.', '"검색"을 누르면 기관 이름·업무 가능 범위·주소·전화번호가 나옵니다. 결과가 적으면 주소칸에 "남양주"나 "경기도"만 써서 다시 검색해 보세요.'] }
+  ],
+
+  // 남양주시 관할별 해체신고 담당부서(직통번호)
+  // 남양주시청 누리집 '직원업무안내'에서 확인한 내용을 아래 형식으로 넣으면 문의 화면에 표가 나타납니다(비어 있으면 표시 안 함).
+  // 예) { area: '진건읍·퇴계원읍', dept: '진건퇴계원행정복지센터 도시건축과 건축팀', duty: '건축물 해체신고·멸실', phone: '031-590-0000' }
+  deptContacts: [],
+
+  // 해체계획서 표준서식(국토안전관리원 기술자료실, 2024. 12. 17. 게시 「건축물 해체계획서 작성 및 검토 매뉴얼」 첨부)
+  planForms: [
+    { id: 'form-permit', name: '해체계획서 작성 표준서식(허가용) 내려받기', desc: '한글(hwp) 파일. 해체허가 대상 건축물용', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=3' },
+    { id: 'form-report', name: '해체계획서 작성 표준서식(신고용) 내려받기', desc: '한글(hwp) 파일. 해체신고 대상 건축물용', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=4' },
+    { id: 'manual', name: '건축물 해체계획서 작성 및 검토 매뉴얼(2024.12.) 게시글', desc: '매뉴얼 압축파일(.egg, 2개)과 표준서식이 함께 있는 국토안전관리원 자료실 화면. .egg 파일은 알집 등으로 풉니다.',
+      url: 'https://www.kalis.or.kr/www/brd/m_435/view.do?seq=191', phone: '1588-8788', phoneLabel: '국토안전관리원' }
+  ],
+
+  // 해체 관련 공식 상담 창구
+  helpChannels: [
+    { id: 'safety365', name: '해체안전 365 (카카오톡 채널)', desc: '국토안전관리원 건축물관리지원센터에서 운영. 건축물 해체 허가·신고, 멸실, 해체계획서 관련 문의',
+      url: 'http://pf.kakao.com/_LHUHG', phone: '1588-8788', phoneLabel: '국토안전관리원 대표' }
+  ],
+
+  links: [
+    { id: 'blcm', name: '건축물생애이력관리시스템', desc: '해체 허가·신고 온라인 신청', url: 'https://www.blcm.go.kr', phone: '070-7016-3388', phoneLabel: '이용문의(평일 09~18시)' },
+    { id: 'law', name: '국가법령정보센터', desc: '건축물관리법 등 법령 원문·서식', url: 'https://www.law.go.kr', phone: '044-200-6788', phoneLabel: '국가법령정보센터' },
+    { id: 'gov24', name: '정부24', desc: '건축물대장 등 서류 발급', url: 'https://www.gov.kr', phone: '1588-2188', phoneLabel: '정부24 콜센터(평일 09~18시)' },
+    { id: 'elis', name: '자치법규정보시스템', desc: '남양주시 조례 원문', url: 'https://www.elis.go.kr', phone: '', phoneLabel: '' },
+    { id: 'nyj', name: '남양주시청', desc: '시청 누리집', url: 'https://www.nyj.go.kr', phone: '', phoneLabel: '' }
+  ]
+};
+
+// 남양주시 건축사사무소 목록 바로가기(FAQ 등에서 함께 사용)
+HC.GG_ARCH_LIST = HC.config.expertFinders.filter(function (f) { return f.id === 'ggdata'; })[0].url;
+
+</script>
+<script>/* data/procedures.js */
+/*
+ * 단계별 절차 안내 데이터
+ * 각 단계는 "무엇을 / 왜 / 어디서 도움 / 무엇을 준비 / 비용 / 다음 단계" 순서로 작성합니다.
+ * kind: 'citizen'(민원인이 하는 일), 'office'(행정기관이 하는 일)
+ * needsCheck: true 는 담당자 확인 전 단계(관리용 표시, 화면 배지는 표시하지 않음)
+ */
+var HC = window.HC = window.HC || {};
+
+HC.procedures = [
+  {
+    no: 1, title: '해체 대상 확인', kind: 'citizen',
+    what: '철거하려는 부분이 정확히 어디인지 정합니다. 위반으로 지적된 부분(무단 증축 등)과 철거할 부분이 같은지 확인하세요.',
+    why: '해체 범위에 따라 신고인지 허가인지, 준비할 서류가 무엇인지가 달라집니다.',
+    help: '시정명령서·위반건축물 안내문이 있으면 위반 위치가 적혀 있습니다. 모르면 담당부서에 문의하세요.',
+    prepare: ['시정명령서 등 받은 안내문', '현장 사진', '건축물대장(있는 경우)'],
+    cost: '없음',
+    next: '신고·허가 대상 검토'
+  },
+  {
+    no: 2, title: '신고·허가 대상 검토', kind: 'citizen', needsCheck: true,
+    what: '건물 규모(연면적·높이·층수)와 해체 범위, 주변 도로·시설을 바탕으로 해체신고 대상인지 허가 대상인지 살펴봅니다.',
+    why: '허가 대상이면 더 많은 검토가 필요하고 준비 기간도 길어질 수 있습니다.',
+    help: '이 서비스의 "자가진단"으로 미리 살펴보고, 최종 판단은 담당부서에 확인하세요.',
+    prepare: ['연면적·높이·층수(건축물대장 참고)', '주변 도로 폭과 건물까지 거리', '버스정류장·횡단보도 등 주변 시설'],
+    cost: '없음',
+    next: '신청인 자격 확인'
+  },
+  {
+    no: 3, title: '신청인 자격 확인', kind: 'citizen', needsCheck: true,
+    what: '건물 소유자가 직접 신청하는지, 대리인이 신청하는지, 공동소유·법인 소유인지 확인합니다.',
+    why: '신청하는 사람이 해체할 권한이 있는지 행정기관이 확인하기 때문입니다.',
+    help: '건축물대장·등기사항증명서로 소유자를 확인할 수 있습니다. 매매계약서가 없더라도 다른 공적 자료로 확인할 수 있는 경우가 있으니 먼저 문의하세요.',
+    prepare: ['건축물대장 또는 등기사항증명서', '대리인 신청 시 위임장(필요 여부 확인)'],
+    cost: '서류 발급 수수료(발급처 기준)',
+    next: '전문가 상담'
+  },
+  {
+    no: 4, title: '전문가 상담', kind: 'citizen', needsCheck: true,
+    what: '해체계획서 작성·검토를 맡길 전문가(건축사 등)와 상담합니다.',
+    why: '해체계획서는 안전하게 철거하기 위한 계획서입니다. 허가 대상은 건축사·기술사가 작성하고, 신고 대상은 건축사·기술사가 검토해 서명날인해야 합니다(건축물관리법 제30조제4항·제5항).',
+    help: '건축사사무소 또는 해당 직무범위를 등록한 기술사사무소에 의뢰합니다. 아래 공식 경로에서 찾을 수 있으며, 행정기관은 특정 전문가를 추천하지 않습니다.',
+    finders: { title: '전문가 찾기', key: 'expertFinders' },
+    prepare: ['건물 위치·규모', '해체 범위', '현장 사진', '건축물대장'],
+    cost: '민간 비용(건물 규모와 의뢰 범위에 따라 달라짐. 법정 고정금액 없음)',
+    next: '석면조사 관련 확인'
+  },
+  {
+    no: 5, title: '석면조사 관련 확인', kind: 'citizen', needsCheck: true,
+    what: '철거 전 석면조사를 합니다. 규모가 기준 이상이면 석면조사기관에 맡기고(기관석면조사), 작으면 직접 조사합니다(일반석면조사).',
+    why: '석면은 건강에 해로워 해체 전 조사와 안전한 처리가 법으로 정해져 있습니다.',
+    help: '석면이 없는 것이 명백하거나 2017. 7. 1. 이후 착공신고한 신축 건축물 등은 지방고용노동관서에서 "석면조사의 생략 등 확인"을 받을 수 있습니다. 자세한 기준은 처음 화면의 "석면조사 안내"를 보세요. 석면을 직접 제거하지 마세요.',
+    finders: { title: '석면조사기관 찾기', key: 'asbestosFinders' },
+    prepare: ['건물 용도·연면적', '실제 해체할 부분 면적', '기존 석면조사 자료(있는 경우)'],
+    cost: '민간 비용(조사기관 견적에 따라 다름)',
+    next: '철거공사 견적 및 시공방법 확인'
+  },
+  {
+    no: 6, title: '철거공사 견적 및 시공방법 확인', kind: 'citizen', needsCheck: true,
+    what: '철거업체에 견적을 받고, 업체가 해당 공사를 할 수 있는 자격이 있는지 확인합니다.',
+    why: '공사 금액과 종류에 따라 건설업 등록 업체가 해야 할 수 있습니다.',
+    help: '건설업 등록 여부는 아래 공식 경로로 조회할 수 있습니다. 행정기관은 특정 업체를 추천하지 않습니다.',
+    finders: { title: '업체 등록 확인', key: 'contractorFinders' },
+    prepare: ['해체 범위·면적', '희망 공사 일정', '업체 견적서(공사비·장비비·폐기물 처리비 등 구분)'],
+    cost: '민간 비용(철거·폐기물 처리 등)',
+    next: '제출서류 준비'
+  },
+  {
+    no: 7, title: '제출서류 준비', kind: 'citizen',
+    what: '나에게 필요한 서류를 체크리스트로 확인하고 준비합니다.',
+    why: '서류가 빠지면 보완 요청으로 처리가 늦어집니다.',
+    help: '이 서비스의 "제출서류 체크리스트"에서 상황에 맞는 서류를 확인하세요.',
+    prepare: ['체크리스트에 표시된 서류', '해체 허가신청서·신고서(별지 제5호서식)'],
+    cost: '서류 발급 수수료(발급처 기준)',
+    forms: ['demolition'],
+    next: '신청서 제출'
+  },
+  {
+    no: 8, title: '신청서 제출', kind: 'citizen',
+    what: '건축물생애이력관리시스템(온라인) 또는 진건읍 도시건축과 건축팀(방문)에 신청합니다.',
+    why: '이 서비스는 안내만 하며, 실제 신청은 공식 경로로만 가능합니다.',
+    help: '온라인 신청이 어려우면 담당부서에 문의하세요.',
+    prepare: ['준비한 서류 일체'],
+    cost: '행정 수수료 없음',
+    forms: ['demolition'],
+    next: '서류 검토 및 보완'
+  },
+  {
+    no: 9, title: '서류 검토 및 보완', kind: 'office',
+    what: '담당자가 서류를 검토하고, 부족한 부분이 있으면 보완을 요청합니다.',
+    why: '현장과 서류가 일치하는지, 안전계획이 충분한지 확인합니다.',
+    help: '보완 요청을 받으면 요청 내용을 꼼꼼히 확인하고, 모르는 부분은 담당자에게 문의하세요.',
+    prepare: ['보완 요청된 자료'],
+    cost: '보완 범위에 따라 전문가 비용이 추가될 수 있음',
+    next: '처리 결과 확인'
+  },
+  {
+    no: 10, title: '처리 결과 확인', kind: 'office',
+    what: '신고 수리 또는 허가 여부를 통지받습니다.',
+    why: '결과를 받기 전에는 해체공사를 시작하면 안 됩니다.',
+    help: '처리기간은 7일로 안내되고 있으나 보완 기간은 포함되지 않을 수 있습니다.',
+    prepare: [],
+    cost: '없음',
+    next: '후속 절차 진행'
+  },
+  {
+    no: 11, title: '법령에 따른 후속 절차 진행', kind: 'citizen', needsCheck: true,
+    what: '착공 전 신고, 감리 등 법령에서 정한 후속 절차가 있는지 확인하고 진행합니다.',
+    why: '신고 수리나 허가를 받았더라도 공사 전·중에 지켜야 할 절차가 있을 수 있습니다.',
+    help: '처리 결과 통지서의 안내사항을 확인하고, 해당 여부는 담당부서에 문의하세요.',
+    prepare: ['처리 결과 통지서'],
+    cost: '해당 시 민간 비용',
+    forms: ['start'],
+    formNote: '착공신고 대상인지는 담당부서에 확인하세요.',
+    next: '해체공사 및 완료 신고'
+  },
+  {
+    no: 12, title: '해체공사 및 완료 관련 신고', kind: 'citizen', needsCheck: true,
+    what: '계획대로 안전하게 철거하고, 공사가 끝나면 완료 관련 신고를 합니다.',
+    why: '해체가 끝났다는 사실을 행정기관에 알려야 건축물대장 등에 반영될 수 있습니다.',
+    help: '완료 신고 방법과 필요 서류는 담당부서에 확인하세요.',
+    prepare: ['공사 완료 사진', '폐기물 처리 관련 자료(해당 시)'],
+    cost: '없음',
+    forms: ['complete'],
+    next: '위반사항 시정 완료 확인'
+  },
+  {
+    no: 13, title: '위반사항 시정 완료 확인', kind: 'office', needsCheck: true,
+    what: '위반사항이 해소되었는지 행정기관이 현장 확인 등으로 확인합니다.',
+    why: '해체신고 수리와 위반사항 시정 완료는 별개의 절차입니다. 철거했다고 위반건축물 표시가 자동으로 없어지지는 않을 수 있습니다.',
+    help: '이행강제금 등 관련 사항은 위반건축물 담당부서에 확인하세요. 이 서비스에서는 단정하여 안내하지 않습니다.',
+    prepare: ['철거 완료 사진', '시정명령서 사본'],
+    cost: '없음',
+    next: ''
+  }
+];
+
+HC.officeFlow = ['접수', '서류 검토', '필요 시 보완', '내부 결재', '처리 결과 통지'];
+
+</script>
+<script>/* data/documents.js */
+/*
+ * 제출서류 데이터
+ * category
+ *   A : 법령상 제출서류
+ *   B : 해당 요건에 따라 필요한 서류
+ *   C : 신청 자격 확인 또는 실무 검토에 도움이 되는 참고자료
+ * needsCheck: true → 분류·근거를 담당자가 원문으로 확인하기 전 항목(화면 배지는 표시하지 않음, 관리용 표시)
+ * when: 표시 조건. 모든 조건을 만족하면 목록에 나타남. 비어 있으면 항상 표시.
+ *   applicant: owner(소유자 본인) / agent(대리인) / coowner(공동소유) / corp(법인)
+ *   registered: yes / no / unknown   (건축물대장 등재 여부)
+ *   asbestos: yes / no / unknown     (석면조사 대상 여부)
+ *   contractor: company / undecided   (시공 방법)
+ */
+var HC = window.HC = window.HC || {};
+
+/*
+ * 국가법령정보센터 별지서식 바로가기 주소
+ * 서식 번호만 넣으면 항상 최신 서식 화면으로 연결됩니다.
+ * 예) 별지 제5호서식 → HC.lawForm('0005', '00'), 별지 제6호의3서식 → HC.lawForm('0006', '03')
+ */
+HC.lawForm = function (no, branch) {
+  return 'https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BF&lsNm=' +
+    encodeURIComponent('건축물관리법 시행규칙') + '&bylNo=' + no + '&bylBrNo=' + (branch || '00');
+};
+HC.forms = {
+  // 2026-10-29 국가법령정보센터 조회(시행 2025. 6. 2. 국토교통부령 제1495호 기준). 담당자 최종 대조 권장.
+  demolition: { name: '건축물 해체 허가신청서·신고서', no: '별지 제5호서식', basis: '건축물관리법 시행규칙 제11조제1항·제3항', url: HC.lawForm('0005', '00') },
+  start: { name: '건축물 해체공사 착공신고서', no: '별지 제6호의3서식', basis: '건축물관리법 시행규칙 제12조의2', url: HC.lawForm('0006', '03') },
+  complete: { name: '건축물 해체공사 완료신고서·멸실 신고서', no: '별지 제10호서식', basis: '건축물관리법 시행규칙 제16조·제17조', url: HC.lawForm('0010', '00') }
+};
+
+HC.documentCategories = {
+  A: { label: '법령상 제출서류', desc: '법령에서 제출하도록 정한 서류입니다.' },
+  B: { label: '해당하는 경우 필요한 서류', desc: '내 상황에 해당할 때 필요한 서류입니다.' },
+  C: { label: '참고자료', desc: '신청 자격 확인이나 검토에 도움이 되는 자료입니다. 법정 필수서류로 단정하지 않습니다.' }
+};
+
+HC.documents = [
+  {
+    id: 'form', category: 'A', needsCheck: false,
+    name: '건축물 해체 허가신청서 또는 해체 신고서',
+    why: '해체를 하겠다는 내용을 행정기관에 공식적으로 알리는 기본 서류입니다. 허가신청서와 신고서는 같은 서식(별지 제5호서식)을 쓰며, 해당하는 칸에 표시합니다.',
+    how: '아래 서식을 내려받아 작성하거나, 건축물생애이력관리시스템에서 온라인으로 작성할 수 있습니다.',
+    law: '건축물관리법 제30조, 같은 법 시행규칙 제11조제1항·제3항 [별지 제5호서식]',
+    links: [{ name: '별지 제5호서식 보기(국가법령정보센터)', url: HC.lawForm('0005', '00') }],
+    when: {}
+  },
+  {
+    id: 'plan', category: 'A', needsCheck: true,
+    name: '해체계획서',
+    why: '어떤 순서로, 어떤 장비로, 어떻게 안전하게 철거할지 정리한 계획서입니다.',
+    how: '허가 대상은 건축사 또는 해당 직무범위를 등록한 기술사에게 작성을, 신고 대상은 검토(서명날인)를 의뢰합니다. 처음 화면의 "건축사 상담 준비"에서 공식 검색 경로를 볼 수 있습니다.',
+    law: '건축물관리법 제30조제3항~제5항, 같은 법 시행규칙 제12조(해체계획서에 들어갈 내용)',
+    links: [{ name: '전문가 찾는 공식 경로 보기', url: '#architect', internal: true }, { name: '표준서식(신고용) 내려받기', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=4' }, { name: '표준서식(허가용) 내려받기', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=3' }],
+    when: {}
+  },
+  {
+    id: 'expert', category: 'B', needsCheck: true,
+    name: '전문가 작성·검토 관련 자료',
+    why: '해체계획서를 자격 있는 전문가가 작성·검토했는지 확인하기 위한 자료입니다.',
+    how: '해체계획서를 맡긴 전문가에게 요청하세요. 어떤 자료가 필요한지는 담당부서에 확인하세요.',
+    law: '건축물관리법 및 하위법령',
+    when: {}
+  },
+  {
+    id: 'asbestos', category: 'B', needsCheck: true,
+    name: '석면조사 결과서',
+    why: '해체할 건물에 석면이 있는지 확인한 결과입니다.',
+    how: '고용노동부에 등록된 석면조사기관에 의뢰합니다. 조사 대상 여부는 건물 용도·면적에 따라 다릅니다.',
+    law: '산업안전보건법 제119조, 같은 법 시행령 제89조',
+    when: { asbestos: ['yes', 'unknown'] }
+  },
+  {
+    id: 'agent-letter', category: 'B', needsCheck: true,
+    name: '위임장',
+    why: '소유자가 아닌 사람이 대신 신청할 때, 소유자가 신청을 맡겼다는 것을 보여 줍니다.',
+    how: '소유자가 작성·서명합니다. 서식과 본인확인 방법은 담당부서에 확인하세요.',
+    law: '필요 여부는 담당부서에 문의',
+    when: { applicant: ['agent'] }
+  },
+  {
+    id: 'corp', category: 'B', needsCheck: true,
+    name: '법인 관련 자료',
+    why: '법인 소유 건물일 때 신청인이 법인을 대표하거나 위임받았는지 확인하기 위한 자료입니다.',
+    how: '법인등기사항증명서 등은 인터넷등기소에서 발급할 수 있습니다. 어떤 자료가 필요한지는 담당부서에 확인하세요.',
+    law: '필요 여부는 담당부서에 문의',
+    when: { applicant: ['corp'] }
+  },
+  {
+    id: 'coowner', category: 'B', needsCheck: true,
+    name: '공동소유자 관련 확인자료',
+    why: '여러 명이 함께 소유한 건물일 때 신청 권한을 확인하기 위한 자료입니다.',
+    how: '필요한 자료(공동소유자 위임 등)는 법령 근거에 따라 달라지므로 먼저 담당부서에 문의하세요. 모든 공동소유자의 동의가 일률적으로 필요한 것으로 단정하지 않습니다.',
+    law: '필요 여부는 담당부서에 문의',
+    when: { applicant: ['coowner'] }
+  },
+  {
+    id: 'contractor', category: 'B', needsCheck: true,
+    name: '시공자 관련 자료(사업자등록증·건설업등록증 등)',
+    why: '철거업체가 해당 공사를 할 수 있는 자격이 있는지 확인하기 위한 자료입니다.',
+    how: '선정한 업체에 요청하세요. 건설업 등록 필요 여부는 공사 금액·종류에 따라 다릅니다.',
+    law: '건설산업기본법 제9조, 같은 법 시행령 제8조 등',
+    when: { contractor: ['company'] }
+  },
+  {
+    id: 'register', category: 'C', needsCheck: true,
+    name: '건축물대장',
+    why: '건물의 면적·층수·소유자 등을 확인하는 공적 장부입니다.',
+    how: '정부24에서 무료로 열람·발급할 수 있습니다. 행정기관이 직접 확인(행정정보 공동이용)할 수 있어 제출이 필요 없을 수도 있습니다.',
+    law: '제출 필요 여부는 담당부서에 문의',
+    when: { registered: ['yes'] }
+  },
+  {
+    id: 'no-register', category: 'C', needsCheck: true,
+    name: '건축물대장이 없는 경우 현황 확인자료',
+    why: '대장에 없는 건물은 위치·면적·소유 관계를 다른 자료로 확인해야 할 수 있습니다.',
+    how: '시정명령서 등 행정기관이 보유한 자료, 현장 실측 자료, 사진 등을 준비하고 담당부서와 상의하세요.',
+    law: '담당부서와 상의',
+    when: { registered: ['no', 'unknown'] }
+  },
+  {
+    id: 'deed', category: 'C', needsCheck: true,
+    name: '등기사항증명서',
+    why: '건물의 소유자를 확인하는 자료입니다.',
+    how: '대법원 인터넷등기소에서 발급할 수 있습니다.',
+    law: '제출 필요 여부는 담당부서에 문의',
+    when: {}
+  },
+  {
+    id: 'photo', category: 'C', needsCheck: true,
+    name: '현장사진',
+    why: '건물 현황과 해체할 위치를 확인하는 데 도움이 됩니다.',
+    how: '건물 전경, 해체할 부분, 주변 도로가 보이도록 찍어 주세요.',
+    law: '실무 참고자료',
+    when: {}
+  },
+  {
+    id: 'estimate', category: 'C', needsCheck: true,
+    name: '견적서 또는 공사비 산출내역서',
+    why: '공사 범위와 금액을 확인하고 시공 자격 검토에 참고합니다.',
+    how: '철거업체에 공사비·장비비·폐기물 처리비·부가가치세 등이 구분된 견적을 요청하세요.',
+    law: '실무 참고자료',
+    when: {}
+  },
+  {
+    id: 'seal', category: 'C', needsCheck: true,
+    name: '인감증명서',
+    why: '현재 일부 실무에서 본인 의사 확인 목적으로 요청하는 자료입니다.',
+    how: '제출이 꼭 필요한지 먼저 담당부서에 확인하세요. 전자서명·본인서명사실확인서 등으로 대신할 수 있는지도 확인하세요.',
+    law: '필요 여부는 담당부서에 문의',
+    privacy: '개인정보가 담긴 서류입니다. 꼭 필요한 경우에만 제출하세요. 이 서비스에는 업로드하지 마세요.',
+    when: { applicant: ['agent', 'coowner', 'corp'] }
+  },
+  {
+    id: 'idcard', category: 'C', needsCheck: true,
+    name: '신분증 사본',
+    why: '현재 일부 실무에서 신청인 본인 확인 목적으로 요청하는 자료입니다.',
+    how: '방문 신청 시 신분증 제시로 대신할 수 있는지, 온라인 신청 시 본인인증으로 대신할 수 있는지 확인하세요.',
+    law: '필요 여부는 담당부서에 문의',
+    privacy: '주민등록번호 뒷자리는 가리고 제출하는 것이 안전합니다. 이 서비스에는 업로드하지 마세요.',
+    when: {}
+  },
+  {
+    id: 'architect-cert', category: 'C', needsCheck: true,
+    name: '건축사 자격 증빙자료',
+    why: '해체계획서 작성·검토자의 자격을 확인하는 데 쓰일 수 있습니다.',
+    how: '의뢰한 전문가에게 요청하세요. 제출 필요 여부는 담당부서에 확인하세요.',
+    law: '필요 여부는 담당부서에 문의',
+    when: {}
+  }
+];
+
+</script>
+<script>/* data/faq.js */
+/*
+ * 자주 묻는 질문
+ * short: 짧은 결론 / detail: 상세 설명 / links: 공식 확인 경로
+ * 법령 판단이 들어간 답변은 needsCheck: true 로 두고, 원문 확인 후 문구와 함께 false 로 바꿉니다.
+ */
+var HC = window.HC = window.HC || {};
+
+(function () {
+  var HC_GG_LIST = HC.GG_ARCH_LIST;
+  var LAW = { name: '국가법령정보센터 – 건축물관리법', url: 'https://www.law.go.kr/법령/건축물관리법' };
+  var BLCM = { name: '건축물생애이력관리시스템', url: 'https://www.blcm.go.kr' };
+
+  HC.faq = [
+    {
+      q: '위반건축물도 해체신고를 해야 하나요?', needsCheck: true,
+      short: '위반건축물이라도 건물을 해체하려면 원칙적으로 해체 허가 또는 신고 절차를 거쳐야 할 수 있습니다.',
+      detail: '위반 부분을 없애기 위한 철거라도 안전관리를 위해 해체 절차가 적용될 수 있습니다. 내 경우가 해당하는지는 자가진단으로 미리 살펴보고 담당부서에 확인하세요.',
+      links: [LAW]
+    },
+    {
+      q: '무단 증축 부분만 철거해도 되나요?', needsCheck: true,
+      short: '위반 부분만 일부 해체하는 것도 가능할 수 있으나, 해체 방법에 따라 신고 또는 허가가 필요할 수 있습니다.',
+      detail: '기둥·보·내력벽 같은 주요구조부를 건드리지 않는 일부 해체는 신고 대상이 될 수 있습니다. 다만 주요구조부를 해체하거나 주변 여건에 따라 달라질 수 있으니 담당부서에 문의하세요.',
+      links: [LAW]
+    },
+    {
+      q: '해체신고와 허가는 무엇이 다른가요?', needsCheck: true,
+      short: '규모가 작고 위험이 낮은 해체는 "신고", 그 밖의 해체는 "허가" 절차를 따르는 것이 기본입니다.',
+      detail: '전체 해체의 경우 연면적 500㎡ 미만, 높이 12m 미만, 지상·지하 합계 3개 층 이하이면 신고 대상이 될 수 있습니다. 다만 버스정류장·횡단보도 등 주변 시설, 도로 폭, 이격거리에 따라 허가로 바뀔 수 있으니 담당부서에 문의하세요.',
+      links: [LAW]
+    },
+    {
+      q: '건축사를 꼭 찾아가야 하나요?', needsCheck: true,
+      short: '건축사 또는 정해진 직무범위를 등록한 기술사에게 해체계획서 작성(허가 대상)이나 검토(신고 대상)를 맡겨야 합니다.',
+      detail: '건축물관리법 제30조제4항·제5항에 따라 건축사사무소를 개설신고한 건축사 또는 기술사사무소를 개설등록한 기술사(건축구조 등 직무범위)가 서명날인해야 합니다. 기술사의 직무범위는 의뢰 전에 해당 사무소에 확인하세요. 아래 공식 검색 경로에서 찾을 수 있으며, 행정기관은 특정 전문가를 추천하지 않습니다.',
+      links: [
+        { name: '경기도건축사회 건축사 검색(031-247-6129)', url: 'https://kgira.kira.or.kr/memfind/main.do?selectCheck=sc_mf_knameL&textValue=' },
+        { name: '남양주시 건축사사무소 목록(경기데이터드림)', url: HC_GG_LIST },
+        { name: '기술사사무소 검색(KPIS, 1644-0051)', url: 'https://www.kpea.or.kr/kpis/company/companySearch.do' },
+        LAW
+      ]
+    },
+    {
+      q: '해체계획서 작성비용은 얼마인가요?', needsCheck: false,
+      short: '법령이나 국토교통부 고시로 정한 공식 금액은 없으며, 건물 규모와 의뢰 범위에 따라 달라집니다.',
+      detail: '「건축물관리법」과 「건축물 해체계획서의 작성 및 감리업무 등에 관한 기준」(국토교통부 고시)은 해체계획서에 들어갈 내용과 작성·검토 자격을 정하고 있으며, 작성·검토 비용의 금액 기준은 두고 있지 않습니다. 2곳 이상에 같은 자료를 보여 주고 견적과 작업 범위를 비교해 보세요. 이 비용은 행정 수수료가 아닙니다.',
+      links: [LAW]
+    },
+    {
+      q: '석면조사는 반드시 해야 하나요?', needsCheck: false,
+      short: '네. 철거·해체 전에는 규모와 관계없이 석면조사를 해야 합니다. 다만 규모가 작으면 조사기관에 맡기지 않고 직접 하는 일반석면조사로 됩니다.',
+      detail: '주택은 연면적 200㎡ 이상이면서 철거 부분 200㎡ 이상, 주택이 아닌 건축물은 연면적 50㎡ 이상이면서 철거 부분 50㎡ 이상이면 석면조사기관에 맡기는 기관석면조사 대상입니다(산업안전보건법 시행령 제89조). 기관석면조사 대상이라도 석면이 없는 것이 명백하거나 2017. 7. 1. 이후 착공신고한 신축 건축물 등은 관할 지방고용노동관서에서 "석면조사의 생략 등 확인"을 받을 수 있습니다. 자세한 내용은 처음 화면의 "석면조사 안내"를 보세요.',
+      links: [{ name: '노동포털 – 석면조사의 생략 등 확인신청', url: 'https://labor.moel.go.kr/minwonApply/minwonFormat.do?searchVal=SN104&searchGubun=1&searchRlm=2' }, { name: '국가법령정보센터 – 산업안전보건법', url: 'https://www.law.go.kr/법령/산업안전보건법' }]
+    },
+    {
+      q: '석면조사기관은 어디에서 찾나요?', needsCheck: false,
+      short: '고용노동부 노동포털에서 고용노동부가 지정한 석면조사기관을 지역별로 찾을 수 있습니다.',
+      detail: '노동포털의 "고용부 지정 전문기관 현황" 화면에서 ① 기관종류 칸을 눌러 "석면조사기관"을 고르고 ② 주소 입력칸에 "경기도 남양주시"라고 직접 쓴 뒤 ③ 검색을 누르세요. 주소·전화번호·평가등급을 볼 수 있습니다. 행정기관은 특정 기관을 추천하지 않습니다.',
+      links: [{ name: '노동포털 – 고용부 지정 전문기관 현황(고객상담 1350)', url: 'https://labor.moel.go.kr/inforls/dsgnInst.do' }]
+    },
+    {
+      q: '1,500만 원 미만이면 직접 철거할 수 있나요?', needsCheck: true,
+      short: '금액만으로 판단할 수 없습니다.',
+      detail: '공사예정금액 1,500만 원 미만의 전문공사는 일정한 경우 건설업 등록 의무의 예외가 될 수 있습니다(1,500만 원 정확히는 해당하지 않음). 그러나 그 공사가 전문공사인지, 제외 업종인지, 금액을 적정하게 산정했는지, 나누어 계약한 금액을 합쳐야 하는지, 다른 법령상 자격·안전관리 의무가 있는지를 함께 확인해야 합니다. 건설업 등록 예외가 누구나 직접 철거해도 된다는 뜻은 아닙니다.',
+      links: [{ name: '국가법령정보센터 – 건설산업기본법 시행령', url: 'https://www.law.go.kr/법령/건설산업기본법시행령' }]
+    },
+    {
+      q: '철거업체를 반드시 선정해야 하나요?', needsCheck: true,
+      short: '공사 금액·종류와 안전관리 의무에 따라 자격을 갖춘 업체가 시공해야 할 수 있습니다.',
+      detail: '위 1,500만 원 기준 질문을 함께 참고하세요. 업체의 건설업 등록 여부는 건설산업지식정보시스템(KISCON) "맞춤형 업체검색"에서 공사지역(경기·남양주시)과 공사종류(해체,철거)를 골라 조회할 수 있습니다.',
+      links: [{ name: 'KISCON 맞춤형 업체검색(공사내용으로 찾기)', url: 'https://www.kiscon.net/gongsi/step_custom02.asp' }, { name: '대한전문건설협회 경기도회 업체조회(031-249-1000)', url: 'https://gyeonggi.kosca.or.kr/const/proconst/search.do?menuId=MENU001577' }]
+    },
+    {
+      q: '견적서는 어떤 형식으로 준비하나요?', needsCheck: false,
+      short: '정해진 법정 양식은 안내되어 있지 않으며, 항목별로 금액이 구분된 견적서가 검토에 도움이 됩니다.',
+      detail: '철거공사비, 장비비, 폐기물 처리비, 운반비, 안전시설 설치비, 부가가치세, 공사 범위를 나누어 적어 달라고 요청하세요. 견적서 양식 생성 기능은 다음 단계에서 제공할 예정입니다.',
+      links: []
+    },
+    {
+      q: '건축물대장이 없어도 신청할 수 있나요?', needsCheck: true,
+      short: '건축물대장이 없다는 이유만으로 신청이 불가능하다고 단정할 수 없습니다.',
+      detail: '시정명령서 등 행정기관이 가진 자료, 현장 실측, 사진 등으로 건물 현황과 권리관계를 확인할 수 있는지 담당부서와 먼저 상의하세요.',
+      links: []
+    },
+    {
+      q: '매매계약서가 없으면 어떻게 하나요?', needsCheck: true,
+      short: '매매계약서가 없어도 다른 공적 자료로 권리관계를 확인할 수 있는 경우가 있습니다.',
+      detail: '등기사항증명서, 건축물대장, 기존 행정문서 등으로 확인 가능한지 담당부서에 문의하세요.',
+      links: []
+    },
+    {
+      q: '신고 수리 후 바로 철거해도 되나요?', needsCheck: true,
+      short: '수리 후에도 착공 전 지켜야 할 절차가 있을 수 있으니 처리 결과 통지서를 꼭 확인하세요.',
+      detail: '착공 신고, 감리 등 후속 절차의 적용 여부는 처리 결과 통지서와 담당부서 안내를 따르세요. 결과 통지 전에는 공사를 시작하지 마세요.',
+      links: [BLCM]
+    },
+    {
+      q: '철거가 끝나면 위반건축물 표시가 자동으로 없어지나요?', needsCheck: true,
+      short: '자동으로 없어진다고 단정할 수 없습니다. 위반사항 시정 확인 절차가 별도로 필요할 수 있습니다.',
+      detail: '해체신고 수리와 위반사항 시정 완료는 서로 다른 절차입니다. 철거 후 담당부서에 시정 완료 확인 방법을 문의하세요.',
+      links: []
+    },
+    {
+      q: '이행강제금은 어떻게 처리되나요?', needsCheck: true,
+      short: '이미 부과된 금액, 추가 부과 여부, 시정 완료에 따른 효과는 이 서비스에서 단정하여 안내하지 않습니다.',
+      detail: '개별 사안에 따라 다르므로 위반건축물 담당부서에 직접 문의하세요.',
+      links: []
+    }
+  ];
+})();
+
+</script>
+<script>/* js/legal-data.js */
+/*
+ * 법령 기준 데이터
+ * ------------------------------------------------------------
+ * - 화면 문구와 분리하여 법령 기준만 모아 둔 파일입니다.
+ * - status 값은 아래 세 가지 중 하나만 사용합니다.
+ *     '검증 완료'   : 담당자가 국가법령정보센터 원문과 대조를 마친 기준 → 자동 안내에 사용
+ *     '재검증 필요' : 운영지침 등을 토대로 초안 등록, 원문 대조 전 → 자동 판정에 사용하지 않음(화면 배지는 표시하지 않음)
+ *     '검증 불가'   : 근거(조례 등)를 아직 찾지 못함 → 자동 판정에 사용하지 않음(화면 배지는 표시하지 않음)
+ * - 원문 대조를 마친 경우 status, effectiveDate, lastChecked, history를 함께 고쳐 주세요.
+ *   (방법: docs/operations-guide.md 참고)
+ */
+var HC = window.HC = window.HC || {};
+
+HC.LEGAL_BASE_DATE = '2026-10-29'; // 운영지침 작성 기준일(공식 원문 대조일 아님)
+
+HC.VERIFY_STATUS = {
+  VERIFIED: '검증 완료',
+  RECHECK: '재검증 필요',
+  UNVERIFIABLE: '검증 불가'
+};
+
+HC.legalData = {
+  /* ── 건축물관리법 제30조: 해체 허가·신고 ─────────────────── */
+  'BMA30-PARTIAL': {
+    id: 'BMA30-PARTIAL',
+    lawName: '건축물관리법',
+    article: '제30조 제1항 단서(일부 해체)',
+    criterion: '주요구조부의 해체를 수반하지 않고 건축물의 일부를 해체하는 경우 신고 대상에 해당할 수 있음',
+    plain: '기둥·보·내력벽 등 건물을 지탱하는 부분을 건드리지 않고 일부만 철거하는 경우',
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건축물관리법/제30조',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '운영지침(CLAUDE.md) 기준으로 초안 등록. 국가법령정보센터 원문 미대조.' }
+    ]
+  },
+  'BMA30-AREA': {
+    id: 'BMA30-AREA',
+    lawName: '건축물관리법',
+    article: '제30조 제1항 단서(전체 해체 – 연면적)',
+    criterion: '연면적 500㎡ 미만',
+    plain: '건물 각 층 바닥면적을 모두 더한 면적이 500㎡보다 작아야 함(500㎡ 정확히는 해당하지 않음)',
+    threshold: { value: 500, unit: '㎡', operator: '<' },
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건축물관리법/제30조',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '운영지침 기준 초안 등록. 원문 미대조.' }
+    ]
+  },
+  'BMA30-HEIGHT': {
+    id: 'BMA30-HEIGHT',
+    lawName: '건축물관리법',
+    article: '제30조 제1항 단서(전체 해체 – 높이)',
+    criterion: '건축물 높이 12m 미만',
+    plain: '건물 높이가 12m보다 낮아야 함(12m 정확히는 해당하지 않음)',
+    threshold: { value: 12, unit: 'm', operator: '<' },
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건축물관리법/제30조',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '운영지침 기준 초안 등록. 원문 미대조.' }
+    ]
+  },
+  'BMA30-FLOORS': {
+    id: 'BMA30-FLOORS',
+    lawName: '건축물관리법',
+    article: '제30조 제1항 단서(전체 해체 – 층수)',
+    criterion: '지상층과 지하층을 합하여 3개 층 이하',
+    plain: '지상층과 지하층을 더한 층수가 3개 층까지(3개 층 포함)',
+    threshold: { value: 3, unit: '개 층', operator: '<=' },
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건축물관리법/제30조',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '운영지침 기준 초안 등록. 원문 미대조.' }
+    ]
+  },
+  'BMA30-DECREE-OTHER': {
+    id: 'BMA30-DECREE-OTHER',
+    lawName: '건축물관리법 시행령',
+    article: '시행령상 별도 신고 대상',
+    criterion: '그 밖에 대통령령으로 정하는 건축물의 신고 대상 여부',
+    plain: '위 기준에 맞지 않아도 시행령에서 따로 신고 대상으로 정한 건축물이 있을 수 있음',
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건축물관리법시행령',
+    status: '검증 불가',
+    history: [
+      { date: '2026-10-29', note: '해당 조문·요건 미확인. 담당자 확인 전까지 판정에 사용하지 않음.' }
+    ]
+  },
+  'BMA30-CONVERT': {
+    id: 'BMA30-CONVERT',
+    lawName: '건축물관리법 및 남양주시 건축물관리 조례',
+    article: '법 제30조제2항(신고 대상의 허가 전환) 및 조례 위임 기준',
+    criterion: '신고 요건에 해당하더라도 ① 주변 일정 반경 안에 버스정류장·도시철도 역사 출입구·횡단보도 등 조례로 정하는 시설이 있는 경우, ② 외벽에서 건축물 높이에 해당하는 범위 안에 조례로 정한 폭 이상의 도로가 있는 경우, ③ 배치·유동인구 등 주변 여건을 고려해 조례로 정하는 경우에는 허가를 받아야 함',
+    plain: '작은 건물이라도 버스정류장·횡단보도·학교 등 가까이에 있거나 넓은 도로에 붙어 있으면 더 엄격한 "허가" 절차가 필요할 수 있음',
+    // 남양주시 조례에 대해 확인된 사항(보도자료 기준, 조례 원문 대조 전)
+    ordinanceNotes: [
+      '2024. 9. 남양주시의회 도시교통위원회 원안 가결 보도: 허가 대상 시설에 육교·지하차도·학교·유치원·어린이집 추가, 정비구역 외곽경계 도로에 접한 건축물 포함',
+      '2025. 9. 남양주시의회 도시교통위원회 원안 가결 보도: 연면적 1천㎡ 이하 축사·작물재배사를 해체신고 대상으로 추가(시행 여부는 담당부서에 문의)'
+    ],
+    effectiveDate: '2025-06-04', // 법률 시행일(제30조 기준). 조례 시행일은 미확인
+    lastChecked: '2026-10-29',
+    source: 'https://www.elis.go.kr',
+    status: '검증 불가',
+    history: [
+      { date: '2026-10-29', note: '전환 요건의 조문, 조례상 시설·거리 기준, 도로의 법적 범위 미확인.' },
+      { date: '2026-10-29', note: '법 제30조제2항 1~3호 구조를 국가법령정보센터에서 확인(시행 2025. 6. 4.). 남양주시 조례의 반경·도로 폭 수치는 원문 미확보로 판정에 사용하지 않음.' }
+    ]
+  },
+
+  /* ── 행정 처리 정보 ─────────────────────────────────────── */
+  'ADMIN-PERIOD': {
+    id: 'ADMIN-PERIOD',
+    lawName: '민원사무 처리기준',
+    article: '해체신고 처리기간',
+    criterion: '처리기간 7일(기관 운영정보)',
+    plain: '신청 후 처리까지 걸리는 기간',
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.gov.kr',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '진건읍 운영정보로 등록. 공식 민원사무편람 대조 필요.' }
+    ]
+  },
+  'ADMIN-FEE': {
+    id: 'ADMIN-FEE',
+    lawName: '민원사무 처리기준',
+    article: '해체신고·허가 행정 수수료',
+    criterion: '행정 수수료 없음(기관 운영정보)',
+    plain: '행정기관에 내는 수수료. 건축사·석면조사·철거업체 비용과는 별개',
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.gov.kr',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '진건읍 운영정보로 등록. 공식 민원사무편람 대조 필요.' }
+    ]
+  },
+
+  /* ── 3단계 기능에서 사용할 기준(현재는 FAQ 안내에만 참고) ── */
+  'CIA-MINOR': {
+    id: 'CIA-MINOR',
+    lawName: '건설산업기본법 시행령',
+    article: '제8조(경미한 건설공사)',
+    criterion: '공사예정금액 1,500만 원 미만인 전문공사는 일정한 경우 건설업 등록 없이 시공 가능할 수 있음',
+    plain: '공사비가 1,500만 원보다 적은 일부 공사는 건설업 등록이 없어도 될 수 있음(1,500만 원 정확히는 해당하지 않음)',
+    threshold: { value: 15000000, unit: '원', operator: '<' },
+    effectiveDate: null,
+    lastChecked: null,
+    source: 'https://www.law.go.kr/법령/건설산업기본법시행령/제8조',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '운영지침 기준 초안 등록. 전문공사 해당 여부·제외 업종·분할계약 합산 기준 미확인.' }
+    ]
+  },
+  'OSHA-ASBESTOS': {
+    id: 'OSHA-ASBESTOS',
+    lawName: '산업안전보건법 및 같은 법 시행령·시행규칙',
+    article: '법 제119조, 시행령 제89조, 시행규칙 제175조',
+    criterion: '기관석면조사 대상: 주택 외 건축물 연면적 50㎡ 이상 & 철거부분 50㎡ 이상 / 주택 연면적 200㎡ 이상 & 철거부분 200㎡ 이상 / 설비 자재 면적 15㎡ 이상 또는 부피 1㎥ 이상 / 파이프 80m 이상 & 보온재 80m 이상. 생략 사유: 석면 미함유 명백, 석면 1% 초과 자재 사용 명백(시행령 제89조제2항)',
+    plain: '건물 크기·종류에 따라 등록된 조사기관의 석면조사가 필요할 수 있음',
+    effectiveDate: '2026-08-01',
+    lastChecked: '2026-10-29',
+    source: 'https://www.law.go.kr/lumLsLinkPop.do?lspttninfSeq=154489',
+    status: '재검증 필요',
+    history: [
+      { date: '2026-10-29', note: '면적 기준 수치 미등록. 원문 대조 후 수치 입력 필요.' },
+      { date: '2026-10-29', note: '국가법령정보센터에서 시행령 제89조(시행 2026. 8. 1.)·시행규칙 제175조 확인 후 수치·생략 사유 등록. 화면 안내에만 사용, 자동 판정 미사용.' }
+    ]
+  }
+};
+
+</script>
+<script>/* js/legal-rules.js */
+/*
+ * 법령 규칙 판단 엔진
+ * ------------------------------------------------------------
+ * 원칙
+ *  1) legal-data.js 에서 status 가 '검증 완료' 인 기준만 결과 판정에 사용합니다.
+ *  2) 판단에 쓰인 기준 중 하나라도 검증 전이면 최종 결과는 '담당부서 상담 필요'입니다.
+ *  3) '미만'과 '이하'를 구분합니다. (500㎡ 미만 → 500은 해당하지 않음 / 3개 층 이하 → 3은 해당)
+ *  4) 어떤 경우에도 '신고 대상 확정' 같은 표현은 만들지 않습니다.
+ * 이 파일은 화면(DOM)을 다루지 않으므로 Node.js 테스트에서도 그대로 실행됩니다.
+ */
+var HC = window.HC = window.HC || {};
+
+HC.rules = (function () {
+  var RESULT = {
+    REPORT: { code: 'REPORT', label: '해체신고 대상 가능성' },
+    PERMIT: { code: 'PERMIT', label: '해체허가 대상 가능성' },
+    CHECK: { code: 'CHECK', label: '담당부서 상담 필요' }
+  };
+
+  function getRule(id, data) {
+    var d = data || HC.legalData;
+    return d[id] || null;
+  }
+
+  function isVerified(id, data) {
+    var r = getRule(id, data);
+    return !!r && r.status === '검증 완료';
+  }
+
+  /** 숫자 비교. value 가 없으면 null(정보 부족) */
+  function compare(value, threshold) {
+    if (value === null || value === undefined || isNaN(value)) return null;
+    switch (threshold.operator) {
+      case '<': return value < threshold.value;
+      case '<=': return value <= threshold.value;
+      case '>': return value > threshold.value;
+      case '>=': return value >= threshold.value;
+      default: return null;
+    }
+  }
+
+  function opText(op) {
+    return { '<': '미만', '<=': '이하', '>': '초과', '>=': '이상' }[op] || '';
+  }
+
+  /** 기준과 입력값을 비교한 한 줄(화면 표시용). 결과 판정과는 별개입니다. */
+  function criterionRow(id, label, value, unit, data) {
+    var r = getRule(id, data);
+    var cmp = r && r.threshold ? compare(value, r.threshold) : null;
+    return {
+      id: id,
+      label: label,
+      inputText: value === null || value === undefined ? '모름·미입력' : value + unit,
+      standardText: r && r.threshold ? r.threshold.value + r.threshold.unit + ' ' + opText(r.threshold.operator) : (r ? r.criterion : ''),
+      compare: cmp === null ? 'unknown' : (cmp ? 'within' : 'outside'),
+      ruleStatus: r ? r.status : '검증 불가',
+      verified: isVerified(id, data)
+    };
+  }
+
+  var FACILITY = { bus: '버스정류장', subway: '도시철도 역사 출입구', crosswalk: '횡단보도', overpass: '육교', underpass: '지하차도',
+    school: '학교·유치원·어린이집', renewal: '정비구역 경계 도로', other: '그 밖의 다중이용 시설' };
+  function facilityNames(list) {
+    return list.filter(function (n) { return FACILITY[n]; }).map(function (n) { return FACILITY[n]; }).join(', ');
+  }
+
+  /**
+   * 해체신고·허가 자가진단
+   * @param {object} input  diagnosis.js 에서 정리한 입력값
+   * @param {object} data   법령 데이터(테스트 시 바꿔 넣을 수 있음)
+   */
+  function evaluateDiagnosis(input, data) {
+    var basis = [];       // 판단에 사용한 기준 id
+    var criteria = [];    // 화면 비교표
+    var checks = [];      // 담당자에게 확인할 사항
+    var candidate = 'CHECK';
+
+    if (input.scope === 'partial') {
+      basis.push('BMA30-PARTIAL');
+      criteria.push({
+        id: 'BMA30-PARTIAL',
+        label: '주요구조부(기둥·보·내력벽 등) 해체 여부',
+        inputText: { yes: '해체함', no: '해체하지 않음', unknown: '모름' }[input.mainStructure] || '모름',
+        standardText: '해체하지 않는 일부 해체',
+        compare: input.mainStructure === 'no' ? 'within' : (input.mainStructure === 'yes' ? 'outside' : 'unknown'),
+        ruleStatus: getRule('BMA30-PARTIAL', data).status,
+        verified: isVerified('BMA30-PARTIAL', data)
+      });
+      if (input.mainStructure === 'no') {
+        candidate = 'REPORT';
+      } else if (input.mainStructure === 'yes') {
+        candidate = 'PERMIT';
+        basis.push('BMA30-DECREE-OTHER');
+        checks.push('주요구조부를 해체하는 일부 해체가 시행령상 별도 신고 대상에 해당하는지 확인');
+      } else {
+        checks.push('해체하려는 부분에 기둥·보·내력벽 등 주요구조부가 포함되는지 건축사 등 전문가와 확인');
+      }
+    } else if (input.scope === 'whole') {
+      basis.push('BMA30-AREA', 'BMA30-HEIGHT', 'BMA30-FLOORS');
+      var floors = (input.floorsAbove === null || input.floorsBelow === null)
+        ? null : input.floorsAbove + input.floorsBelow;
+      var rows = [
+        criterionRow('BMA30-AREA', '연면적', input.area, '㎡', data),
+        criterionRow('BMA30-HEIGHT', '높이', input.height, 'm', data),
+        criterionRow('BMA30-FLOORS', '지상+지하 층수', floors, '개 층', data)
+      ];
+      criteria = criteria.concat(rows);
+      var anyUnknown = rows.some(function (r) { return r.compare === 'unknown'; });
+      var anyOutside = rows.some(function (r) { return r.compare === 'outside'; });
+      if (anyOutside) {
+        candidate = 'PERMIT';
+        basis.push('BMA30-DECREE-OTHER');
+        checks.push('기본 신고 요건을 벗어나더라도 시행령상 별도 신고 대상에 해당하는지 확인');
+      } else if (anyUnknown) {
+        candidate = 'CHECK';
+        checks.push('모르는 항목(연면적·높이·층수)은 건축물대장 또는 현장 실측으로 확인');
+      } else {
+        candidate = 'REPORT';
+      }
+    } else {
+      checks.push('전체 해체인지 일부 해체인지 먼저 정해 주세요');
+    }
+
+    // 신고 가능성이 있는 경우: 허가 전환 요건을 반드시 함께 검토
+    if (candidate === 'REPORT') {
+      basis.push('BMA30-CONVERT');
+      var nearby = input.nearby || [];
+      var facilityFound = nearby.some(function (n) { return n !== 'none' && n !== 'unknown'; });
+      var facilityUnknown = nearby.length === 0 || nearby.indexOf('unknown') !== -1;
+      var roadUnknown = input.roadWidth === null || input.roadDistance === null;
+      if (facilityFound) checks.push('가까이 있는 시설(' + facilityNames(nearby) + ')이 남양주시 조례에서 정한 반경 안에 있어 허가 대상이 되는지 확인');
+      if (facilityUnknown) checks.push('건축물 주변에 버스정류장·도시철도 역사 출입구·횡단보도·육교·지하차도·학교·유치원·어린이집 등이 있는지 확인');
+      if (roadUnknown) checks.push('인접 도로 폭과 도로에서 건축물까지의 거리 확인(외벽에서 건물 높이만큼의 범위 안에 조례로 정한 폭 이상의 도로가 있으면 허가 대상)');
+      checks.push('남양주시 건축물관리 조례의 허가 대상 기준(시설 반경·도로 폭·정비구역 경계 도로 등) 해당 여부 확인');
+      if (facilityFound || facilityUnknown || roadUnknown) candidate = 'CHECK_CONVERT';
+    }
+
+    if (input.use === 'farm') {
+      checks.push('축사·작물재배사(연면적 1천㎡ 이하)는 남양주시 조례 개정으로 해체신고 대상이 될 수 있으니 시행 여부 확인');
+    }
+
+    if (input.registered === 'no' || input.registered === 'unknown') {
+      checks.push('건축물대장에 없는 건축물은 면적·높이·층수를 확인할 방법을 담당부서와 상의');
+    }
+
+    // 중복 제거
+    basis = basis.filter(function (v, i) { return basis.indexOf(v) === i; });
+    var unverified = basis.filter(function (id) { return !isVerified(id, data); });
+
+    var finalCode;
+    if (candidate === 'CHECK' || candidate === 'CHECK_CONVERT') finalCode = 'CHECK';
+    else if (unverified.length > 0) finalCode = 'CHECK';
+    else finalCode = candidate;
+
+    return {
+      result: RESULT[finalCode],
+      gatedByVerification: unverified.length > 0 && candidate !== 'CHECK' && candidate !== 'CHECK_CONVERT',
+      candidateIfVerified: candidate === 'CHECK_CONVERT' ? 'CHECK' : candidate, // 테스트·운영 점검용(화면에 표시하지 않음)
+      basis: basis,
+      unverified: unverified,
+      criteria: criteria,
+      checks: checks
+    };
+  }
+
+  /**
+   * 경미한 건설공사 기준 비교(3단계 기능용 사전 구현)
+   * 1,500만 원 '미만'만 해당. 정확히 1,500만 원은 해당하지 않음.
+   */
+  function evaluateMinorConstruction(amount, data) {
+    var r = getRule('CIA-MINOR', data);
+    var cmp = compare(amount, r.threshold);
+    var checks = [
+      '해당 공사가 전문공사에 해당하는지',
+      '법령상 제외 업종에 해당하지 않는지',
+      '공사예정금액(재료비·장비비 등 포함) 산정이 적정한지',
+      '공사를 나누어 계약한 경우 금액을 합산해야 하는지',
+      '다른 법령상 자격 및 안전관리 의무가 있는지'
+    ];
+    if (cmp === null) return { code: 'CHECK', label: '담당부서 상담 필요', checks: checks, verified: isVerified('CIA-MINOR', data) };
+    if (!isVerified('CIA-MINOR', data)) return { code: 'CHECK', label: '담당부서 상담 필요', below: cmp, checks: checks, verified: false };
+    return cmp
+      ? { code: 'BELOW', label: '건설업 등록 예외에 해당할 가능성(담당부서 상담 필요)', below: true, checks: checks, verified: true }
+      : { code: 'NOT_BELOW', label: '건설업 등록 예외 기준(1,500만 원 미만)에 해당하지 않음', below: false, checks: checks, verified: true };
+  }
+
+  return {
+    RESULT: RESULT,
+    getRule: getRule,
+    isVerified: isVerified,
+    compare: compare,
+    evaluateDiagnosis: evaluateDiagnosis,
+    evaluateMinorConstruction: evaluateMinorConstruction
+  };
+})();
+
+</script>
+<script>/* js/diagnosis.js */
+/*
+ * 해체신고·허가 자가진단 (휴대폰용: 한 화면에 질문 하나)
+ * - 답변을 모아 legal-rules.js 의 판단 엔진에 넘깁니다.
+ * - 판정 자체는 이 파일에서 하지 않습니다(법령 규칙과 화면 분리).
+ */
+var HC = window.HC = window.HC || {};
+
+HC.diagnosis = (function () {
+  var isWhole = function (a) { return a.scope === 'whole'; };
+
+  var STEPS = [
+    { key: 'scope', type: 'choice', q: '어디까지 철거하나요?', help: '철거할 범위에 따라 절차가 달라집니다.',
+      options: [['whole', '건물 전체', '건물을 모두 철거'], ['partial', '건물 일부', '무단 증축 부분 등 일부만 철거'], ['unknown', '아직 정하지 못했어요']] },
+    { key: 'mainStructure', type: 'choice', showIf: function (a) { return a.scope === 'partial'; },
+      q: '철거할 부분에 주요구조부가 포함되나요?',
+      help: '주요구조부는 기둥, 보, 내력벽(무게를 받치는 벽), 바닥, 지붕틀, 주계단처럼 건물을 지탱하는 부분입니다.',
+      options: [['no', '포함되지 않아요'], ['yes', '포함돼요'], ['unknown', '모름']] },
+    { key: 'area', type: 'number', unit: '㎡', showIf: isWhole, q: '건물의 연면적은 얼마인가요?',
+      help: '각 층 바닥면적을 모두 더한 면적입니다. 건축물대장에서 확인할 수 있습니다.', positive: true },
+    { key: 'height', type: 'number', unit: 'm', showIf: isWhole, q: '건물 높이는 얼마인가요?',
+      help: '건축물대장에 적힌 높이를 입력하세요.', positive: true },
+    { key: 'floors', type: 'floors', showIf: isWhole, q: '건물은 몇 층인가요?',
+      help: '지상층과 지하층을 따로 세어 주세요. 지하층이 없으면 0입니다.' },
+    { key: 'use', type: 'choice', q: '건물은 어떤 용도인가요?', help: '건축물대장의 용도를 참고하세요.',
+      options: [['house', '주택'], ['commercial', '상가·사무실 등'], ['farm', '축사·작물재배사'], ['warehouse', '창고·공장'], ['etc', '그 밖의 용도'], ['unknown', '모름']] },
+    { key: 'registered', type: 'choice', q: '건축물대장에 올라 있는 건물인가요?',
+      help: '정부24에서 건축물대장을 무료로 열람할 수 있습니다.',
+      options: [['yes', '예'], ['no', '아니요'], ['unknown', '모름']] },
+    { key: 'nearby', type: 'multi', q: '건물 가까이에 다음 시설이 있나요?',
+      help: '해당하는 것을 모두 고르세요. 남양주시 조례에서 정한 시설이 가까이 있으면 허가 대상이 될 수 있습니다.',
+      options: [['bus', '버스정류장'], ['crosswalk', '횡단보도'], ['subway', '지하철역(도시철도 역사) 출입구'], ['overpass', '육교'], ['underpass', '지하차도'],
+        ['school', '학교·유치원·어린이집'], ['renewal', '재개발·재건축 등 정비구역 경계 도로에 접함'], ['other', '그 밖에 사람이 많이 다니는 시설'], ['none', '해당 시설 없음'], ['unknown', '모름']],
+      exclusive: ['none', 'unknown'] },
+    { key: 'roadWidth', type: 'number', unit: 'm', q: '건물과 맞닿은 도로의 폭은 몇 m인가요?',
+      help: '도로 양쪽 끝 사이의 너비입니다. 모르면 "모름"을 누르세요.' },
+    { key: 'roadDistance', type: 'number', unit: 'm', q: '도로에서 건물까지 거리는 몇 m인가요?',
+      help: '도로 경계에서 건물 외벽까지의 거리입니다. 모르면 "모름"을 누르세요.' },
+    { key: 'violation', type: 'choice', q: '지금 어떤 상황인가요?', help: '가장 가까운 것을 하나 고르세요.',
+      options: [['extension', '무단 증축 부분을 철거하려고 해요'], ['unpermitted', '무허가 건축물 전체를 철거하려고 해요'],
+        ['unregistered', '건축물대장에 없는 건물을 철거하려고 해요'], ['partial', '기존 건물의 일부를 철거하려고 해요'],
+        ['order', '시정명령을 받아 철거하려고 해요'], ['penalty', '이행강제금이 부과되고 있어 위법사항을 없애려고 해요'],
+        ['none', '위반건축물이 아니에요'], ['unknown', '잘 모르겠어요']] },
+    { key: 'location', type: 'choice', q: '건물은 어디에 있나요?', help: '상세 주소는 입력하지 않습니다.',
+      options: [['jingeon', '남양주시 진건읍'], ['nyj-other', '남양주시 다른 읍·면·동'], ['outside', '남양주시 외 지역']] }
+  ];
+
+  var TYPE_NOTES = {
+    extension: '무단 증축 부분만 철거하는 경우, 시정명령서 등에 적힌 위반 위치와 실제 철거할 부분이 같은지 꼭 확인하세요. 위치가 다르면 보완 요청을 받을 수 있습니다.',
+    unpermitted: '무허가 건축물은 건축물대장이 없는 경우가 많습니다. 면적·높이·층수와 소유 관계를 어떤 자료로 확인할지 담당부서와 먼저 상의하세요.',
+    unregistered: '건축물대장에 없는 건물은 현장 실측 자료, 사진, 행정기관이 가진 자료 등으로 현황을 확인해야 할 수 있습니다. 대장이 없다는 이유만으로 신청이 불가능한 것은 아닐 수 있습니다.',
+    partial: '일부 해체는 철거할 부분에 주요구조부가 포함되는지에 따라 절차가 달라질 수 있습니다. 철거 범위를 사진에 표시해 두면 상담이 쉬워집니다.',
+    order: '시정명령서에 적힌 이행 기한을 확인하세요. 해체 절차에 걸리는 기간을 고려해 늦지 않게 담당부서와 상의하는 것이 좋습니다.',
+    penalty: '이미 부과된 이행강제금, 추가 부과 여부, 시정 완료에 따른 효과는 사안마다 다르므로 이 화면에서 단정하여 안내하지 않습니다. 위반건축물 담당부서에 직접 문의하세요.',
+    none: '위반건축물이 아니더라도 해체 허가·신고 절차는 같은 기준으로 검토될 수 있습니다.',
+    unknown: '위반건축물인지 모르는 경우, 건축물대장의 "위반건축물" 표시를 확인하거나 담당부서에 문의하세요.'
+  };
+
+  var ans = {};
+  var idx = 0;
+  var pointerTap = false;
+  var lastText = '';
+
+  function $(id) { return document.getElementById(id); }
+  function visibleSteps() { return STEPS.filter(function (s) { return !s.showIf || s.showIf(ans); }); }
+
+  /* ── 질문 그리기 ── */
+  function renderStep() {
+    var steps = visibleSteps();
+    var s = steps[idx];
+    var e = HC.ui.esc;
+    $('wizBar').style.width = Math.round(idx / steps.length * 100) + '%';
+    $('wizCount').textContent = '질문 ' + (idx + 1) + ' / ' + steps.length;
+    $('wizQ').textContent = s.q;
+    $('wizHelp').textContent = s.help || '';
+    $('wizError').hidden = true;
+    $('wizNext').textContent = idx === steps.length - 1 ? '결과 보기' : '다음';
+
+    var html = '';
+    if (s.type === 'choice' || s.type === 'multi') {
+      var t = s.type === 'choice' ? 'radio' : 'checkbox';
+      var cur = ans[s.key];
+      html = '<div class="opts">' + s.options.map(function (o, i) {
+        var checked = s.type === 'choice' ? cur === o[0] : (cur || []).indexOf(o[0]) !== -1;
+        return '<label class="opt"><input type="' + t + '" name="q-' + s.key + '" id="q-' + s.key + '-' + i + '" value="' + e(o[0]) + '"' + (checked ? ' checked' : '') + '>' +
+          '<span><span class="opt-t">' + e(o[1]) + (o[2] ? '<small>' + e(o[2]) + '</small>' : '') + '</span></span></label>';
+      }).join('') + '</div>';
+    } else if (s.type === 'number') {
+      var v = ans[s.key];
+      var unknown = v === null;
+      html = '<div class="num-wrap"><div class="num-input">' +
+        '<label for="q-num" class="sr-only">' + e(s.q) + ' (' + e(s.unit) + ')</label>' +
+        '<input id="q-num" type="number" inputmode="decimal" min="0" step="any" aria-describedby="wizError" placeholder="0"' +
+        (typeof v === 'number' ? ' value="' + v + '"' : '') + (unknown ? ' disabled' : '') + '>' +
+        '<span class="unit" aria-hidden="true">' + e(s.unit) + '</span></div>' +
+        '<button type="button" class="btn btn-ghost unknown-btn" id="q-unknown" aria-pressed="' + unknown + '">모름</button></div>';
+    } else if (s.type === 'floors') {
+      var fa = typeof ans.floorsAbove === 'number' ? ans.floorsAbove : 1;
+      var fb = typeof ans.floorsBelow === 'number' ? ans.floorsBelow : 0;
+      var fu = ans.floorsAbove === null;
+      html = stepperRow('floorsAbove', '지상', fa, 1, fu) + stepperRow('floorsBelow', '지하', fb, 0, fu) +
+        '<p class="stepper-total" id="floorTotal" aria-live="polite"></p>' +
+        '<label class="opt check-unknown"><input type="checkbox" id="q-floors-unknown"' + (fu ? ' checked' : '') + '><span>층수를 모름</span></label>';
+    }
+    $('wizBody').innerHTML = html;
+    if (s.type === 'floors') updateFloorTotal();
+    $('wizQ').focus({ preventScroll: true });
+    window.scrollTo(0, 0);
+  }
+
+  function stepperRow(id, label, val, min, disabled) {
+    return '<div class="stepper-row"><span class="stepper-label" id="lbl-' + id + '">' + label + '</span>' +
+      '<div class="stepper" role="group" aria-labelledby="lbl-' + id + '">' +
+      '<button type="button" data-step="' + id + '" data-d="-1" aria-label="' + label + ' 층수 줄이기"' + (disabled || val <= min ? ' disabled' : '') + '>−</button>' +
+      '<output id="out-' + id + '" data-min="' + min + '" aria-live="polite">' + (disabled ? '–' : val + '층') + '</output>' +
+      '<button type="button" data-step="' + id + '" data-d="1" aria-label="' + label + ' 층수 늘리기"' + (disabled ? ' disabled' : '') + '>+</button>' +
+      '</div></div>';
+  }
+  function floorVal(id) { var t = $('out-' + id).textContent; return parseInt(t, 10); }
+  function updateFloorTotal() {
+    var u = $('q-floors-unknown').checked;
+    $('floorTotal').textContent = u ? '층수를 모르면 건축물대장으로 확인해 주세요.' : '지상과 지하를 합하면 ' + (floorVal('floorsAbove') + floorVal('floorsBelow')) + '개 층입니다.';
+  }
+
+  /* ── 답 저장·검사 ── */
+  function saveStep() {
+    var s = visibleSteps()[idx];
+    var err = '';
+    if (s.type === 'choice') {
+      var c = document.querySelector('input[name="q-' + s.key + '"]:checked');
+      if (!c) err = '하나를 골라 주세요. 모르면 "모름"을 고르세요.';
+      else ans[s.key] = c.value;
+    } else if (s.type === 'multi') {
+      var list = Array.prototype.map.call(document.querySelectorAll('input[name="q-' + s.key + '"]:checked'), function (x) { return x.value; });
+      if (!list.length) err = '해당하는 것을 골라 주세요. 모르면 "모름"을 고르세요.';
+      else ans[s.key] = list;
+    } else if (s.type === 'number') {
+      var input = $('q-num');
+      if ($('q-unknown').getAttribute('aria-pressed') === 'true') { ans[s.key] = null; }
+      else {
+        var raw = input.value.trim();
+        var n = Number(raw);
+        if (raw === '' && input.validity && input.validity.badInput) err = '숫자만 입력해 주세요.';
+        else if (raw === '') err = '숫자를 입력하거나 "모름"을 눌러 주세요.';
+        else if (!isFinite(n)) err = '숫자만 입력해 주세요.';
+        else if (n < 0) err = '0 이상의 숫자로 입력해 주세요.';
+        else if (s.positive && n === 0) err = '0보다 큰 값으로 입력해 주세요.';
+        else ans[s.key] = n;
+        input.setAttribute('aria-invalid', err ? 'true' : 'false');
+      }
+    } else if (s.type === 'floors') {
+      if ($('q-floors-unknown').checked) { ans.floorsAbove = null; ans.floorsBelow = null; }
+      else { ans.floorsAbove = floorVal('floorsAbove'); ans.floorsBelow = floorVal('floorsBelow'); }
+    }
+    if (err) { $('wizError').textContent = err; $('wizError').hidden = false; return false; }
+    return true;
+  }
+
+  function next() {
+    if (!saveStep()) return;
+    var steps = visibleSteps();
+    if (idx < steps.length - 1) { idx++; renderStep(); }
+    else finish();
+  }
+  function prev() {
+    if (idx === 0) { showStart(); return; }
+    idx--;
+    renderStep();
+  }
+
+  /** 판단 엔진에 넘길 형태로 정리 (테스트에서도 사용) */
+  function toInput(a) {
+    var whole = a.scope === 'whole';
+    var num = function (k) { return whole || k.indexOf('road') === 0 ? (typeof a[k] === 'number' ? a[k] : null) : null; };
+    return {
+      location: a.location || 'jingeon', use: a.use || 'unknown', violation: a.violation || 'unknown',
+      registered: a.registered || 'unknown', scope: a.scope || 'unknown',
+      mainStructure: a.scope === 'partial' ? (a.mainStructure || 'unknown') : null,
+      area: num('area'), height: num('height'), floorsAbove: num('floorsAbove'), floorsBelow: num('floorsBelow'),
+      roadWidth: num('roadWidth'), roadDistance: num('roadDistance'),
+      nearby: a.nearby || [], memo: ''
+    };
+  }
+
+  /* ── 결과 ── */
+  function cmpText(c) {
+    if (c === 'within') return '<span class="cmp-within">기준 이내</span>';
+    if (c === 'outside') return '<span class="cmp-outside">기준 벗어남</span>';
+    return '<span class="cmp-unknown">정보 없음</span>';
+  }
+
+  function explain(r) {
+    if (r.result.code === 'REPORT') return '입력하신 내용으로는 해체신고 대상일 가능성이 있습니다. 최종 판단은 담당부서에서 합니다.';
+    if (r.result.code === 'PERMIT') return '입력하신 내용으로는 해체허가 대상일 가능성이 있습니다. 최종 판단은 담당부서에서 합니다.';
+    var parts = [];
+    if (r.gatedByVerification) parts.push('입력하신 내용만으로는 신고 대상인지 허가 대상인지 정할 수 없습니다.');
+    if (r.candidateIfVerified === 'CHECK') parts.push('모르는 항목이 있거나 주변 도로·시설처럼 더 확인할 사항이 있습니다.');
+    if (!parts.length) parts.push('담당부서 상담이 필요합니다.');
+    return parts.join(' ') + ' 아래 할 일을 확인한 뒤 담당부서에 문의해 주세요.';
+  }
+
+  function finish() {
+    var input = toInput(ans);
+    var r = HC.rules.evaluateDiagnosis(input);
+    var e = HC.ui.esc;
+    var expl = explain(r);
+
+    var html = '<p class="print-only">위반건축물 해체신고 안내 · 자가진단 결과 · ' + HC.ui.today() + '</p>';
+    html += '<div class="verdict r-' + r.result.code + '"><p class="k">자가진단 결과</p><p class="v" id="verdictLabel">' + e(r.result.label) + '</p><p>' + e(expl) + '</p></div>';
+
+    if (input.location !== 'jingeon') {
+      html += '<div class="note note-warn"><strong>관할 안내</strong><p>진건읍 외 지역의 건물은 해당 지역 담당부서에 문의하세요. 조례 기준이 다를 수 있습니다.</p></div>';
+    }
+
+    html += '<section class="sec"><h2>담당부서에 확인할 사항</h2><div class="sec-body"><ol class="todo">' +
+      r.checks.map(function (c) { return '<li>' + e(c) + '</li>'; }).join('') + '</ol></div></section>';
+
+    if (r.criteria.length) {
+      html += '<details class="sec"><summary>입력한 값과 법령 기준 비교</summary><div class="sec-body">' +
+        '<p class="small muted">참고용 비교입니다. 500㎡·12m는 "미만" 기준이라 같은 값은 기준 이내가 아닙니다.</p>' +
+        '<ul class="cmp-list">' + r.criteria.map(function (c) {
+          return '<li><span class="lbl">' + e(c.label) + '</span><span class="val">' + e(c.inputText) + '</span>' +
+            '<span class="std">기준: ' + e(c.standardText) + ' ' + HC.ui.statusBadge(c.ruleStatus) + '</span><span class="st">' + cmpText(c.compare) + '</span></li>';
+        }).join('') + '</ul></div></details>';
+    }
+
+    html += '<details class="sec"><summary>관련 법령과 확인 상태</summary><div class="sec-body"><ul class="law-list">' +
+      r.basis.map(function (id) {
+        var d = HC.rules.getRule(id);
+        return '<li>' + HC.ui.statusBadge(d.status) + '<strong>' + e(d.lawName) + ' ' + e(d.article) + '</strong>' + e(d.plain) +
+          (d.ordinanceNotes ? '<ul class="law-notes">' + d.ordinanceNotes.map(function (n) { return '<li>' + e(n) + '</li>'; }).join('') + '</ul>' : '') +
+          '<span class="law-meta">' + HC.ui.link(d.source, '법령 원문 보기') + '</span></li>';
+      }).join('') + '</ul></div></details>';
+
+    html += '<section class="sec"><h2>내 상황에 맞는 안내</h2><div class="sec-body"><p>' + e(TYPE_NOTES[input.violation] || '') + '</p></div></section>';
+    html += '<div class="note"><strong>꼭 알아두세요</strong><p>해체신고 수리·허가와 위반사항 시정(해소)은 서로 다른 절차입니다. 철거가 끝난 뒤 위반사항 해소 확인을 따로 받아야 할 수 있습니다.</p></div>';
+
+    html += '<div class="action-col">' +
+      '<a class="btn btn-primary btn-block" href="#checklist" id="goChecklist">내 상황으로 제출서류 보기</a>' +
+      '<button type="button" class="btn btn-ghost btn-block" id="resultCopy">결과 복사하기</button>' +
+      '<p class="copy-msg" id="resultCopyMsg" role="status"></p>' +
+      '<button type="button" class="btn btn-ghost btn-block" id="resultEdit">답변 고치기</button>' +
+      '<button type="button" class="btn btn-ghost btn-block" id="resultRestart">처음부터 다시 하기</button>' +
+      '</div>';
+
+    lastText = buildText(input, r, expl);
+    $('wiz').hidden = true;
+    $('wizIntro').hidden = false;
+    var box = $('diagResult');
+    box.innerHTML = html;
+    box.hidden = false;
+    window.scrollTo(0, 0);
+    box.focus({ preventScroll: true });
+
+    $('goChecklist').addEventListener('click', function () { HC.checklist.applySituation({ registered: input.registered }); });
+    $('resultCopy').addEventListener('click', function () { HC.ui.copy(lastText, $('resultCopyMsg')); });
+    $('resultEdit').addEventListener('click', function () { box.hidden = true; idx = visibleSteps().length - 1; showWizard(); });
+    $('resultRestart').addEventListener('click', function () { ans = {}; idx = 0; box.hidden = true; showWizard(); });
+  }
+
+  function buildText(input, r, expl) {
+    var lines = ['[위반건축물 해체신고 자가진단 결과] ' + HC.ui.today(), '결과: ' + r.result.label, expl, '', '담당부서에 확인할 사항'];
+    r.checks.forEach(function (c, i) { lines.push((i + 1) + '. ' + c); });
+    if (r.criteria.length) {
+      lines.push('', '입력한 값');
+      r.criteria.forEach(function (c) { lines.push('- ' + c.label + ': ' + c.inputText + ' (기준 ' + c.standardText + ')'); });
+    }
+    lines.push('', '문의: ' + HC.config.office.org + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone,
+      '※ 미리 살펴보기 위한 참고용 안내이며, 최종 판단은 담당부서에서 합니다.');
+    return lines.join('\n');
+  }
+
+  /* ── 화면 상태 ── */
+  function showStart() {
+    $('wiz').hidden = true; $('wizStart').hidden = false; $('wizIntro').hidden = false; $('diagResult').hidden = true;
+  }
+  function showWizard() {
+    $('wizStart').hidden = true; $('wizIntro').hidden = true; $('wiz').hidden = false;
+    renderStep();
+  }
+
+  function init() {
+    $('wizBegin').addEventListener('click', function () { idx = 0; showWizard(); });
+    $('wizPrev').addEventListener('click', prev);
+    $('wizForm').addEventListener('submit', function (ev) { ev.preventDefault(); next(); });
+
+    var body = $('wizBody');
+    body.addEventListener('pointerdown', function () { pointerTap = true; });
+    body.addEventListener('keydown', function () { pointerTap = false; });
+    body.addEventListener('click', function (ev) {
+      var b = ev.target.closest('button');
+      if (!b) return;
+      if (b.id === 'q-unknown') {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        b.setAttribute('aria-pressed', on);
+        var input = $('q-num');
+        input.disabled = on;
+        if (on) { input.value = ''; input.removeAttribute('aria-invalid'); $('wizError').hidden = true; }
+        else input.focus();
+      }
+      if (b.getAttribute('data-step')) {
+        var id = b.getAttribute('data-step');
+        var out = $('out-' + id);
+        var min = Number(out.getAttribute('data-min'));
+        var v = Math.max(min, Math.min(99, floorVal(id) + Number(b.getAttribute('data-d'))));
+        out.textContent = v + '층';
+        b.parentNode.querySelector('[data-d="-1"]').disabled = v <= min;
+        updateFloorTotal();
+      }
+    });
+    body.addEventListener('change', function (ev) {
+      var t = ev.target;
+      var s = visibleSteps()[idx];
+      if (t.id === 'q-floors-unknown') {
+        var dis = t.checked;
+        Array.prototype.forEach.call(body.querySelectorAll('.stepper button'), function (btn) { btn.disabled = dis; });
+        ['floorsAbove', 'floorsBelow'].forEach(function (id) {
+          var out = $('out-' + id);
+          if (dis) out.textContent = '–';
+          else { out.textContent = (id === 'floorsAbove' ? 1 : 0) + '층'; }
+        });
+        if (!dis) Array.prototype.forEach.call(body.querySelectorAll('[data-d="-1"]'), function (m) { m.disabled = true; });
+        updateFloorTotal();
+        return;
+      }
+      if (s.type === 'multi' && t.checked) {
+        var group = body.querySelectorAll('input[name="q-' + s.key + '"]');
+        var isEx = s.exclusive.indexOf(t.value) !== -1;
+        Array.prototype.forEach.call(group, function (x) {
+          if (x === t) return;
+          if (isEx || s.exclusive.indexOf(x.value) !== -1) x.checked = false;
+        });
+        $('wizError').hidden = true;
+      }
+      // 손가락으로 고른 경우에만 다음 질문으로 자동 이동(키보드 사용자는 직접 "다음")
+      if (s.type === 'choice' && pointerTap) {
+        pointerTap = false;
+        setTimeout(next, 220);
+      }
+    });
+  }
+
+  return { init: init, toInput: toInput, steps: STEPS };
+})();
+
+</script>
+<script>/* js/checklist.js */
+/*
+ * 제출서류 맞춤 체크리스트
+ * - 상황(신청인, 건축물대장, 석면조사, 시공 방법)에 맞는 서류만 보여 줍니다.
+ * - 체크 상태는 이 브라우저 창(sessionStorage)에만 잠시 보관하며, 창을 닫으면 지워집니다.
+ */
+var HC = window.HC = window.HC || {};
+
+HC.checklist = (function () {
+  var KEY = 'hc-checklist-v1';
+  var LABELS = {
+    applicant: { owner: '소유자 본인', agent: '대리인', coowner: '공동소유', corp: '법인' },
+    registered: { yes: '대장 있음', no: '대장 없음', unknown: '대장 모름' },
+    asbestos: { yes: '석면조사 대상', no: '석면조사 비대상', unknown: '석면조사 모름' },
+    contractor: { company: '업체 시공', undecided: '시공 미정' }
+  };
+  var state = { situation: { applicant: 'owner', registered: 'yes', asbestos: 'unknown', contractor: 'company' }, done: {} };
+
+  function load() {
+    try {
+      var s = window.sessionStorage.getItem(KEY);
+      if (s) {
+        var parsed = JSON.parse(s);
+        if (parsed && parsed.situation) state = parsed;
+      }
+    } catch (e) { /* 저장소를 쓸 수 없는 환경이면 메모리에서만 동작 */ }
+  }
+  function save() {
+    try { window.sessionStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* 무시 */ }
+  }
+
+  /** 상황에 맞는 서류만 고르기 (테스트에서도 사용) */
+  function filterDocs(docs, situation) {
+    return docs.filter(function (d) {
+      return Object.keys(d.when || {}).every(function (k) {
+        return d.when[k].indexOf(situation[k]) !== -1;
+      });
+    });
+  }
+
+  function syncForm() {
+    var f = document.getElementById('situationForm');
+    Object.keys(state.situation).forEach(function (k) {
+      var r = f.querySelector('input[name="' + k + '"][value="' + state.situation[k] + '"]');
+      if (r) r.checked = true;
+    });
+    document.getElementById('situationSummary').textContent = Object.keys(LABELS).map(function (k) {
+      return LABELS[k][state.situation[k]];
+    }).join(' · ');
+  }
+
+  function current() { return filterDocs(HC.documents, state.situation); }
+
+  function render() {
+    var e = HC.ui.esc;
+    var docs = current();
+    var onlyMissing = document.getElementById('onlyMissing').checked;
+    var doneCount = docs.filter(function (d) { return state.done[d.id]; }).length;
+
+    document.getElementById('checkProgress').textContent = '준비 완료 ' + doneCount + ' / ' + docs.length + '건';
+    document.getElementById('checkBar').style.width = (docs.length ? Math.round(doneCount / docs.length * 100) : 0) + '%';
+
+    var html = '<p class="print-only">위반건축물 해체신고 안내 · 제출서류 체크리스트 · ' + HC.ui.today() + '</p>';
+    ['A', 'B', 'C'].forEach(function (cat) {
+      var group = docs.filter(function (d) { return d.category === cat; });
+      if (!group.length) return;
+      var shown = onlyMissing ? group.filter(function (d) { return !state.done[d.id]; }) : group;
+      var info = HC.documentCategories[cat];
+      html += '<section class="doc-group" aria-labelledby="g-' + cat + '">' +
+        '<h2 class="group-head" id="g-' + cat + '"><span class="badge badge-cat">' + cat + '</span>' + e(info.label) + '</h2>' +
+        '<p class="group-desc">' + e(info.desc) + '</p>';
+      if (!shown.length) html += '<p class="empty-note">이 분류의 서류는 모두 준비하셨습니다.</p>';
+      html += shown.map(function (d) {
+        var cid = 'doc-' + d.id;
+        return '<div class="doc' + (state.done[d.id] ? ' done' : '') + '">' +
+          '<label class="doc-check" for="' + cid + '"><input type="checkbox" id="' + cid + '" data-doc="' + e(d.id) + '"' + (state.done[d.id] ? ' checked' : '') + '>' +
+          '<span class="box" aria-hidden="true"></span>' +
+          '<span><span class="doc-name">' + e(d.name) + '</span>' + HC.ui.checkBadge(d.needsCheck) +
+          '<span class="doc-why">' + e(d.why) + '</span></span></label>' +
+          (d.links ? '<div class="doc-links">' + d.links.map(function (l) {
+            return '<a class="btn btn-ghost btn-sm" href="' + e(l.url) + '"' + (l.internal ? '' : ' target="_blank" rel="noopener noreferrer"') + '>' + e(l.name) + '</a>';
+          }).join('') + '</div>' : '') +
+          '<details><summary>준비 방법 보기</summary><div class="doc-detail">' +
+          '<p><b>준비 방법</b>' + e(d.how) + '</p>' +
+          '<p><b>관련 근거</b>' + e(d.law) + '</p>' +
+          (d.privacy ? '<p class="privacy-note">' + e(d.privacy) + '</p>' : '') + '</div></details></div>';
+      }).join('');
+      html += '</section>';
+    });
+    var f = HC.forms.demolition;
+    html += '<p class="small muted" style="margin-top:16px">' + e(f.name) + '(' + e(f.no) + ')는 ' + HC.ui.link(f.url, '국가법령정보센터') +
+      '에서 내려받거나, 건축물생애이력관리시스템에서 온라인으로 작성할 수 있습니다.</p>';
+    document.getElementById('checklistGroups').innerHTML = html;
+  }
+
+  function buildText() {
+    var docs = current();
+    var lines = ['[위반건축물 해체신고 제출서류 체크리스트] ' + HC.ui.today(),
+      '내 상황: ' + document.getElementById('situationSummary').textContent, ''];
+    ['A', 'B', 'C'].forEach(function (cat) {
+      var g = docs.filter(function (d) { return d.category === cat; });
+      if (!g.length) return;
+      lines.push(cat + '. ' + HC.documentCategories[cat].label);
+      g.forEach(function (d) { lines.push((state.done[d.id] ? '[v] ' : '[ ] ') + d.name); });
+      lines.push('');
+    });
+    lines.push('문의: ' + HC.config.office.org + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone);
+    return lines.join('\n');
+  }
+
+  function applySituation(partial) {
+    Object.keys(partial || {}).forEach(function (k) {
+      if (k in state.situation && partial[k]) state.situation[k] = partial[k];
+    });
+    save();
+    syncForm();
+    render();
+  }
+
+  function init() {
+    load();
+    syncForm();
+    render();
+
+    document.getElementById('situationForm').addEventListener('change', function (ev) {
+      state.situation[ev.target.name] = ev.target.value;
+      save();
+      syncForm();
+      render();
+    });
+    document.getElementById('onlyMissing').addEventListener('change', render);
+    document.getElementById('checklistGroups').addEventListener('change', function (ev) {
+      var id = ev.target.getAttribute('data-doc');
+      if (!id) return;
+      if (ev.target.checked) state.done[id] = true; else delete state.done[id];
+      save();
+      render();
+      var again = document.getElementById('doc-' + id);
+      if (again) again.focus({ preventScroll: true });
+    });
+    document.getElementById('checkCopy').addEventListener('click', function () {
+      HC.ui.copy(buildText(), document.getElementById('checkCopyMsg'));
+    });
+    var confirmRow = document.getElementById('checkConfirm');
+    document.getElementById('checkReset').addEventListener('click', function () {
+      confirmRow.hidden = false;
+      document.getElementById('checkResetNo').focus();
+    });
+    document.getElementById('checkResetNo').addEventListener('click', function () { confirmRow.hidden = true; });
+    document.getElementById('checkResetYes').addEventListener('click', function () {
+      state.done = {};
+      save();
+      render();
+      confirmRow.hidden = true;
+      document.getElementById('checkCopyMsg').textContent = '체크를 모두 지웠습니다.';
+    });
+  }
+
+  return { init: init, render: render, applySituation: applySituation, filterDocs: filterDocs };
+})();
+
+</script>
+<script>/* js/app.js */
+/*
+ * 화면 전환(메뉴 이동)과 공통 화면 그리기
+ * 주소 끝의 #이름(예: #faq)에 따라 해당 화면만 보여 줍니다.
+ * 서버 없이 index.html 을 열어도 동작하고, 게시된 링크로도 동작합니다.
+ */
+var HC = window.HC = window.HC || {};
+
+/* ── 공통 도구 ───────────────────────────────────────────── */
+HC.ui = {
+  esc: function (s) {
+    return String(s === null || s === undefined ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  },
+  /* 검증 상태 배지는 화면에 표시하지 않습니다(2026-10-29 담당자 요청).
+     검증 상태는 legal-data.js 에 그대로 기록되며, 자동 판정에는 계속 '검증 완료' 기준만 사용합니다. */
+  statusBadge: function () { return ''; },
+  checkBadge: function () { return ''; },
+  today: function () {
+    var d = new Date();
+    var p = function (n) { return (n < 10 ? '0' : '') + n; };
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate());
+  },
+  link: function (url, text) {
+    return '<a href="' + HC.ui.esc(url) + '" target="_blank" rel="noopener noreferrer">' + HC.ui.esc(text) + '</a>';
+  },
+  /**
+   * 글자 복사. 복사가 막힌 환경이면 글상자를 펼쳐 직접 길게 눌러 복사하도록 안내합니다.
+   * 반드시 버튼을 누른 순간(click 처리 안)에서 불러야 합니다.
+   */
+  copy: function (text, msgEl) {
+    function fallback() {
+      var ta = msgEl.parentNode.querySelector('textarea.copy-fallback');
+      if (!ta) {
+        ta = document.createElement('textarea');
+        ta.className = 'copy-fallback';
+        ta.readOnly = true;
+        ta.setAttribute('aria-label', '복사할 내용');
+        msgEl.parentNode.insertBefore(ta, msgEl.nextSibling);
+      }
+      ta.value = text;
+      ta.focus();
+      ta.select();
+      msgEl.textContent = '아래 글상자를 길게 눌러 전체 선택 후 복사해 주세요.';
+    }
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () {
+          msgEl.textContent = '복사했습니다. 메모장이나 문자에 붙여 넣을 수 있습니다.';
+        }, fallback);
+      } else { fallback(); }
+    } catch (e) { fallback(); }
+  },
+  ICONS: {
+    check: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M8.5 13l2.5 2.5 4.5-5"/></svg>',
+    doc: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3.5h7l4 4v13H7z"/><path d="M14 3.5V8h4M10 12.5h5M10 16h5"/></svg>',
+    route: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="18" r="2"/><path d="M8 6h5a3 3 0 0 1 3 3v1M16 14v1a3 3 0 0 1-3 3H8"/></svg>',
+    pen: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l1-4 9.5-9.5 3 3L9 18z"/><path d="M13.5 7.5l3 3"/></svg>',
+    mask: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9c3-2 13-2 16 0v3c0 4-4 7-8 7s-8-3-8-7z"/><path d="M9 13h6"/></svg>',
+    won: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l3.5 11L12 8l4.5 10L20 7"/><path d="M3.5 11h17M3.5 14h17"/></svg>',
+    help: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.5a2.5 2.5 0 1 1 3.6 2.3c-.8.4-1.2.9-1.2 1.7v.5"/><path d="M12 16.8v.2"/></svg>',
+    phone: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4h3l1.5 4-2 1.5a10 10 0 0 0 5.5 5.5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A15 15 0 0 1 4.5 6a2 2 0 0 1 2-2z"/></svg>',
+    chev: '<svg class="row-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>'
+  }
+};
+
+/* ── 처음 화면 ───────────────────────────────────────────── */
+HC.homeMenu = [
+  { href: '#diagnosis', icon: 'check', title: '해체신고·허가 대상 자가진단', desc: '질문에 답하면 확인할 사항을 정리' },
+  { href: '#checklist', icon: 'doc', title: '제출서류 체크리스트', desc: '내 상황에 맞는 서류만 골라 보기' },
+  { href: '#procedure', icon: 'route', title: '신청 절차 13단계', desc: '대상 확인부터 위반사항 해소까지' },
+  { href: '#architect', icon: 'pen', title: '건축사 상담 준비', desc: '해체계획서 의뢰 전 알아둘 점', upcoming: true },
+  { href: '#asbestos', icon: 'mask', title: '석면조사 안내', desc: '조사 대상과 주의사항', upcoming: true },
+  { href: '#estimate', icon: 'won', title: '철거공사 견적 준비', desc: '견적서에서 확인할 항목', upcoming: true },
+  { href: '#faq', icon: 'help', title: '자주 묻는 질문', desc: '민원인이 많이 묻는 15가지' },
+  { href: '#contact', icon: 'phone', title: '담당부서 문의', desc: '진건읍 도시건축과 건축팀' }
+];
+
+function rowLink(m) {
+  var e = HC.ui.esc;
+  return '<li><a href="' + m.href + '"><span class="row-ico">' + HC.ui.ICONS[m.icon] + '</span>' +
+    '<span class="row-text"><strong>' + e(m.title) + '</strong><span>' + e(m.desc) + '</span>' +
+    (m.upcoming ? '<em>기본 안내만 제공 · 상세 기능 준비 중</em>' : '') + '</span>' + HC.ui.ICONS.chev + '</a></li>';
+}
+
+function renderHome() {
+  var e = HC.ui.esc, c = HC.config;
+  document.getElementById('homeMenu').innerHTML = HC.homeMenu.map(rowLink).join('');
+  document.getElementById('homeFacts').innerHTML =
+    fact('처리기간', c.application.period, '보완 기간 제외') +
+    fact('행정 수수료', c.application.fee, '전문가·업체 비용은 별도');
+  document.getElementById('homeContact').innerHTML =
+    '<div class="note"><strong>궁금한 점은 담당부서에 물어보세요</strong>' +
+    '<p>' + e(c.office.org + ' ' + c.office.dept) + ' · <b>' + e(c.office.phone) + '</b></p></div>';
+}
+function fact(k, v, n) {
+  var e = HC.ui.esc;
+  return '<div class="fact"><span class="k">' + e(k) + '</span><span class="v">' + e(v) + '</span><span class="n">' + e(n) + '</span></div>';
+}
+
+/* ── 절차 안내 ───────────────────────────────────────────── */
+function renderProcedure() {
+  var e = HC.ui.esc, c = HC.config;
+  var blcm = c.links.filter(function (l) { return l.id === 'blcm'; })[0];
+  document.getElementById('applyInfo').innerHTML =
+    '<div class="panel panel-plain"><h2 class="list-title">신청하는 곳</h2><dl class="kv">' +
+    '<dt>온라인</dt><dd>' + HC.ui.link(blcm.url, blcm.name) + '</dd>' +
+    '<dt>방문</dt><dd>' + e(c.office.org + ' ' + c.office.dept) + ' (' + e(c.office.location) + ')</dd>' +
+    '<dt>처리기간</dt><dd>' + e(c.application.period) + ' ' + HC.ui.statusBadge(HC.legalData['ADMIN-PERIOD'].status) + '</dd>' +
+    '<dt>수수료</dt><dd>행정 수수료 ' + e(c.application.fee) + ' ' + HC.ui.statusBadge(HC.legalData['ADMIN-FEE'].status) + '</dd>' +
+    '<dt>신청 서식</dt><dd>' + HC.ui.link(HC.forms.demolition.url, HC.forms.demolition.name + ' [' + HC.forms.demolition.no + ']') + '</dd>' +
+    '</dl></div>';
+
+  document.getElementById('procedureList').innerHTML = HC.procedures.map(function (s) {
+    var prep = s.prepare.length
+      ? '<ul>' + s.prepare.map(function (p) { return '<li>' + e(p) + '</li>'; }).join('') + '</ul>'
+      : '<span>없음</span>';
+    return '<li class="' + s.kind + '"><span class="tl-no" aria-hidden="true">' + s.no + '</span>' +
+      '<details class="tl-card"><summary><span class="tl-title"><span class="sr-only">' + s.no + '단계. </span>' + e(s.title) + '</span>' +
+      '<span class="tl-meta"><span class="who">' + (s.kind === 'office' ? '행정기관이 하는 일' : '내가 하는 일') + '</span>' + HC.ui.checkBadge(s.needsCheck) + '</span></summary>' +
+      '<div class="tl-body">' +
+      '<div><b>무엇을 하나요?</b>' + e(s.what) + '</div>' +
+      '<div><b>왜 필요한가요?</b>' + e(s.why) + '</div>' +
+      '<div><b>어디서 도움을 받나요?</b>' + e(s.help) + '</div>' +
+      '<div><b>무엇을 준비하나요?</b>' + prep + '</div>' +
+      '<div><b>비용은?</b>' + e(s.cost) + '</div>' +
+      (s.finders ? '<div><b>' + e(s.finders.title) + '</b>' + finderList(s.finders.key) + '</div>' : '') +
+      (s.forms ? '<div><b>관련 서식</b>' + s.forms.map(function (k) { return formLink(HC.forms[k]); }).join('') +
+        (s.formNote ? '<span class="muted">' + e(s.formNote) + '</span>' : '') + '</div>' : '') +
+      (s.next ? '<div><b>다음 단계</b>' + e(s.next) + '</div>' : '') +
+      '</div></details></li>';
+  }).join('');
+
+  document.getElementById('officeFlow').innerHTML = HC.officeFlow.map(function (f) { return '<li>' + e(f) + '</li>'; }).join('');
+}
+
+/** 서식 바로가기 한 줄: 서식명·번호·근거 + 국가법령정보센터 링크 */
+function formLink(f) {
+  var e = HC.ui.esc;
+  return '<a class="form-link" href="' + e(f.url) + '" target="_blank" rel="noopener noreferrer">' +
+    '<span><strong>' + e(f.name) + '</strong><span>' + e(f.no) + ' · ' + e(f.basis) + ' · 국가법령정보센터 044-200-6788</span></span>' + HC.ui.ICONS.chev + '</a>';
+}
+
+/** 공식 경로 목록(전문가·업체·조사기관). 경로 안내(steps)가 있으면 순서대로 표시 */
+var FINDER_INTRO = {
+  expertFinders: '아래 공식 경로에서 찾을 수 있습니다. 행정기관은 특정 전문가를 추천하지 않으며, 비용과 작업 범위는 여러 곳에 상담해 비교해 보세요.',
+  contractorFinders: '아래 공식 경로에서 등록 여부를 확인할 수 있습니다. 행정기관은 특정 업체를 추천하거나 보증하지 않습니다.',
+  asbestosFinders: '아래 공식 경로에서 찾을 수 있습니다. 행정기관은 특정 기관을 추천하지 않습니다.',
+  planForms: '국토안전관리원이 배포한 표준서식입니다. 신고 대상은 직접 작성한 해체계획서도 건축사 또는 해당 기술사의 검토·서명날인을 받아야 하고, 허가 대상은 건축사 또는 해당 기술사가 작성해야 합니다(건축물관리법 제30조제4항·제5항).'
+};
+function finderList(key) {
+  var e = HC.ui.esc;
+  key = key || 'expertFinders';
+  return (FINDER_INTRO[key] ? '<p>' + e(FINDER_INTRO[key]) + '</p>' : '') +
+    HC.config[key].map(finderItem).join('');
+}
+/** 안내처 한 곳: 바로가기 + 화면에서 고를 항목(예시) + 순서 안내 + 근거 + 공식 문의 전화 */
+function finderItem(f) {
+  var e = HC.ui.esc;
+  return '<div class="finder"><a class="form-link" href="' + e(f.url) + '" target="_blank" rel="noopener noreferrer"><span><strong>' + e(f.name) + '</strong>' +
+    '<span>' + e(f.desc) + '</span></span>' + HC.ui.ICONS.chev + '</a>' +
+    (f.picks ? '<div class="picks" aria-label="화면에서 이렇게 입력하세요"><span class="picks-title">화면에서 이렇게 ' + (f.picks.some(function (p) { return p[2] === 'input'; }) ? '고르고 입력하세요' : '고르세요') + '</span>' +
+      f.picks.map(function (p) {
+        return p[2] === 'input'
+          ? '<span class="pick pick-input"><span class="pick-k">' + e(p[0]) + '</span><span class="pick-v">' + e(p[1]) + '<span class="caret" aria-hidden="true"></span></span><span class="pick-note">직접 입력</span></span>'
+          : '<span class="pick"><span class="pick-k">' + e(p[0]) + '</span><span class="pick-v">' + e(p[1]) + ' ▾</span></span>';
+      }).join('') +
+      '<span class="pick pick-btn">검색</span></div>' : '') +
+    (f.steps ? '<ol class="finder-steps">' + f.steps.map(function (st) { return '<li>' + e(st) + '</li>'; }).join('') + '</ol>' : '') +
+    (f.basis ? '<p class="finder-basis">' + e(f.basis) + '</p>' : '') +
+    (f.phone ? '<p class="finder-tel">문의: ' + e(f.phoneLabel) + ' <b>' + e(f.phone) + '</b></p>' : '') +
+    '</div>';
+}
+
+/* ── 자주 묻는 질문 ──────────────────────────────────────── */
+function renderFaq(keyword) {
+  var e = HC.ui.esc;
+  var kw = (keyword || '').replace(/[\s,]+/g, '').toLowerCase();
+  var list = HC.faq.filter(function (f) {
+    if (!kw) return true;
+    return (f.q + f.short + f.detail).replace(/[\s,]+/g, '').toLowerCase().indexOf(kw) !== -1;
+  });
+  document.getElementById('faqCount').textContent = kw ? '검색 결과 ' + list.length + '건' : '전체 ' + list.length + '건';
+  document.getElementById('faqList').innerHTML = list.length ? list.map(function (f) {
+    return '<details class="acc"><summary><span>' + e(f.q) + HC.ui.checkBadge(f.needsCheck) + '</span></summary>' +
+      '<div class="acc-body"><p class="acc-short">' + e(f.short) + '</p><p>' + e(f.detail) + '</p>' +
+      (f.links.length ? '<ul class="acc-links">' + f.links.map(function (l) { return '<li>' + HC.ui.link(l.url, l.name) + '</li>'; }).join('') + '</ul>' : '') +
+      '</div></details>';
+  }).join('') : '<p class="empty-note">검색 결과가 없습니다. 다른 낱말로 찾아보시거나 담당부서에 물어보세요.</p>';
+}
+
+/* ── 담당부서 문의 ───────────────────────────────────────── */
+function renderContact() {
+  var e = HC.ui.esc, c = HC.config, o = c.office;
+  document.getElementById('contactBody').innerHTML =
+    '<div class="call-card">' +
+    '<p class="dept">' + e(o.org) + ' ' + e(o.dept) + '</p>' +
+    '<p class="tel-num" id="telNum">' + e(o.phone) + '</p>' +
+    '<div class="call-btns">' +
+    '<a class="btn btn-primary" href="tel:' + e(o.phone.replace(/-/g, '')) + '">전화 걸기</a>' +
+    '<button type="button" class="btn btn-ghost" id="telCopy">번호 복사</button>' +
+    '</div>' +
+    '<p class="copy-msg" id="telCopyMsg" role="status"></p>' +
+    '<p class="small muted">전화 걸기가 되지 않으면 번호를 복사해 전화 앱에 붙여 넣으세요.</p>' +
+    '<dl class="kv"><dt>위치</dt><dd>' + e(o.location) + '</dd>' +
+    (o.hours ? '<dt>응대 시간</dt><dd>' + e(o.hours) + '</dd>' : '') + '</dl>' +
+    '</div>' +
+    '<div class="note"><strong>전화 전에 준비하면 좋아요</strong><p>건물 위치(읍·리), 건축물대장 유무, 철거하려는 부분, 받은 시정명령서가 있는지 알려 주시면 더 빨리 안내받을 수 있습니다.</p></div>' +
+    '<div class="note note-warn"><strong>관할 확인</strong><p>진건읍 외 지역의 건물은 해당 읍·면·동 또는 시청 담당부서에 문의하세요.</p></div>' +
+    (c.deptContacts.length ? '<div><h2 class="list-title">관할별 해체신고 담당부서</h2><ul class="link-list dept-list">' + c.deptContacts.map(function (d) {
+      return '<li><div class="dept-row"><span><strong>' + e(d.area) + '</strong><span>' + e(d.dept) + (d.duty ? ' · ' + e(d.duty) : '') + '</span></span><b class="dept-tel">' + e(d.phone) + '</b></div></li>';
+    }).join('') + '</ul></div>' : '') +
+    '<div><h2 class="list-title">해체 관련 공식 상담 창구</h2>' + c.helpChannels.map(finderItem).join('') + '</div>' +
+    '<div><h2 class="list-title">공식 누리집</h2><ul class="link-list">' + c.links.map(function (l) {
+      return '<li><a href="' + e(l.url) + '" target="_blank" rel="noopener noreferrer"><span><strong>' + e(l.name) + '</strong><span>' + e(l.desc) +
+        (l.phone ? ' · 문의 ' + e(l.phone) : '') + '</span></span>' + HC.ui.ICONS.chev + '</a></li>';
+    }).join('') + '</ul></div>';
+
+  document.getElementById('telCopy').addEventListener('click', function () {
+    HC.ui.copy(o.phone, document.getElementById('telCopyMsg'));
+  });
+}
+
+/* ── 3단계 예정 메뉴(기본 안내만 제공) ───────────────────── */
+HC.upcoming = {
+  architect: {
+    title: '건축사 상담 준비',
+    body: [
+      ['해체계획서가 왜 필요한가요?', '해체계획서는 어떤 순서와 방법으로 안전하게 철거할지 정리한 계획서입니다. 법령에서 정한 자격을 갖춘 건축사·기술사가 작성하거나 검토합니다.'],
+      ['누구에게 맡겨야 하나요?', '허가 대상은 건축사사무소를 개설신고한 건축사 또는 기술사사무소를 개설등록한 기술사(건축구조 등 정해진 직무범위를 등록한 경우)가 해체계획서를 작성하고, 신고 대상은 이들이 해체계획서를 검토해 서명날인해야 합니다(건축물관리법 제30조제4항·제5항). 기술사의 직무범위는 의뢰 전에 해당 사무소에 확인하세요.'],
+      ['어디서 찾나요?', 'LIST:expertFinders'],
+      ['해체계획서를 직접 작성하려면(표준서식)', 'LIST:planForms'],
+      ['상담 전 준비할 것', '건물 위치, 규모(연면적·높이·층수), 구조, 철거할 부분, 위반사항 내용, 건축물대장 유무, 현장사진, 주변 도로·시설 현황'],
+      ['비용은 얼마인가요?', '해체계획서 작성·검토 비용은 법령이나 국토교통부 고시로 정한 공식 금액이 없습니다. 건물 규모, 구조, 해체 범위, 현장 조사 필요 여부에 따라 달라지므로 2곳 이상에 같은 자료를 보여 주고 견적과 작업 범위를 비교해 보세요. 이 비용은 행정 수수료가 아닙니다.']
+    ],
+    links: []
+  },
+  asbestos: {
+    title: '석면조사 안내',
+    body: [
+      ['석면조사는 누가, 언제 하나요?', [
+        { p: '건축물이나 설비를 철거·해체하려는 소유주 등은 공사 규모와 관계없이 철거 전에 석면조사를 해야 합니다(산업안전보건법 제119조).' },
+        { ul: ['기관석면조사: 규모가 아래 기준 이상이면 고용노동부 지정 석면조사기관에 맡겨 조사합니다.', '일반석면조사: 기준보다 작으면 소유주가 설계도서·자재 이력·육안 확인 등으로 직접 조사합니다.'] }
+      ]],
+      ['석면조사기관에 맡겨야 하는 경우(기관석면조사 대상)', [
+        { p: '아래 중 하나에 해당하면 기관석면조사 대상입니다(산업안전보건법 시행령 제89조제1항, 시행 2026. 8. 1.).' },
+        { ul: ['주택이 아닌 건축물: 연면적 합계 50㎡ 이상이고, 철거·해체할 부분의 면적 합계도 50㎡ 이상', '주택(부속건축물 포함): 연면적 합계 200㎡ 이상이고, 철거·해체할 부분의 면적 합계도 200㎡ 이상', '설비: 철거·해체할 부분의 단열재·보온재·분무재·내화피복재·개스킷·패킹재·실링재 등 면적 합 15㎡ 이상 또는 부피 합 1㎥ 이상', '파이프: 길이 합 80m 이상이고, 철거·해체할 부분의 보온재 사용 길이 합도 80m 이상'] },
+        { p: '예) 연면적 150㎡ 단독주택 전체 철거 → 주택 기준(200㎡)에 못 미쳐 기관석면조사 대상이 아니며, 일반석면조사를 직접 합니다.' }
+      ]],
+      ['석면조사기관에 맡기지 않아도 되는 경우', [
+        { h: '① 위 기준보다 작은 경우' },
+        { p: '기관석면조사는 하지 않아도 됩니다. 다만 일반석면조사는 직접 해야 하며, 조사 결과는 철거가 끝날 때까지 보관하세요.' },
+        { h: '② 기관석면조사 대상이지만 "석면조사의 생략 등 확인"을 받은 경우' },
+        { p: '아래에 해당하면 관할 지방고용노동관서에 확인을 신청할 수 있습니다(시행령 제89조제2항, 시행규칙 제175조).' },
+        { ul: ['설계도서·자재 이력 등으로 석면이 없는 것이 명백한 경우: 설계도서 사본, 건축자재 목록·사진·성분분석표(자재 생산회사 발급), 건축물 안팎 사진을 첨부', '2017. 7. 1. 이후 건축법에 따라 착공신고한 신축 건축물: 건축물대장 사본을 내면 확인 통지를 받은 것으로 봅니다.', '석면이 1%(무게 기준)를 넘게 들어간 자재를 쓴 것이 명백한 경우: 공사계약서 사본(자체 공사는 공사계획서) 첨부. 이 경우 조사 대신 석면해체·제거업자를 통해 제거해야 합니다.'] },
+        { h: '③ 석면안전관리법에 따른 건축물석면조사를 이미 한 경우' },
+        { p: '신청서에 그 사실을 표시하고 조사 결과서를 첨부합니다. 그 결과를 이미 관계 행정기관에 제출했다면 신청서를 내지 않아도 됩니다.' },
+        { h: '신청 방법' },
+        { ul: ['신청서: 석면조사의 생략 등 확인신청서(산업안전보건법 시행규칙 별지 제74호서식)', '제출처: 관할 지방고용노동관서(노동포털 온라인 신청 가능)', '처리: 접수일부터 20일 이내에 결과 통지. 결과를 받은 뒤 철거를 진행하는 것이 안전합니다.'] },
+        { links: [{ name: '노동포털에서 온라인 신청(석면조사의 생략 등 확인신청)', url: 'https://labor.moel.go.kr/minwonApply/minwonFormat.do?searchVal=SN104&searchGubun=1&searchRlm=2' }, { name: '신청서 서식 보기(국가법령정보센터, 별지 제74호서식)', url: 'https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BF&lsNm=' + encodeURIComponent('산업안전보건법 시행규칙') + '&bylNo=0074&bylBrNo=00' }] },
+        { tel: '문의: 고용노동부 고객상담센터 1350(국번없이, 유료)' }
+      ]],
+      ['석면조사기관은 어디서 찾나요?', 'LIST:asbestosFinders'],
+      ['주의하세요', '석면이 의심되는 자재(슬레이트 지붕, 오래된 천장재 등)를 직접 뜯어내지 마세요. 조사 의무와 제거 작업 의무는 서로 다르며, 석면이 있으면 고용노동부에 등록된 석면해체·제거업자가 법령에 따른 방법으로 제거해야 합니다.']
+    ],
+    links: [{ name: '국가법령정보센터 – 산업안전보건법', url: 'https://www.law.go.kr/법령/산업안전보건법' }]
+  },
+  estimate: {
+    title: '철거공사 견적 준비',
+    body: [
+      ['누구에게 맡겨야 하나요?', '공사 금액과 종류에 따라 건설업 등록 업체가 시공해야 할 수 있습니다. 1,500만 원 미만이라는 이유만으로 누구나 직접 철거할 수 있다고 판단하지 마세요.'],
+      ['견적서에서 확인할 항목', '철거공사비, 장비비, 폐기물 처리비, 운반비, 안전시설 설치비, 부가가치세, 공사 범위, 업체 자격, 계약조건'],
+      ['업체 자격 확인', 'LIST:contractorFinders']
+    ],
+    links: []
+  }
+};
+
+/** 안내 본문 블록: {p} 문단, {h} 소제목, {ul} 목록, {links} 바로가기, {tel} 문의 */
+function richBlocks(blocks) {
+  var e = HC.ui.esc;
+  return blocks.map(function (b) {
+    if (b.p) return '<p>' + e(b.p) + '</p>';
+    if (b.h) return '<p class="rich-h">' + e(b.h) + '</p>';
+    if (b.ul) return '<ul class="rich-ul">' + b.ul.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>';
+    if (b.links) return b.links.map(function (l) {
+      return '<a class="form-link" href="' + e(l.url) + '" target="_blank" rel="noopener noreferrer"><span><strong>' + e(l.name) + '</strong></span>' + HC.ui.ICONS.chev + '</a>';
+    }).join('');
+    if (b.tel) return '<p class="finder-tel">' + e(b.tel) + '</p>';
+    return '';
+  }).join('');
+}
+
+function renderUpcoming(key) {
+  var e = HC.ui.esc, u = HC.upcoming[key];
+  document.getElementById('h-upcoming').textContent = u.title;
+  document.getElementById('upcomingBody').innerHTML =
+    '<div class="note"><strong>기본 안내</strong><p>상담 요청문·견적요청서 자동 작성 등 상세 기능은 준비 중입니다.</p></div>' +
+    '<div class="acc-list">' + u.body.map(function (b, i) {
+      var inner = Array.isArray(b[1]) ? richBlocks(b[1])
+        : (b[1].indexOf('LIST:') === 0 ? finderList(b[1].slice(5)) : '<p>' + e(b[1]) + '</p>');
+      return '<details class="acc"' + (i === 0 ? ' open' : '') + '><summary><span>' + e(b[0]) + '</span></summary><div class="acc-body">' + inner + '</div></details>';
+    }).join('') + '</div>' +
+    (u.links.length ? '<p class="small">' + u.links.map(function (l) { return HC.ui.link(l.url, l.name); }).join(' · ') + '</p>' : '') +
+    '<a class="btn btn-primary btn-block" href="#procedure">전체 절차 보기</a>';
+}
+
+/* ── 바닥글 ──────────────────────────────────────────────── */
+function renderFooter() {
+  var e = HC.ui.esc, c = HC.config, o = c.office;
+  document.getElementById('siteFooter').innerHTML =
+    '<div class="wrap">' +
+    '<p class="disclaimer">' +
+    (c.officialApproved ? '' : '<strong>정식 운영 전 시범운영 중인 남양주시 위반건축물 해체신고 안내 페이지입니다.</strong> ') +
+    '이 화면은 민원인을 위한 사전 안내이며 행정기관의 공식 판단을 대신하지 않습니다. 실제 신고 수리·허가는 관할 행정기관이 결정하므로, 신청 전에 담당부서에 꼭 문의하세요. 입력한 정보는 외부로 전송되지 않습니다.</p>' +
+    '<details><summary>기관 정보 · 관련 법령</summary><dl>' +
+    '<dt>관할 기관</dt><dd>' + e(o.org) + ' ' + e(o.dept) + '</dd>' +
+    '<dt>연락처</dt><dd>' + e(o.phone) + '</dd>' +
+    '<dt>관련 법령</dt><dd>' + HC.ui.link('https://www.law.go.kr/법령/건축물관리법', '건축물관리법') + ', ' +
+    HC.ui.link('https://www.law.go.kr/법령/건설산업기본법', '건설산업기본법') + ', ' +
+    HC.ui.link('https://www.law.go.kr/법령/산업안전보건법', '산업안전보건법') + '</dd>' +
+    '<dt>공식 신청</dt><dd>' + HC.ui.link('https://www.blcm.go.kr', '건축물생애이력관리시스템') + '</dd>' +
+    '<dt>안내 기준일</dt><dd>' + e(HC.LEGAL_BASE_DATE) + '</dd>' +
+    '</dl></details>' +
+    '<p>' + e(c.officialApproved ? c.copyrightOfficial : c.copyrightPrototype) + '</p>' +
+    '</div>';
+  document.getElementById('protoChip').hidden = !!c.officialApproved;
+}
+
+/* ── 화면 전환 ───────────────────────────────────────────── */
+HC.router = (function () {
+  var routes = ['home', 'diagnosis', 'procedure', 'checklist', 'faq', 'contact'];
+  var upcomingKeys = ['architect', 'asbestos', 'estimate'];
+  var titles = { home: '경기도 남양주시', diagnosis: '자가진단', procedure: '신청 절차', checklist: '제출서류', faq: '자주 묻는 질문', contact: '담당부서 문의' };
+  var first = true;
+
+  function show() {
+    var key = (location.hash || '#home').slice(1);
+    var view = key;
+    if (upcomingKeys.indexOf(key) !== -1) { view = 'upcoming'; renderUpcoming(key); }
+    else if (routes.indexOf(key) === -1) { key = view = 'home'; }
+
+    var views = document.querySelectorAll('.view');
+    for (var i = 0; i < views.length; i++) views[i].hidden = views[i].getAttribute('data-view') !== view;
+
+    var tabs = document.querySelectorAll('.tabbar a');
+    for (var j = 0; j < tabs.length; j++) {
+      if (tabs[j].getAttribute('data-tab') === key) tabs[j].setAttribute('aria-current', 'page');
+      else tabs[j].removeAttribute('aria-current');
+    }
+    var name = titles[key] || (HC.upcoming[key] && HC.upcoming[key].title) || '';
+    document.getElementById('topbarSub').textContent = name;
+    document.getElementById('backBtn').hidden = key === 'home';
+    document.title = (key === 'home' ? '' : name + ' – ') + '남양주시 위반건축물 해체신고 안내';
+
+    window.scrollTo(0, 0);
+    if (!first) {
+      var h = document.getElementById('h-' + view);
+      if (h) h.focus({ preventScroll: true });
+    }
+    first = false;
+  }
+  return { show: show };
+})();
+
+/* ── 시작 ────────────────────────────────────────────────── */
+document.documentElement.lang = 'ko'; // 게시본에서도 한국어 문서로 인식
+document.addEventListener('DOMContentLoaded', function () {
+  renderHome();
+  renderProcedure();
+  renderFaq('');
+  renderContact();
+  renderFooter();
+  HC.diagnosis.init();
+  HC.checklist.init();
+
+  document.getElementById('faqSearch').addEventListener('input', function (ev) { renderFaq(ev.target.value); });
+  window.addEventListener('hashchange', HC.router.show);
+  HC.router.show();
+});
+
+</script>
+</body>
+</html>
