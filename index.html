@@ -2240,7 +2240,7 @@ function renderProcedure() {
   document.getElementById('applyInfo').innerHTML =
     '<div class="panel panel-plain"><h2 class="list-title">신청하는 곳</h2><dl class="kv">' +
     '<dt>온라인</dt><dd>' + HC.ui.link(blcm.url, blcm.name) + '</dd>' +
-    '<dt>방문</dt><dd>' + e(c.office.org + ' ' + c.office.dept) + ' (' + e(c.office.location) + ')</dd>' +
+    '<dt>방문</dt><dd>' + e(c.office.org.replace(/^남양주시\s*/, '') + ' ' + c.office.dept) + ' (' + e(c.office.location) + ')</dd>' +
     '<dt>처리기간</dt><dd>' + e(c.application.period) + ' ' + HC.ui.statusBadge(HC.legalData['ADMIN-PERIOD'].status) + '</dd>' +
     '<dt>수수료</dt><dd>행정 수수료 ' + e(c.application.fee) + ' ' + HC.ui.statusBadge(HC.legalData['ADMIN-FEE'].status) + '</dd>' +
     '<dt>신청 서식</dt><dd>' + HC.ui.link(HC.forms.demolition.url, HC.forms.demolition.name + ' [' + HC.forms.demolition.no + ']') + '</dd>' +
