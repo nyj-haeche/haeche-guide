@@ -2226,7 +2226,7 @@ function renderHome() {
     fact('행정 수수료', c.application.fee, '전문가·업체 비용은 별도');
   document.getElementById('homeContact').innerHTML =
     '<div class="note"><strong>궁금한 점은 담당부서에 물어보세요</strong>' +
-    '<p>' + e(c.office.org + ' ' + c.office.dept) + ' · <b>' + e(c.office.phone) + '</b></p></div>';
+    '<p>' + e(c.office.org.replace(/^남양주시\s*/, '') + ' ' + c.office.dept) + ' · <b>' + e(c.office.phone) + '</b></p></div>';
 }
 function fact(k, v, n) {
   var e = HC.ui.esc;
