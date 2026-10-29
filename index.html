@@ -110,13 +110,21 @@ a { color: var(--accent); }
 /* ── 상단 제목줄 ── */
 .topbar {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
-  background: var(--navy); color: var(--navy-ink);
+  background: var(--surface); color: var(--ink);
+  border-bottom: 1px solid var(--line);
 }
+.topbar::after { /* 로고 색(청·녹)을 딴 얇은 띠 */
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px;
+  background: linear-gradient(90deg, #003a8f 0 50%, #1fa64a 50% 100%);
+}
+.topbar-logo { width: 60px; height: auto; flex: none; border-radius: 4px; }
+.topbar-text { display: flex; flex-direction: column; min-width: 0; }
+.topbar-div { display: inline-block; width: 1px; height: .9em; background: var(--line); margin: 0 8px; vertical-align: -1px; }
 .topbar-inner { display: flex; align-items: center; gap: 8px; min-height: 56px; }
-.topbar-title { display: flex; flex-direction: column; color: var(--navy-ink); text-decoration: none; line-height: 1.25; min-width: 0; flex: 1; padding-block: 6px; }
+.topbar-title { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; line-height: 1.25; min-width: 0; flex: 1; padding-block: 6px; }
 .topbar-name { font-weight: 700; font-size: var(--fs-md); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.topbar-sub { font-size: var(--fs-xs); color: var(--navy-soft); }
-.back-btn { display: grid; place-items: center; width: 44px; height: 44px; margin-left: -10px; border-radius: 50%; color: var(--navy-ink); flex: none; }
+.topbar-sub { font-size: var(--fs-xs); color: var(--muted); }
+.back-btn { display: grid; place-items: center; width: 44px; height: 44px; margin-left: -10px; border-radius: 50%; color: var(--ink); flex: none; }
 .back-btn svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .proto-chip { font-size: var(--fs-xs); font-weight: 600; color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 999px; padding: 1px 10px; flex: none; }
 
@@ -439,7 +447,7 @@ details.sec .sec-body { padding-top: 0; }
 .pick-input .caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--accent); }
 .pick-note { padding: 4px 8px; font-size: var(--fs-xs); color: var(--accent); font-weight: 600; }
 /* 남양주시 강조 */
-.topbar-name .city { font-weight: 700; color: var(--warn-line); }
+.topbar-name .city { font-weight: 800; color: #003a8f; letter-spacing: -.01em; }
 .city-badge { display: inline-block; margin-bottom: 10px; padding: 3px 12px; border-radius: 999px; background: var(--band-line); color: var(--navy-ink); font-size: var(--fs-sm); font-weight: 600; }
 .dept-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 16px; }
 .dept-row strong { display: block; font-weight: 600; }
@@ -447,6 +455,14 @@ details.sec .sec-body { padding-top: 0; }
 .dept-tel { font-variant-numeric: tabular-nums; user-select: all; }
 .rich-h { font-weight: 700; color: var(--ink); margin-top: 6px; }
 .rich-ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
+
+/* 어두운 화면: 로고를 흰 바탕 위에 두어 원래 색을 유지 */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .topbar-logo { background: #fff; padding: 3px 5px; width: 66px; }
+  :root:not([data-theme="light"]) .topbar-name .city { color: #8fb4ff; }
+}
+:root[data-theme="dark"] .topbar-logo { background: #fff; padding: 3px 5px; width: 66px; }
+:root[data-theme="dark"] .topbar-name .city { color: #8fb4ff; }
 
 </style>
 <style>
@@ -473,8 +489,11 @@ details > *:not(summary) { display: block !important; }
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
     </a>
     <a class="topbar-title" href="#home">
-      <span class="topbar-name"><b class="city">남양주시</b> 해체신고 안내</span>
-      <span class="topbar-sub" id="topbarSub">경기도 남양주시</span>
+      <img class="topbar-logo" src="data:image/png;base64,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" alt="" width="50" height="16">
+      <span class="topbar-text">
+        <span class="topbar-name"><b class="city">남양주시</b><span class="topbar-div" aria-hidden="true"></span>해체신고 안내</span>
+        <span class="topbar-sub" id="topbarSub">진건읍 도시건축과 건축팀</span>
+      </span>
     </a>
     <span class="proto-chip" id="protoChip" title="정식 운영 전 시범운영 중입니다">시범운영</span>
   </div>
@@ -486,9 +505,8 @@ details > *:not(summary) { display: block !important; }
   <section class="view" data-view="home" aria-labelledby="h-home">
     <div class="home-band">
       <div class="wrap">
-        <p class="city-badge">경기도 남양주시 안내 페이지</p>
-        <p class="eyebrow">남양주시 위반건축물 해체신고 민원 안내</p>
-        <h1 id="h-home" tabindex="-1">남양주시 위반건축물<br>해체신고, 이제 쉽게 준비하세요.</h1>
+        <p class="eyebrow">건축물 해체 민원 사전 안내</p>
+        <h1 id="h-home" tabindex="-1">위반건축물 해체신고,<br>이제 쉽게 준비하세요.</h1>
         <p class="home-lead">해체신고 대상 확인부터 전문가 상담, 석면조사, 철거공사 견적과 제출서류 준비까지 단계별로 안내해 드립니다.</p>
         <a class="btn btn-primary btn-block btn-xl" href="#diagnosis">내 해체신고 대상 확인하기</a>
         <a class="btn btn-onband btn-block" href="#procedure">해체신고 준비 시작하기</a>
@@ -2186,7 +2204,7 @@ function rowLink(m) {
   var e = HC.ui.esc;
   return '<li><a href="' + m.href + '"><span class="row-ico">' + HC.ui.ICONS[m.icon] + '</span>' +
     '<span class="row-text"><strong>' + e(m.title) + '</strong><span>' + e(m.desc) + '</span>' +
-    (m.upcoming ? '<em>기본 안내만 제공 · 상세 기능 준비 중</em>' : '') + '</span>' + HC.ui.ICONS.chev + '</a></li>';
+    '</span>' + HC.ui.ICONS.chev + '</a></li>';
 }
 
 function renderHome() {
@@ -2327,7 +2345,7 @@ function renderContact() {
   });
 }
 
-/* ── 3단계 예정 메뉴(기본 안내만 제공) ───────────────────── */
+/* ── 전문가·석면·견적 안내 메뉴 ───────────────────── */
 HC.upcoming = {
   architect: {
     title: '건축사 상담 준비',
@@ -2401,7 +2419,6 @@ function renderUpcoming(key) {
   var e = HC.ui.esc, u = HC.upcoming[key];
   document.getElementById('h-upcoming').textContent = u.title;
   document.getElementById('upcomingBody').innerHTML =
-    '<div class="note"><strong>기본 안내</strong><p>상담 요청문·견적요청서 자동 작성 등 상세 기능은 준비 중입니다.</p></div>' +
     '<div class="acc-list">' + u.body.map(function (b, i) {
       var inner = Array.isArray(b[1]) ? richBlocks(b[1])
         : (b[1].indexOf('LIST:') === 0 ? finderList(b[1].slice(5)) : '<p>' + e(b[1]) + '</p>');
@@ -2417,7 +2434,7 @@ function renderFooter() {
   document.getElementById('siteFooter').innerHTML =
     '<div class="wrap">' +
     '<p class="disclaimer">' +
-    (c.officialApproved ? '' : '<strong>정식 운영 전 시범운영 중인 남양주시 위반건축물 해체신고 안내 페이지입니다.</strong> ') +
+    (c.officialApproved ? '' : '<strong>정식 운영 전 시범운영 중인 안내 페이지입니다.</strong> ') +
     '이 화면은 민원인을 위한 사전 안내이며 행정기관의 공식 판단을 대신하지 않습니다. 실제 신고 수리·허가는 관할 행정기관이 결정하므로, 신청 전에 담당부서에 꼭 문의하세요. 입력한 정보는 외부로 전송되지 않습니다.</p>' +
     '<details><summary>기관 정보 · 관련 법령</summary><dl>' +
     '<dt>관할 기관</dt><dd>' + e(o.org) + ' ' + e(o.dept) + '</dd>' +
@@ -2437,7 +2454,7 @@ function renderFooter() {
 HC.router = (function () {
   var routes = ['home', 'diagnosis', 'procedure', 'checklist', 'faq', 'contact'];
   var upcomingKeys = ['architect', 'asbestos', 'estimate'];
-  var titles = { home: '경기도 남양주시', diagnosis: '자가진단', procedure: '신청 절차', checklist: '제출서류', faq: '자주 묻는 질문', contact: '담당부서 문의' };
+  var titles = { home: '진건읍 도시건축과 건축팀', diagnosis: '자가진단', procedure: '신청 절차', checklist: '제출서류', faq: '자주 묻는 질문', contact: '담당부서 문의' };
   var first = true;
 
   function show() {
