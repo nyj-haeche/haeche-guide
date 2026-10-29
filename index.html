@@ -464,6 +464,17 @@ details.sec .sec-body { padding-top: 0; }
 :root[data-theme="dark"] .topbar-logo { background: #fff; padding: 3px 5px; width: 66px; }
 :root[data-theme="dark"] .topbar-name .city { color: #8fb4ff; }
 
+/* 한국어 줄바꿈: 낱말 중간에서 끊지 않기(긴 주소는 필요 시 끊음) */
+body { word-break: keep-all; overflow-wrap: anywhere; }
+.topbar-sub { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 380px) {
+  .topbar-logo { width: 46px; }
+  .topbar-title { gap: 8px; }
+  .topbar-name { font-size: 1rem; }
+  .topbar-div { margin: 0 6px; }
+  .proto-chip { padding: 1px 8px; }
+}
+
 </style>
 <style>
 @media print {
@@ -492,7 +503,7 @@ details > *:not(summary) { display: block !important; }
       <img class="topbar-logo" src="data:image/png;base64,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" alt="" width="50" height="16">
       <span class="topbar-text">
         <span class="topbar-name"><b class="city">남양주시</b><span class="topbar-div" aria-hidden="true"></span>해체신고 안내</span>
-        <span class="topbar-sub" id="topbarSub">진건읍 도시건축과 건축팀</span>
+        <span class="topbar-sub" id="topbarSub">진건·퇴계원행정복지센터 건축팀</span>
       </span>
     </a>
     <span class="proto-chip" id="protoChip" title="정식 운영 전 시범운영 중입니다">시범운영</span>
@@ -719,9 +730,9 @@ HC.config = {
   copyrightPrototype: '© 2026 위반건축물 해체신고 안내. All Rights Reserved.',
 
   office: {
-    org: '남양주시 진건읍',
+    org: '남양주시 진건⁠·⁠퇴계원행정복지센터',
     dept: '도시건축과 건축팀',
-    location: '진건·퇴계원행정복지센터 청사 3층',
+    location: '청사 3층',
     phone: '031-590-5859',
     hours: '' // 민원 응대 시간을 확정하면 입력(예: '평일 09:00~18:00'). 비워 두면 화면에 표시하지 않음
   },
@@ -776,7 +787,7 @@ HC.config = {
 
   // 남양주시 관할별 해체신고 담당부서(직통번호)
   // 남양주시청 누리집 '직원업무안내'에서 확인한 내용을 아래 형식으로 넣으면 문의 화면에 표가 나타납니다(비어 있으면 표시 안 함).
-  // 예) { area: '진건읍·퇴계원읍', dept: '진건·퇴계원행정복지센터 도시건축과 건축팀', duty: '건축물 해체신고·멸실', phone: '031-590-0000' }
+  // 예) { area: '진건읍·퇴계원읍', dept: '진건⁠·⁠퇴계원행정복지센터 도시건축과 건축팀', duty: '건축물 해체신고·멸실', phone: '031-590-0000' }
   deptContacts: [],
 
   // 해체계획서 표준서식(국토안전관리원 기술자료실, 2024. 12. 17. 게시 「건축물 해체계획서 작성 및 검토 매뉴얼」 첨부)
@@ -885,7 +896,7 @@ HC.procedures = [
   },
   {
     no: 8, title: '신청서 제출', kind: 'citizen',
-    what: '건축물생애이력관리시스템(온라인) 또는 진건읍 도시건축과 건축팀(방문)에 신청합니다.',
+    what: '건축물생애이력관리시스템(온라인) 또는 진건⁠·⁠퇴계원행정복지센터 도시건축과 건축팀(방문)에 신청합니다.',
     why: '이 서비스는 안내만 하며, 실제 신청은 공식 경로로만 가능합니다.',
     help: '온라인 신청이 어려우면 담당부서에 문의하세요.',
     prepare: ['준비한 서류 일체'],
@@ -1880,7 +1891,7 @@ HC.diagnosis = (function () {
       lines.push('', '입력한 값');
       r.criteria.forEach(function (c) { lines.push('- ' + c.label + ': ' + c.inputText + ' (기준 ' + c.standardText + ')'); });
     }
-    lines.push('', '문의: ' + HC.config.office.org + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone,
+    lines.push('', '문의: ' + HC.config.office.org.replace(/\u2060/g, '') + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone,
       '※ 미리 살펴보기 위한 참고용 안내이며, 최종 판단은 담당부서에서 합니다.');
     return lines.join('\n');
   }
@@ -2065,7 +2076,7 @@ HC.checklist = (function () {
       g.forEach(function (d) { lines.push((state.done[d.id] ? '[v] ' : '[ ] ') + d.name); });
       lines.push('');
     });
-    lines.push('문의: ' + HC.config.office.org + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone);
+    lines.push('문의: ' + HC.config.office.org.replace(/\u2060/g, '') + ' ' + HC.config.office.dept + ' ' + HC.config.office.phone);
     return lines.join('\n');
   }
 
@@ -2197,7 +2208,7 @@ HC.homeMenu = [
   { href: '#asbestos', icon: 'mask', title: '석면조사 안내', desc: '조사 대상과 주의사항', upcoming: true },
   { href: '#estimate', icon: 'won', title: '철거공사 견적 준비', desc: '견적서에서 확인할 항목', upcoming: true },
   { href: '#faq', icon: 'help', title: '자주 묻는 질문', desc: '민원인이 많이 묻는 15가지' },
-  { href: '#contact', icon: 'phone', title: '담당부서 문의', desc: '진건읍 도시건축과 건축팀' }
+  { href: '#contact', icon: 'phone', title: '담당부서 문의', desc: '진건⁠·⁠퇴계원행정복지센터 도시건축과 건축팀' }
 ];
 
 function rowLink(m) {
@@ -2454,7 +2465,7 @@ function renderFooter() {
 HC.router = (function () {
   var routes = ['home', 'diagnosis', 'procedure', 'checklist', 'faq', 'contact'];
   var upcomingKeys = ['architect', 'asbestos', 'estimate'];
-  var titles = { home: '진건읍 도시건축과 건축팀', diagnosis: '자가진단', procedure: '신청 절차', checklist: '제출서류', faq: '자주 묻는 질문', contact: '담당부서 문의' };
+  var titles = { home: '진건⁠·⁠퇴계원행정복지센터 건축팀', diagnosis: '자가진단', procedure: '신청 절차', checklist: '제출서류', faq: '자주 묻는 질문', contact: '담당부서 문의' };
   var first = true;
 
   function show() {
