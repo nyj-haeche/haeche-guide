@@ -479,6 +479,8 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .cond-chip { display: inline-block; margin: 0 6px 2px 0; padding: 1px 8px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; line-height: 1.6; vertical-align: 1px;
   color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-line); white-space: nowrap; }
 .tl-title + .cond-chip { margin: 4px 0 0; align-self: flex-start; }
+.acc-items { margin: 8px 0 10px; padding-left: 1.2em; }
+.acc-items li { margin: 4px 0; }
 
 </style>
 <style>
@@ -1216,8 +1218,17 @@ var HC = window.HC = window.HC || {};
     },
     {
       q: '견적서는 어떤 형식으로 준비하나요?', needsCheck: false,
-      short: '정해진 법정 양식은 안내되어 있지 않으며, 항목별로 금액이 구분된 견적서가 검토에 도움이 됩니다.',
-      detail: '철거공사비, 장비비, 폐기물 처리비, 운반비, 안전시설 설치비, 부가가치세, 공사 범위를 나누어 적어 달라고 요청하세요. 견적서 양식 생성 기능은 다음 단계에서 제공할 예정입니다.',
+      short: '견적서에 정해진 법정 양식은 없습니다. 다만 업체 정보, 공사 내용, 항목별 금액을 갖춘 정식 견적서를 받아 두시면 서류 검토와 업체 비교가 수월해집니다.',
+      detail: '철거업체에 견적을 요청할 때 아래 내용이 빠짐없이 적힌 견적서를 받으세요. 공사 범위와 금액이 분명해야 건설업 등록 필요 여부 등 시공자 자격도 정확하게 검토할 수 있습니다.',
+      items: [
+        '업체 정보: 상호, 사업자등록번호, 대표자, 주소·연락처, 건설업 등록번호(해당하는 경우), 직인 또는 서명',
+        '공사 개요: 공사명, 해체 장소(지번), 해체 대상과 범위(전체 또는 일부), 구조·면적',
+        '항목별 금액: 철거공사비, 장비비, 폐기물 처리비, 운반비, 안전시설 설치비, 부가가치세(포함 여부 표시)',
+        '산출 근거: 항목별 수량·단가·금액과 합계',
+        '견적일자, 견적 유효기간, 공사 예정기간',
+        '견적에 포함되지 않은 비용(석면 해체·제거, 추가 공사 등)이 있으면 그 내용'
+      ],
+      tip: '같은 공사 범위로 두 곳 이상에서 견적을 받아 비교하면 적정한 금액을 판단하는 데 도움이 됩니다. 행정기관은 특정 업체를 추천하지 않습니다.',
       links: []
     },
     {
@@ -2353,6 +2364,8 @@ function renderFaq(keyword) {
   document.getElementById('faqList').innerHTML = list.length ? list.map(function (f) {
     return '<details class="acc"><summary><span>' + (f.cond ? '<span class="cond-chip">' + e(f.cond) + '</span>' : '') + e(f.q) + HC.ui.checkBadge(f.needsCheck) + '</span></summary>' +
       '<div class="acc-body"><p class="acc-short">' + e(f.short) + '</p><p>' + e(f.detail) + '</p>' +
+      (f.items ? '<ul class="acc-items">' + f.items.map(function (t) { return '<li>' + e(t) + '</li>'; }).join('') + '</ul>' : '') +
+      (f.tip ? '<p class="muted">' + e(f.tip) + '</p>' : '') +
       (f.links.length ? '<ul class="acc-links">' + f.links.map(function (l) { return '<li>' + HC.ui.link(l.url, l.name) + '</li>'; }).join('') + '</ul>' : '') +
       '</div></details>';
   }).join('') : '<p class="empty-note">검색 결과가 없습니다. 다른 낱말로 찾아보시거나 담당부서에 물어보세요.</p>';
