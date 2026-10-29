@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>남양주시 위반건축물 해체신고 안내</title>
+<title>남양주시 건축물 해체신고 안내</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="남양주시 진건읍 위반건축물 해체신고·허가 대상 확인과 제출서류 준비를 휴대폰으로 안내합니다(시범운영).">
+<meta name="description" content="남양주시 진건읍 건축물 해체신고·허가 대상 확인과 제출서류 준비를 휴대폰으로 안내합니다. 위반건축물 철거도 함께 안내합니다(시범운영).">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
 /* =========================================================
-   위반건축물 해체신고 안내 – 휴대폰 우선 화면
+   건축물 해체신고 안내 – 휴대폰 우선 화면
    배치: 상단 제목줄 + 한 화면 한 과제 + 하단 탭 메뉴(엄지로 누르기 쉬운 위치)
    색은 아래 변수만 바꾸면 전체에 반영됩니다(밝은 화면/어두운 화면 모두).
    ========================================================= */
@@ -475,6 +475,11 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
   .proto-chip { padding: 1px 8px; }
 }
 
+/* 조건 표시(예: 위반건축물인 경우) */
+.cond-chip { display: inline-block; margin: 0 6px 2px 0; padding: 1px 8px; border-radius: 999px; font-size: var(--fs-xs); font-weight: 700; line-height: 1.6; vertical-align: 1px;
+  color: var(--warn-ink); background: var(--warn-bg); border: 1px solid var(--warn-line); white-space: nowrap; }
+.tl-title + .cond-chip { margin: 4px 0 0; align-self: flex-start; }
+
 </style>
 <style>
 @media print {
@@ -517,7 +522,7 @@ details > *:not(summary) { display: block !important; }
     <div class="home-band">
       <div class="wrap">
         <p class="eyebrow">건축물 해체 민원 사전 안내</p>
-        <h1 id="h-home" tabindex="-1">위반건축물 해체신고,<br>이제 쉽게 준비하세요.</h1>
+        <h1 id="h-home" tabindex="-1">건축물 해체신고,<br>이제 쉽게 준비하세요.</h1>
         <p class="home-lead">해체신고 대상 확인부터 전문가 상담, 석면조사, 철거공사 견적과 제출서류 준비까지 단계별로 안내해 드립니다.</p>
         <a class="btn btn-primary btn-block btn-xl" href="#diagnosis">내 해체신고 대상 확인하기</a>
         <a class="btn btn-onband btn-block" href="#procedure">해체신고 준비 시작하기</a>
@@ -601,6 +606,14 @@ details > *:not(summary) { display: block !important; }
               <label><input type="radio" name="asbestos" value="yes" id="ss-yes"><span>예</span></label>
               <label><input type="radio" name="asbestos" value="no" id="ss-no"><span>아니요</span></label>
               <label><input type="radio" name="asbestos" value="unknown" id="ss-unknown"><span>모름</span></label>
+            </div>
+          </div>
+          <div class="seg-field">
+            <p class="seg-label" id="sl-violation">위반건축물을 철거하나요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-violation">
+              <label><input type="radio" name="violation" value="no" id="sv-no"><span>아니요(일반 해체)</span></label>
+              <label><input type="radio" name="violation" value="yes" id="sv-yes"><span>예</span></label>
+              <label><input type="radio" name="violation" value="unknown" id="sv-unknown"><span>모름</span></label>
             </div>
           </div>
           <div class="seg-field">
@@ -723,11 +736,11 @@ details > *:not(summary) { display: block !important; }
 var HC = window.HC = window.HC || {};
 
 HC.config = {
-  serviceName: '위반건축물 해체신고 안내',
-  serviceFullName: '위반건축물 해체신고 원스톱 민원안내',
+  serviceName: '건축물 해체신고 안내',
+  serviceFullName: '건축물 해체신고 원스톱 민원안내',
   officialApproved: false, // 기관 공식 서비스로 승인되면 true 로 변경
   copyrightOfficial: '© 2026 남양주시. All Rights Reserved.',
-  copyrightPrototype: '© 2026 위반건축물 해체신고 안내. All Rights Reserved.',
+  copyrightPrototype: '© 2026 건축물 해체신고 안내. All Rights Reserved.',
 
   office: {
     org: '남양주시 진건⁠·⁠퇴계원행정복지센터',
@@ -829,10 +842,10 @@ var HC = window.HC = window.HC || {};
 HC.procedures = [
   {
     no: 1, title: '해체 대상 확인', kind: 'citizen',
-    what: '철거하려는 부분이 정확히 어디인지 정합니다. 위반으로 지적된 부분(무단 증축 등)과 철거할 부분이 같은지 확인하세요.',
+    what: '철거하려는 건물 또는 부분이 정확히 어디인지 정합니다. 위반건축물인 경우 위반으로 지적된 부분(무단 증축 등)과 철거할 부분이 같은지도 확인하세요.',
     why: '해체 범위에 따라 신고인지 허가인지, 준비할 서류가 무엇인지가 달라집니다.',
-    help: '시정명령서·위반건축물 안내문이 있으면 위반 위치가 적혀 있습니다. 모르면 담당부서에 문의하세요.',
-    prepare: ['시정명령서 등 받은 안내문', '현장 사진', '건축물대장(있는 경우)'],
+    help: '건축물대장으로 건물 위치·면적·층수를 확인하세요. 위반건축물인 경우 시정명령서·안내문에 위반 위치가 적혀 있습니다. 모르면 담당부서에 문의하세요.',
+    prepare: ['건축물대장(있는 경우)', '현장 사진', '(위반건축물인 경우) 시정명령서 등 받은 안내문'],
     cost: '없음',
     next: '신고·허가 대상 검토'
   },
@@ -941,11 +954,11 @@ HC.procedures = [
     prepare: ['공사 완료 사진', '폐기물 처리 관련 자료(해당 시)'],
     cost: '없음',
     forms: ['complete'],
-    next: '위반사항 시정 완료 확인'
+    next: '끝(위반건축물인 경우 13단계 위반사항 시정 완료 확인)'
   },
   {
-    no: 13, title: '위반사항 시정 완료 확인', kind: 'office', needsCheck: true,
-    what: '위반사항이 해소되었는지 행정기관이 현장 확인 등으로 확인합니다.',
+    no: 13, title: '위반사항 시정 완료 확인', cond: '위반건축물인 경우', kind: 'office', needsCheck: true,
+    what: '위반건축물을 철거한 경우, 위반사항이 해소되었는지 행정기관이 현장 확인 등으로 확인합니다. 일반 해체는 12단계에서 끝납니다.',
     why: '해체신고 수리와 위반사항 시정 완료는 별개의 절차입니다. 철거했다고 위반건축물 표시가 자동으로 없어지지는 않을 수 있습니다.',
     help: '이행강제금 등 관련 사항은 위반건축물 담당부서에 확인하세요. 이 서비스에서는 단정하여 안내하지 않습니다.',
     prepare: ['철거 완료 사진', '시정명령서 사본'],
@@ -1074,7 +1087,7 @@ HC.documents = [
     id: 'no-register', category: 'C', needsCheck: true,
     name: '건축물대장이 없는 경우 현황 확인자료',
     why: '대장에 없는 건물은 위치·면적·소유 관계를 다른 자료로 확인해야 할 수 있습니다.',
-    how: '시정명령서 등 행정기관이 보유한 자료, 현장 실측 자료, 사진 등을 준비하고 담당부서와 상의하세요.',
+    how: '현장 실측 자료, 사진, 위반건축물인 경우 시정명령서 등 행정기관이 보유한 자료를 준비하고 담당부서와 상의하세요.',
     law: '담당부서와 상의',
     when: { registered: ['no', 'unknown'] }
   },
@@ -1085,6 +1098,15 @@ HC.documents = [
     how: '대법원 인터넷등기소에서 발급할 수 있습니다.',
     law: '제출 필요 여부는 담당부서에 문의',
     when: {}
+  },
+  {
+    id: 'order', category: 'C', needsCheck: true,
+    name: '시정명령서 등 위반건축물 관련 안내문 사본',
+    why: '위반건축물인 경우 위반으로 지적된 위치와 실제 철거할 부분이 같은지 확인하는 데 쓰입니다.',
+    how: '받은 시정명령서·사전통지서 등을 준비하세요. 잃어버렸으면 담당부서에 문의하세요.',
+    law: '실무 참고자료(위반건축물인 경우)',
+    cond: '위반건축물인 경우',
+    when: { violation: ['yes', 'unknown'] }
   },
   {
     id: 'photo', category: 'C', needsCheck: true,
@@ -1146,18 +1168,6 @@ var HC = window.HC = window.HC || {};
 
   HC.faq = [
     {
-      q: '위반건축물도 해체신고를 해야 하나요?', needsCheck: true,
-      short: '위반건축물이라도 건물을 해체하려면 원칙적으로 해체 허가 또는 신고 절차를 거쳐야 할 수 있습니다.',
-      detail: '위반 부분을 없애기 위한 철거라도 안전관리를 위해 해체 절차가 적용될 수 있습니다. 내 경우가 해당하는지는 자가진단으로 미리 살펴보고 담당부서에 확인하세요.',
-      links: [LAW]
-    },
-    {
-      q: '무단 증축 부분만 철거해도 되나요?', needsCheck: true,
-      short: '위반 부분만 일부 해체하는 것도 가능할 수 있으나, 해체 방법에 따라 신고 또는 허가가 필요할 수 있습니다.',
-      detail: '기둥·보·내력벽 같은 주요구조부를 건드리지 않는 일부 해체는 신고 대상이 될 수 있습니다. 다만 주요구조부를 해체하거나 주변 여건에 따라 달라질 수 있으니 담당부서에 문의하세요.',
-      links: [LAW]
-    },
-    {
       q: '해체신고와 허가는 무엇이 다른가요?', needsCheck: true,
       short: '규모가 작고 위험이 낮은 해체는 "신고", 그 밖의 해체는 "허가" 절차를 따르는 것이 기본입니다.',
       detail: '전체 해체의 경우 연면적 500㎡ 미만, 높이 12m 미만, 지상·지하 합계 3개 층 이하이면 신고 대상이 될 수 있습니다. 다만 버스정류장·횡단보도 등 주변 시설, 도로 폭, 이격거리에 따라 허가로 바뀔 수 있으니 담당부서에 문의하세요.',
@@ -1213,7 +1223,7 @@ var HC = window.HC = window.HC || {};
     {
       q: '건축물대장이 없어도 신청할 수 있나요?', needsCheck: true,
       short: '건축물대장이 없다는 이유만으로 신청이 불가능하다고 단정할 수 없습니다.',
-      detail: '시정명령서 등 행정기관이 가진 자료, 현장 실측, 사진 등으로 건물 현황과 권리관계를 확인할 수 있는지 담당부서와 먼저 상의하세요.',
+      detail: '국토교통부 건축물 해체공사 FAQ에 따르면 위반건축물·가설건축물 등 건축물대장이 없는 건축물도 해체허가·신고 대상입니다. 시정명령서 등 행정기관이 가진 자료, 현장 실측, 사진 등으로 건물 현황과 권리관계를 확인할 수 있는지 담당부서와 먼저 상의하세요.',
       links: []
     },
     {
@@ -1229,13 +1239,31 @@ var HC = window.HC = window.HC || {};
       links: [BLCM]
     },
     {
-      q: '철거가 끝나면 위반건축물 표시가 자동으로 없어지나요?', needsCheck: true,
+      q: '해체공사가 끝나면 무엇을 해야 하나요?', needsCheck: true,
+      short: '해체공사 완료 신고를 하고, 건물 전체를 철거한 경우 건축물대장 정리(멸실)가 이어집니다.',
+      detail: '완료 신고는 건축물 해체공사 완료신고서·멸실 신고서(건축물관리법 시행규칙 별지 제10호서식)로 합니다. 제출 시기와 첨부서류는 담당부서에 확인하세요.',
+      links: [{ name: '별지 제10호서식 보기(국가법령정보센터)', url: HC.forms.complete.url }, BLCM]
+    },
+    {
+      q: '위반건축물도 해체신고를 해야 하나요?', cond: '위반건축물인 경우', needsCheck: true,
+      short: '예. 위반건축물도 해체하려면 일반 건축물과 같이 해체허가 또는 해체신고 절차를 거쳐야 합니다.',
+      detail: '국토교통부 건축물 해체공사 FAQ에서도 위반건축물을 해체허가·신고 대상으로 안내하고 있습니다. 위반 부분을 없애기 위한 철거라도 안전관리를 위해 해체 절차가 적용될 수 있습니다. 내 경우가 해당하는지는 자가진단으로 미리 살펴보고 담당부서에 확인하세요.',
+      links: [LAW]
+    },
+    {
+      q: '무단 증축 부분만 철거해도 되나요?', cond: '위반건축물인 경우', needsCheck: true,
+      short: '위반 부분만 일부 해체하는 것도 가능할 수 있으나, 해체 방법에 따라 신고 또는 허가가 필요할 수 있습니다.',
+      detail: '기둥·보·내력벽 같은 주요구조부를 건드리지 않는 일부 해체는 신고 대상이 될 수 있습니다. 다만 주요구조부를 해체하거나 주변 여건에 따라 달라질 수 있으니 담당부서에 문의하세요.',
+      links: [LAW]
+    },
+    {
+      q: '철거가 끝나면 위반건축물 표시가 자동으로 없어지나요?', cond: '위반건축물인 경우', needsCheck: true,
       short: '자동으로 없어진다고 단정할 수 없습니다. 위반사항 시정 확인 절차가 별도로 필요할 수 있습니다.',
       detail: '해체신고 수리와 위반사항 시정 완료는 서로 다른 절차입니다. 철거 후 담당부서에 시정 완료 확인 방법을 문의하세요.',
       links: []
     },
     {
-      q: '이행강제금은 어떻게 처리되나요?', needsCheck: true,
+      q: '이행강제금은 어떻게 처리되나요?', cond: '위반건축물인 경우', needsCheck: true,
       short: '이미 부과된 금액, 추가 부과 여부, 시정 완료에 따른 효과는 이 서비스에서 단정하여 안내하지 않습니다.',
       detail: '개별 사안에 따라 다르므로 위반건축물 담당부서에 직접 문의하세요.',
       links: []
@@ -1662,11 +1690,12 @@ HC.diagnosis = (function () {
       help: '도로 양쪽 끝 사이의 너비입니다. 모르면 "모름"을 누르세요.' },
     { key: 'roadDistance', type: 'number', unit: 'm', q: '도로에서 건물까지 거리는 몇 m인가요?',
       help: '도로 경계에서 건물 외벽까지의 거리입니다. 모르면 "모름"을 누르세요.' },
-    { key: 'violation', type: 'choice', q: '지금 어떤 상황인가요?', help: '가장 가까운 것을 하나 고르세요.',
-      options: [['extension', '무단 증축 부분을 철거하려고 해요'], ['unpermitted', '무허가 건축물 전체를 철거하려고 해요'],
-        ['unregistered', '건축물대장에 없는 건물을 철거하려고 해요'], ['partial', '기존 건물의 일부를 철거하려고 해요'],
-        ['order', '시정명령을 받아 철거하려고 해요'], ['penalty', '이행강제금이 부과되고 있어 위법사항을 없애려고 해요'],
-        ['none', '위반건축물이 아니에요'], ['unknown', '잘 모르겠어요']] },
+    { key: 'violation', type: 'choice', q: '어떤 건물을 철거하나요?', help: '가장 가까운 것을 하나 고르세요. 위반건축물인 경우 아래쪽 항목에서 고르세요.',
+      options: [['none', '일반 건축물을 철거해요(위반건축물 아님)'], ['partial', '기존 건물의 일부를 철거해요'],
+        ['unregistered', '건축물대장에 없는 건물을 철거해요'],
+        ['extension', '위반건축물: 무단 증축 부분을 철거해요'], ['unpermitted', '위반건축물: 무허가 건축물 전체를 철거해요'],
+        ['order', '위반건축물: 시정명령을 받아 철거해요'], ['penalty', '위반건축물: 이행강제금이 부과되어 위법사항을 없애려고 해요'],
+        ['unknown', '위반건축물인지 잘 모르겠어요']] },
     { key: 'location', type: 'choice', q: '건물은 어디에 있나요?', help: '상세 주소는 입력하지 않습니다.',
       options: [['jingeon', '남양주시 진건읍'], ['nyj-other', '남양주시 다른 읍·면·동'], ['outside', '남양주시 외 지역']] }
   ];
@@ -1674,11 +1703,11 @@ HC.diagnosis = (function () {
   var TYPE_NOTES = {
     extension: '무단 증축 부분만 철거하는 경우, 시정명령서 등에 적힌 위반 위치와 실제 철거할 부분이 같은지 꼭 확인하세요. 위치가 다르면 보완 요청을 받을 수 있습니다.',
     unpermitted: '무허가 건축물은 건축물대장이 없는 경우가 많습니다. 면적·높이·층수와 소유 관계를 어떤 자료로 확인할지 담당부서와 먼저 상의하세요.',
-    unregistered: '건축물대장에 없는 건물은 현장 실측 자료, 사진, 행정기관이 가진 자료 등으로 현황을 확인해야 할 수 있습니다. 대장이 없다는 이유만으로 신청이 불가능한 것은 아닐 수 있습니다.',
+    unregistered: '건축물대장에 없는 건물(위반건축물·가설건축물 등)도 해체허가·신고 대상입니다. 이런 건물은 현장 실측 자료, 사진, 행정기관이 가진 자료 등으로 현황을 확인해야 할 수 있습니다. 대장이 없다는 이유만으로 신청이 불가능한 것은 아닐 수 있습니다.',
     partial: '일부 해체는 철거할 부분에 주요구조부가 포함되는지에 따라 절차가 달라질 수 있습니다. 철거 범위를 사진에 표시해 두면 상담이 쉬워집니다.',
     order: '시정명령서에 적힌 이행 기한을 확인하세요. 해체 절차에 걸리는 기간을 고려해 늦지 않게 담당부서와 상의하는 것이 좋습니다.',
     penalty: '이미 부과된 이행강제금, 추가 부과 여부, 시정 완료에 따른 효과는 사안마다 다르므로 이 화면에서 단정하여 안내하지 않습니다. 위반건축물 담당부서에 직접 문의하세요.',
-    none: '위반건축물이 아니더라도 해체 허가·신고 절차는 같은 기준으로 검토될 수 있습니다.',
+    none: '일반 건축물의 해체도 규모와 주변 여건에 따라 해체신고 또는 해체허가 대상이 됩니다. 해체공사가 끝나면 완료 신고와 건축물대장 정리(멸실)를 진행합니다.',
     unknown: '위반건축물인지 모르는 경우, 건축물대장의 "위반건축물" 표시를 확인하거나 담당부서에 문의하세요.'
   };
 
@@ -1831,7 +1860,7 @@ HC.diagnosis = (function () {
     var e = HC.ui.esc;
     var expl = explain(r);
 
-    var html = '<p class="print-only">위반건축물 해체신고 안내 · 자가진단 결과 · ' + HC.ui.today() + '</p>';
+    var html = '<p class="print-only">건축물 해체신고 안내 · 자가진단 결과 · ' + HC.ui.today() + '</p>';
     html += '<div class="verdict r-' + r.result.code + '"><p class="k">자가진단 결과</p><p class="v" id="verdictLabel">' + e(r.result.label) + '</p><p>' + e(expl) + '</p></div>';
 
     if (input.location !== 'jingeon') {
@@ -1859,7 +1888,9 @@ HC.diagnosis = (function () {
       }).join('') + '</ul></div></details>';
 
     html += '<section class="sec"><h2>내 상황에 맞는 안내</h2><div class="sec-body"><p>' + e(TYPE_NOTES[input.violation] || '') + '</p></div></section>';
-    html += '<div class="note"><strong>꼭 알아두세요</strong><p>해체신고 수리·허가와 위반사항 시정(해소)은 서로 다른 절차입니다. 철거가 끝난 뒤 위반사항 해소 확인을 따로 받아야 할 수 있습니다.</p></div>';
+    if (['extension', 'unpermitted', 'order', 'penalty', 'unknown'].indexOf(input.violation) !== -1) {
+      html += '<div class="note"><strong>위반건축물인 경우 꼭 알아두세요</strong><p>해체신고 수리·허가와 위반사항 시정(해소)은 서로 다른 절차입니다. 철거가 끝난 뒤 위반사항 해소 확인을 따로 받아야 할 수 있습니다.</p></div>';
+    }
 
     html += '<div class="action-col">' +
       '<a class="btn btn-primary btn-block" href="#checklist" id="goChecklist">내 상황으로 제출서류 보기</a>' +
@@ -1878,14 +1909,14 @@ HC.diagnosis = (function () {
     window.scrollTo(0, 0);
     box.focus({ preventScroll: true });
 
-    $('goChecklist').addEventListener('click', function () { HC.checklist.applySituation({ registered: input.registered }); });
+    $('goChecklist').addEventListener('click', function () { HC.checklist.applySituation({ registered: input.registered, violation: ({ none: 'no', partial: 'no', unregistered: 'unknown', unknown: 'unknown' })[input.violation] || 'yes' }); });
     $('resultCopy').addEventListener('click', function () { HC.ui.copy(lastText, $('resultCopyMsg')); });
     $('resultEdit').addEventListener('click', function () { box.hidden = true; idx = visibleSteps().length - 1; showWizard(); });
     $('resultRestart').addEventListener('click', function () { ans = {}; idx = 0; box.hidden = true; showWizard(); });
   }
 
   function buildText(input, r, expl) {
-    var lines = ['[위반건축물 해체신고 자가진단 결과] ' + HC.ui.today(), '결과: ' + r.result.label, expl, '', '담당부서에 확인할 사항'];
+    var lines = ['[건축물 해체신고 자가진단 결과] ' + HC.ui.today(), '결과: ' + r.result.label, expl, '', '담당부서에 확인할 사항'];
     r.checks.forEach(function (c, i) { lines.push((i + 1) + '. ' + c); });
     if (r.criteria.length) {
       lines.push('', '입력한 값');
@@ -1984,9 +2015,10 @@ HC.checklist = (function () {
     applicant: { owner: '소유자 본인', agent: '대리인', coowner: '공동소유', corp: '법인' },
     registered: { yes: '대장 있음', no: '대장 없음', unknown: '대장 모름' },
     asbestos: { yes: '석면조사 대상', no: '석면조사 비대상', unknown: '석면조사 모름' },
+    violation: { no: '일반 해체', yes: '위반건축물', unknown: '위반 여부 모름' },
     contractor: { company: '업체 시공', undecided: '시공 미정' }
   };
-  var state = { situation: { applicant: 'owner', registered: 'yes', asbestos: 'unknown', contractor: 'company' }, done: {} };
+  var state = { situation: { applicant: 'owner', registered: 'yes', asbestos: 'unknown', violation: 'no', contractor: 'company' }, done: {} };
 
   function load() {
     try {
@@ -2032,7 +2064,7 @@ HC.checklist = (function () {
     document.getElementById('checkProgress').textContent = '준비 완료 ' + doneCount + ' / ' + docs.length + '건';
     document.getElementById('checkBar').style.width = (docs.length ? Math.round(doneCount / docs.length * 100) : 0) + '%';
 
-    var html = '<p class="print-only">위반건축물 해체신고 안내 · 제출서류 체크리스트 · ' + HC.ui.today() + '</p>';
+    var html = '<p class="print-only">건축물 해체신고 안내 · 제출서류 체크리스트 · ' + HC.ui.today() + '</p>';
     ['A', 'B', 'C'].forEach(function (cat) {
       var group = docs.filter(function (d) { return d.category === cat; });
       if (!group.length) return;
@@ -2047,7 +2079,7 @@ HC.checklist = (function () {
         return '<div class="doc' + (state.done[d.id] ? ' done' : '') + '">' +
           '<label class="doc-check" for="' + cid + '"><input type="checkbox" id="' + cid + '" data-doc="' + e(d.id) + '"' + (state.done[d.id] ? ' checked' : '') + '>' +
           '<span class="box" aria-hidden="true"></span>' +
-          '<span><span class="doc-name">' + e(d.name) + '</span>' + HC.ui.checkBadge(d.needsCheck) +
+          '<span>' + (d.cond ? '<span class="cond-chip">' + e(d.cond) + '</span>' : '') + '<span class="doc-name">' + e(d.name) + '</span>' + HC.ui.checkBadge(d.needsCheck) +
           '<span class="doc-why">' + e(d.why) + '</span></span></label>' +
           (d.links ? '<div class="doc-links">' + d.links.map(function (l) {
             return '<a class="btn btn-ghost btn-sm" href="' + e(l.url) + '"' + (l.internal ? '' : ' target="_blank" rel="noopener noreferrer"') + '>' + e(l.name) + '</a>';
@@ -2067,7 +2099,7 @@ HC.checklist = (function () {
 
   function buildText() {
     var docs = current();
-    var lines = ['[위반건축물 해체신고 제출서류 체크리스트] ' + HC.ui.today(),
+    var lines = ['[건축물 해체신고 제출서류 체크리스트] ' + HC.ui.today(),
       '내 상황: ' + document.getElementById('situationSummary').textContent, ''];
     ['A', 'B', 'C'].forEach(function (cat) {
       var g = docs.filter(function (d) { return d.category === cat; });
@@ -2203,11 +2235,11 @@ HC.ui = {
 HC.homeMenu = [
   { href: '#diagnosis', icon: 'check', title: '해체신고·허가 대상 자가진단', desc: '질문에 답하면 확인할 사항을 정리' },
   { href: '#checklist', icon: 'doc', title: '제출서류 체크리스트', desc: '내 상황에 맞는 서류만 골라 보기' },
-  { href: '#procedure', icon: 'route', title: '신청 절차 13단계', desc: '대상 확인부터 위반사항 해소까지' },
+  { href: '#procedure', icon: 'route', title: '신청 절차 13단계', desc: '대상 확인부터 해체공사 완료 신고까지' },
   { href: '#architect', icon: 'pen', title: '건축사 상담 준비', desc: '해체계획서 의뢰 전 알아둘 점', upcoming: true },
   { href: '#asbestos', icon: 'mask', title: '석면조사 안내', desc: '조사 대상과 주의사항', upcoming: true },
   { href: '#estimate', icon: 'won', title: '철거공사 견적 준비', desc: '견적서에서 확인할 항목', upcoming: true },
-  { href: '#faq', icon: 'help', title: '자주 묻는 질문', desc: '민원인이 많이 묻는 15가지' },
+  { href: '#faq', icon: 'help', title: '자주 묻는 질문', desc: '민원인이 많이 묻는 16가지' },
   { href: '#contact', icon: 'phone', title: '담당부서 문의', desc: '진건⁠·⁠퇴계원행정복지센터 도시건축과 건축팀' }
 ];
 
@@ -2225,6 +2257,7 @@ function renderHome() {
     fact('처리기간', c.application.period, '보완 기간 제외') +
     fact('행정 수수료', c.application.fee, '전문가·업체 비용은 별도');
   document.getElementById('homeContact').innerHTML =
+    '<div class="note note-warn"><strong>위반건축물을 철거하나요?</strong><p>위반건축물도 일반 건축물과 같이 해체허가·신고 절차를 거칩니다. 절차·제출서류·자주 묻는 질문에서 <span class="cond-chip">위반건축물인 경우</span> 표시가 붙은 내용을 함께 확인하세요.</p></div>' +
     '<div class="note"><strong>궁금한 점은 담당부서에 물어보세요</strong>' +
     '<p>' + e(c.office.org.replace(/^남양주시\s*/, '') + ' ' + c.office.dept) + ' · <b>' + e(c.office.phone) + '</b></p></div>';
 }
@@ -2252,6 +2285,7 @@ function renderProcedure() {
       : '<span>없음</span>';
     return '<li class="' + s.kind + '"><span class="tl-no" aria-hidden="true">' + s.no + '</span>' +
       '<details class="tl-card"><summary><span class="tl-title"><span class="sr-only">' + s.no + '단계. </span>' + e(s.title) + '</span>' +
+      (s.cond ? '<span class="cond-chip">' + e(s.cond) + '</span>' : '') +
       '<span class="tl-meta"><span class="who">' + (s.kind === 'office' ? '행정기관이 하는 일' : '내가 하는 일') + '</span>' + HC.ui.checkBadge(s.needsCheck) + '</span></summary>' +
       '<div class="tl-body">' +
       '<div><b>무엇을 하나요?</b>' + e(s.what) + '</div>' +
@@ -2317,7 +2351,7 @@ function renderFaq(keyword) {
   });
   document.getElementById('faqCount').textContent = kw ? '검색 결과 ' + list.length + '건' : '전체 ' + list.length + '건';
   document.getElementById('faqList').innerHTML = list.length ? list.map(function (f) {
-    return '<details class="acc"><summary><span>' + e(f.q) + HC.ui.checkBadge(f.needsCheck) + '</span></summary>' +
+    return '<details class="acc"><summary><span>' + (f.cond ? '<span class="cond-chip">' + e(f.cond) + '</span>' : '') + e(f.q) + HC.ui.checkBadge(f.needsCheck) + '</span></summary>' +
       '<div class="acc-body"><p class="acc-short">' + e(f.short) + '</p><p>' + e(f.detail) + '</p>' +
       (f.links.length ? '<ul class="acc-links">' + f.links.map(function (l) { return '<li>' + HC.ui.link(l.url, l.name) + '</li>'; }).join('') + '</ul>' : '') +
       '</div></details>';
@@ -2340,7 +2374,7 @@ function renderContact() {
     '<dl class="kv"><dt>위치</dt><dd>' + e(o.location) + '</dd>' +
     (o.hours ? '<dt>응대 시간</dt><dd>' + e(o.hours) + '</dd>' : '') + '</dl>' +
     '</div>' +
-    '<div class="note"><strong>전화 전에 준비하면 좋아요</strong><p>건물 위치(읍·리), 건축물대장 유무, 철거하려는 부분, 받은 시정명령서가 있는지 알려 주시면 더 빨리 안내받을 수 있습니다.</p></div>' +
+    '<div class="note"><strong>전화 전에 준비하면 좋아요</strong><p>건물 위치(읍·리), 건축물대장 유무, 철거하려는 부분, 위반건축물인 경우 받은 시정명령서가 있는지 알려 주시면 더 빨리 안내받을 수 있습니다.</p></div>' +
     '<div class="note note-warn"><strong>관할 확인</strong><p>진건읍 외 지역의 건물은 해당 읍·면·동 또는 시청 담당부서에 문의하세요.</p></div>' +
     (c.deptContacts.length ? '<div><h2 class="list-title">관할별 해체신고 담당부서</h2><ul class="link-list dept-list">' + c.deptContacts.map(function (d) {
       return '<li><div class="dept-row"><span><strong>' + e(d.area) + '</strong><span>' + e(d.dept) + (d.duty ? ' · ' + e(d.duty) : '') + '</span></span><b class="dept-tel">' + e(d.phone) + '</b></div></li>';
@@ -2365,7 +2399,7 @@ HC.upcoming = {
       ['누구에게 맡겨야 하나요?', '허가 대상은 건축사사무소를 개설신고한 건축사 또는 기술사사무소를 개설등록한 기술사(건축구조 등 정해진 직무범위를 등록한 경우)가 해체계획서를 작성하고, 신고 대상은 이들이 해체계획서를 검토해 서명날인해야 합니다(건축물관리법 제30조제4항·제5항). 기술사의 직무범위는 의뢰 전에 해당 사무소에 확인하세요.'],
       ['어디서 찾나요?', 'LIST:expertFinders'],
       ['해체계획서를 직접 작성하려면(표준서식)', 'LIST:planForms'],
-      ['상담 전 준비할 것', '건물 위치, 규모(연면적·높이·층수), 구조, 철거할 부분, 위반사항 내용, 건축물대장 유무, 현장사진, 주변 도로·시설 현황'],
+      ['상담 전 준비할 것', '건물 위치, 규모(연면적·높이·층수), 구조, 철거할 부분, 건축물대장 유무, (위반건축물인 경우) 위반사항 내용, 현장사진, 주변 도로·시설 현황'],
       ['비용은 얼마인가요?', '해체계획서 작성·검토 비용은 법령이나 국토교통부 고시로 정한 공식 금액이 없습니다. 건물 규모, 구조, 해체 범위, 현장 조사 필요 여부에 따라 달라지므로 2곳 이상에 같은 자료를 보여 주고 견적과 작업 범위를 비교해 보세요. 이 비용은 행정 수수료가 아닙니다.']
     ],
     links: []
@@ -2485,7 +2519,7 @@ HC.router = (function () {
     var name = titles[key] || (HC.upcoming[key] && HC.upcoming[key].title) || '';
     document.getElementById('topbarSub').textContent = name;
     document.getElementById('backBtn').hidden = key === 'home';
-    document.title = (key === 'home' ? '' : name + ' – ') + '남양주시 위반건축물 해체신고 안내';
+    document.title = (key === 'home' ? '' : name + ' – ') + '남양주시 건축물 해체신고 안내';
 
     window.scrollTo(0, 0);
     if (!first) {
