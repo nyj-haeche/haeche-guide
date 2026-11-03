@@ -619,10 +619,11 @@ details > *:not(summary) { display: block !important; }
             </div>
           </div>
           <div class="seg-field">
-            <p class="seg-label" id="sl-contractor">철거는 어떻게 하나요?</p>
-            <div class="seg" role="radiogroup" aria-labelledby="sl-contractor">
-              <label><input type="radio" name="contractor" value="company" id="sc-company"><span>업체에 맡김</span></label>
-              <label><input type="radio" name="contractor" value="undecided" id="sc-undecided"><span>아직 모름</span></label>
+            <p class="seg-label" id="sl-cost">철거 공사비(견적 금액)는 얼마인가요?</p>
+            <div class="seg" role="radiogroup" aria-labelledby="sl-cost">
+              <label><input type="radio" name="cost" value="under" id="sc-under"><span>1,500만 원 미만</span></label>
+              <label><input type="radio" name="cost" value="over" id="sc-over"><span>1,500만 원 이상</span></label>
+              <label><input type="radio" name="cost" value="unknown" id="sc-unknown"><span>아직 모름</span></label>
             </div>
           </div>
         </form>
@@ -865,7 +866,7 @@ HC.procedures = [
     what: '건물 소유자가 직접 신청하는지, 대리인이 신청하는지, 공동소유·법인 소유인지 확인합니다.',
     why: '신청하는 사람이 해체할 권한이 있는지 행정기관이 확인하기 때문입니다.',
     help: '건축물대장·등기사항증명서로 소유자를 확인할 수 있습니다. 매매계약서가 없더라도 다른 공적 자료로 확인할 수 있는 경우가 있으니 먼저 문의하세요.',
-    prepare: ['건축물대장 또는 등기사항증명서', '대리인 신청 시 위임장(필요 여부 확인)'],
+    prepare: ['건축물대장 또는 등기사항증명서', '대리 신청 시 위임장(소유자 인감 날인)', '대리 신청 시 소유자 인감증명서 또는 신분증 사본'],
     cost: '서류 발급 수수료(발급처 기준)',
     next: '전문가 상담'
   },
@@ -875,7 +876,7 @@ HC.procedures = [
     why: '해체계획서는 안전하게 철거하기 위한 계획서입니다. 허가 대상은 건축사·기술사가 작성하고, 신고 대상은 건축사·기술사가 검토해 서명날인해야 합니다(건축물관리법 제30조제4항·제5항).',
     help: '건축사사무소 또는 해당 직무범위를 등록한 기술사사무소에 의뢰합니다. 아래 공식 경로에서 찾을 수 있으며, 행정기관은 특정 전문가를 추천하지 않습니다.',
     finders: { title: '전문가 찾기', key: 'expertFinders' },
-    prepare: ['건물 위치·규모', '해체 범위', '현장 사진', '건축물대장'],
+    prepare: ['건물 위치·규모', '해체 범위', '현장 사진', '건축물대장', '전문가에게 받을 것: 해체계획서 검토확인서, 건축사사무소 등록증 또는 건축사 수첩 사본'],
     cost: '민간 비용(건물 규모와 의뢰 범위에 따라 달라짐. 법정 고정금액 없음)',
     next: '석면조사 관련 확인'
   },
@@ -895,7 +896,7 @@ HC.procedures = [
     why: '공사 금액과 종류에 따라 건설업 등록 업체가 해야 할 수 있습니다.',
     help: '건설업 등록 여부는 아래 공식 경로로 조회할 수 있습니다. 행정기관은 특정 업체를 추천하지 않습니다.',
     finders: { title: '업체 등록 확인', key: 'contractorFinders' },
-    prepare: ['해체 범위·면적', '희망 공사 일정', '업체 견적서(공사비·장비비·폐기물 처리비 등 구분)'],
+    prepare: ['해체 범위·면적', '희망 공사 일정', '공사비 1,500만 원 미만: 견적서 또는 설계내역서', '공사비 1,500만 원 이상: 업체의 건설업등록증·사업자등록증 사본'],
     cost: '민간 비용(철거·폐기물 처리 등)',
     next: '제출서류 준비'
   },
@@ -984,7 +985,7 @@ HC.officeFlow = ['접수', '서류 검토', '필요 시 보완', '내부 결재'
  *   applicant: owner(소유자 본인) / agent(대리인) / coowner(공동소유) / corp(법인)
  *   registered: yes / no / unknown   (건축물대장 등재 여부)
  *   asbestos: yes / no / unknown     (석면조사 대상 여부)
- *   contractor: company / undecided   (시공 방법)
+ *   cost: under / over / unknown       (철거 공사비 1,500만 원 미만 / 이상 / 모름)
  */
 var HC = window.HC = window.HC || {};
 
@@ -1005,17 +1006,18 @@ HC.forms = {
 };
 
 HC.documentCategories = {
-  A: { label: '법령상 제출서류', desc: '법령에서 제출하도록 정한 서류입니다.' },
-  B: { label: '해당하는 경우 필요한 서류', desc: '내 상황에 해당할 때 필요한 서류입니다.' },
-  C: { label: '참고자료', desc: '신청 자격 확인이나 검토에 도움이 되는 자료입니다. 법정 필수서류로 단정하지 않습니다.' }
+  A: { label: '법령상 제출서류', desc: '법령에서 제출하도록 정한 서류입니다. 모든 신청에 필요합니다.' },
+  B: { label: '해당하는 경우 함께 내는 서류', desc: '해체계획서 검토, 대리 신청, 공사비 규모 등 내 상황에 해당할 때 함께 내는 서류입니다.' },
+  C: { label: '확인용 참고자료', desc: '법령 서식에 첨부서류로 정해져 있지는 않지만, 신청 내용 확인을 위해 담당부서에서 받거나 확인하는 자료입니다. 제출 여부는 담당부서 안내를 따르세요.' }
 };
 
 HC.documents = [
+  /* ── A. 법령상 제출서류 ───────────────────────────── */
   {
     id: 'form', category: 'A', needsCheck: false,
     name: '건축물 해체 허가신청서 또는 해체 신고서',
     why: '해체를 하겠다는 내용을 행정기관에 공식적으로 알리는 기본 서류입니다. 허가신청서와 신고서는 같은 서식(별지 제5호서식)을 쓰며, 해당하는 칸에 표시합니다.',
-    how: '아래 서식을 내려받아 작성하거나, 건축물생애이력관리시스템에서 온라인으로 작성할 수 있습니다.',
+    how: '아래 서식을 내려받아 작성하거나, 건축물생애이력관리시스템에서 온라인으로 작성할 수 있습니다. 대리인이 신청하더라도 관리자(소유자)란을 정확히 적어 주세요.',
     law: '건축물관리법 제30조, 같은 법 시행규칙 제11조제1항·제3항 [별지 제5호서식]',
     links: [{ name: '별지 제5호서식 보기(국가법령정보센터)', url: HC.lawForm('0005', '00') }],
     when: {}
@@ -1023,18 +1025,29 @@ HC.documents = [
   {
     id: 'plan', category: 'A', needsCheck: true,
     name: '해체계획서',
-    why: '어떤 순서로, 어떤 장비로, 어떻게 안전하게 철거할지 정리한 계획서입니다.',
-    how: '허가 대상은 건축사 또는 해당 직무범위를 등록한 기술사에게 작성을, 신고 대상은 검토(서명날인)를 의뢰합니다. 처음 화면의 "건축사 상담 준비"에서 공식 검색 경로를 볼 수 있습니다.',
+    why: '어떤 순서로, 어떤 장비로, 어떻게 안전하게 철거할지 정리한 계획서입니다. 공사 개요, 작업순서·해체공법, 안전관리대책, 해체물 처리계획 등이 들어가야 합니다.',
+    how: '허가 대상은 건축사 또는 해당 직무범위를 등록한 기술사가 작성하고, 신고 대상은 이들의 검토(서명날인)를 받습니다. 국토안전관리원 표준서식을 활용할 수 있습니다.',
     law: '건축물관리법 제30조제3항~제5항, 같은 법 시행규칙 제12조(해체계획서에 들어갈 내용)',
     links: [{ name: '전문가 찾는 공식 경로 보기', url: '#architect', internal: true }, { name: '표준서식(신고용) 내려받기', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=4' }, { name: '표준서식(허가용) 내려받기', url: 'https://www.kalis.or.kr/www/brd/m_435/down.do?brd_id=tech0207&seq=191&data_tp=A&file_seq=3' }],
     when: {}
   },
+
+  /* ── B. 해당하는 경우 함께 내는 서류 ─────────────────── */
   {
     id: 'expert', category: 'B', needsCheck: true,
-    name: '전문가 작성·검토 관련 자료',
-    why: '해체계획서를 자격 있는 전문가가 작성·검토했는지 확인하기 위한 자료입니다.',
-    how: '해체계획서를 맡긴 전문가에게 요청하세요. 어떤 자료가 필요한지는 담당부서에 확인하세요.',
-    law: '건축물관리법 및 하위법령',
+    name: '해체계획서 검토확인서(건축사·기술사)',
+    why: '해체계획서를 자격 있는 전문가가 작성하거나 검토했다는 것을 확인하는 서류입니다. 해체계획서에 전문가의 서명날인이 함께 있어야 합니다.',
+    how: '해체계획서를 맡긴 건축사(또는 기술사)에게 검토확인서 작성과 서명날인을 요청하세요. 진건·퇴계원행정복지센터 건축팀은 신청 시 검토확인서를 함께 받고 있습니다.',
+    law: '건축물관리법 제30조제4항·제5항(해체계획서 작성·검토자), 검토확인서 양식은 담당부서 확인',
+    links: [{ name: '전문가 찾는 공식 경로 보기', url: '#architect', internal: true }],
+    when: {}
+  },
+  {
+    id: 'architect-cert', category: 'B', needsCheck: true,
+    name: '건축사사무소 자격 증빙서류',
+    why: '해체계획서를 작성·검토한 사람이 법령에서 정한 자격(건축사사무소 개설신고 또는 기술사사무소 개설등록)을 갖췄는지 확인하는 자료입니다.',
+    how: '건축사사무소 등록증(개설신고 확인 서류) 사본 또는 건축사 수첩(자격증) 사본을 의뢰한 건축사에게 받아 주세요. 기술사가 검토한 경우 기술사사무소 등록증 사본을 받습니다.',
+    law: '건축물관리법 제30조제4항·제5항, 건축사법 제23조, 기술사법 제6조',
     when: {}
   },
   {
@@ -1043,39 +1056,83 @@ HC.documents = [
     why: '해체할 건물에 석면이 있는지 확인한 결과입니다.',
     how: '고용노동부에 등록된 석면조사기관에 의뢰합니다. 조사 대상 여부는 건물 용도·면적에 따라 다릅니다.',
     law: '산업안전보건법 제119조, 같은 법 시행령 제89조',
+    cond: '석면조사 대상인 경우',
     when: { asbestos: ['yes', 'unknown'] }
   },
   {
     id: 'agent-letter', category: 'B', needsCheck: true,
-    name: '위임장',
-    why: '소유자가 아닌 사람이 대신 신청할 때, 소유자가 신청을 맡겼다는 것을 보여 줍니다.',
-    how: '소유자가 작성·서명합니다. 서식과 본인확인 방법은 담당부서에 확인하세요.',
-    law: '필요 여부는 담당부서에 문의',
-    when: { applicant: ['agent'] }
+    name: '위임장(소유자 인감 날인)',
+    why: '소유자(건축주)가 아닌 사람이 대신 신청할 때, 소유자가 신청을 맡겼다는 것을 보여 줍니다.',
+    how: '위임하는 내용(건축물 소재지, 해체 신고·허가 신청 위임), 위임인·대리인 인적사항을 적고, 소유자가 인감도장으로 날인합니다. 아래 인감증명서 또는 신분증 사본과 함께 냅니다.',
+    law: '법정서식 없음(실무상 확인자료), 서식은 담당부서 확인',
+    cond: '대리 신청 시',
+    when: { applicant: ['agent', 'coowner', 'corp'] }
+  },
+  {
+    id: 'seal', category: 'B', needsCheck: true,
+    name: '소유자 인감증명서 또는 신분증 사본',
+    why: '위임장에 날인한 사람이 실제 소유자 본인인지 확인하기 위한 자료입니다.',
+    how: '위임장에 인감을 날인한 경우 인감증명서를, 그렇지 않은 경우 소유자 신분증 사본을 냅니다. 인감증명서 대신 본인서명사실확인서를 낼 수 있는지는 담당부서에 확인하세요.',
+    law: '법정서식 없음(실무상 본인 확인자료)',
+    privacy: '신분증 사본은 주민등록번호 뒷자리를 가리고 제출하세요. 개인정보가 담긴 서류이므로 이 서비스에는 올리지 마세요.',
+    cond: '대리 신청 시',
+    when: { applicant: ['agent', 'coowner', 'corp'] }
   },
   {
     id: 'corp', category: 'B', needsCheck: true,
     name: '법인 관련 자료',
     why: '법인 소유 건물일 때 신청인이 법인을 대표하거나 위임받았는지 확인하기 위한 자료입니다.',
-    how: '법인등기사항증명서 등은 인터넷등기소에서 발급할 수 있습니다. 어떤 자료가 필요한지는 담당부서에 확인하세요.',
+    how: '법인등기사항증명서 등은 인터넷등기소에서 발급할 수 있습니다. 법인은 위임장에 법인인감을 날인합니다. 필요한 자료는 담당부서에 확인하세요.',
     law: '필요 여부는 담당부서에 문의',
+    cond: '법인 소유인 경우',
     when: { applicant: ['corp'] }
   },
   {
     id: 'coowner', category: 'B', needsCheck: true,
     name: '공동소유자 관련 확인자료',
     why: '여러 명이 함께 소유한 건물일 때 신청 권한을 확인하기 위한 자료입니다.',
-    how: '필요한 자료(공동소유자 위임 등)는 법령 근거에 따라 달라지므로 먼저 담당부서에 문의하세요. 모든 공동소유자의 동의가 일률적으로 필요한 것으로 단정하지 않습니다.',
+    how: '필요한 자료(공동소유자 위임 등)는 먼저 담당부서에 문의하세요. 모든 공동소유자의 동의가 일률적으로 필요한 것으로 단정하지 않습니다.',
     law: '필요 여부는 담당부서에 문의',
+    cond: '공동소유인 경우',
     when: { applicant: ['coowner'] }
   },
   {
     id: 'contractor', category: 'B', needsCheck: true,
-    name: '시공자 관련 자료(사업자등록증·건설업등록증 등)',
-    why: '철거업체가 해당 공사를 할 수 있는 자격이 있는지 확인하기 위한 자료입니다.',
-    how: '선정한 업체에 요청하세요. 건설업 등록 필요 여부는 공사 금액·종류에 따라 다릅니다.',
-    law: '건설산업기본법 제9조, 같은 법 시행령 제8조 등',
-    when: { contractor: ['company'] }
+    name: '시공자 자격 증빙서류(건설업등록증·사업자등록증 사본)',
+    why: '공사비 1,500만 원 이상의 해체공사는 건설업 등록을 한 업체가 시공해야 할 수 있으므로, 시공자의 자격을 확인합니다.',
+    how: '선정한 철거업체에 건설업등록증 사본과 사업자등록증 사본을 요청하세요. 사업자등록증만으로는 건설업 등록 여부가 확인되지 않습니다.',
+    law: '건설산업기본법 제9조, 같은 법 시행령 제8조(경미한 건설공사)',
+    cond: '공사비 1,500만 원 이상',
+    when: { cost: ['over', 'unknown'] }
+  },
+  {
+    id: 'estimate', category: 'B', needsCheck: true,
+    name: '견적서 또는 설계내역서',
+    why: '공사비가 1,500만 원 미만인지, 공사 범위가 신고 내용과 같은지 확인하는 자료입니다.',
+    how: '업체명·사업자등록번호·연락처, 공사 장소와 범위, 철거비·장비비·폐기물 처리비·부가가치세 등 항목별 금액이 적힌 정식 견적서(또는 설계내역서)를 받아 주세요.',
+    law: '건설산업기본법 시행령 제8조 확인용(법정서식 없음)',
+    links: [{ name: '견적요청서 만들기', url: '#estimate', internal: true }],
+    cond: '공사비 1,500만 원 미만',
+    when: { cost: ['under', 'unknown'] }
+  },
+
+  /* ── C. 확인용 참고자료 ─────────────────────────── */
+  {
+    id: 'photo', category: 'C', needsCheck: true,
+    name: '현장사진',
+    why: '건물 현황과 해체할 위치·범위를 확인하는 데 쓰입니다. 담당부서에서 신청 시 함께 받고 있습니다.',
+    how: '건물 전경(여러 방향), 해체할 부분, 주변 도로·인접 건물이 보이도록 찍어 주세요. 일부 해체는 해체할 부분을 표시하면 좋습니다.',
+    law: '실무 확인자료',
+    when: {}
+  },
+  {
+    id: 'order', category: 'C', needsCheck: true,
+    name: '시정명령서 등 위반건축물 관련 안내문 사본',
+    why: '위반건축물인 경우 위반으로 지적된 위치와 실제 철거할 부분이 같은지 확인하는 데 쓰입니다.',
+    how: '받은 시정명령서·사전통지서 등을 준비하세요. 잃어버렸으면 담당부서에 문의하세요.',
+    law: '실무 참고자료(위반건축물인 경우)',
+    cond: '위반건축물인 경우',
+    when: { violation: ['yes', 'unknown'] }
   },
   {
     id: 'register', category: 'C', needsCheck: true,
@@ -1099,57 +1156,6 @@ HC.documents = [
     why: '건물의 소유자를 확인하는 자료입니다.',
     how: '대법원 인터넷등기소에서 발급할 수 있습니다.',
     law: '제출 필요 여부는 담당부서에 문의',
-    when: {}
-  },
-  {
-    id: 'order', category: 'C', needsCheck: true,
-    name: '시정명령서 등 위반건축물 관련 안내문 사본',
-    why: '위반건축물인 경우 위반으로 지적된 위치와 실제 철거할 부분이 같은지 확인하는 데 쓰입니다.',
-    how: '받은 시정명령서·사전통지서 등을 준비하세요. 잃어버렸으면 담당부서에 문의하세요.',
-    law: '실무 참고자료(위반건축물인 경우)',
-    cond: '위반건축물인 경우',
-    when: { violation: ['yes', 'unknown'] }
-  },
-  {
-    id: 'photo', category: 'C', needsCheck: true,
-    name: '현장사진',
-    why: '건물 현황과 해체할 위치를 확인하는 데 도움이 됩니다.',
-    how: '건물 전경, 해체할 부분, 주변 도로가 보이도록 찍어 주세요.',
-    law: '실무 참고자료',
-    when: {}
-  },
-  {
-    id: 'estimate', category: 'C', needsCheck: true,
-    name: '견적서 또는 공사비 산출내역서',
-    why: '공사 범위와 금액을 확인하고 시공 자격 검토에 참고합니다.',
-    how: '철거업체에 공사비·장비비·폐기물 처리비·부가가치세 등이 구분된 견적을 요청하세요.',
-    law: '실무 참고자료',
-    when: {}
-  },
-  {
-    id: 'seal', category: 'C', needsCheck: true,
-    name: '인감증명서',
-    why: '현재 일부 실무에서 본인 의사 확인 목적으로 요청하는 자료입니다.',
-    how: '제출이 꼭 필요한지 먼저 담당부서에 확인하세요. 전자서명·본인서명사실확인서 등으로 대신할 수 있는지도 확인하세요.',
-    law: '필요 여부는 담당부서에 문의',
-    privacy: '개인정보가 담긴 서류입니다. 꼭 필요한 경우에만 제출하세요. 이 서비스에는 업로드하지 마세요.',
-    when: { applicant: ['agent', 'coowner', 'corp'] }
-  },
-  {
-    id: 'idcard', category: 'C', needsCheck: true,
-    name: '신분증 사본',
-    why: '현재 일부 실무에서 신청인 본인 확인 목적으로 요청하는 자료입니다.',
-    how: '방문 신청 시 신분증 제시로 대신할 수 있는지, 온라인 신청 시 본인인증으로 대신할 수 있는지 확인하세요.',
-    law: '필요 여부는 담당부서에 문의',
-    privacy: '주민등록번호 뒷자리는 가리고 제출하는 것이 안전합니다. 이 서비스에는 업로드하지 마세요.',
-    when: {}
-  },
-  {
-    id: 'architect-cert', category: 'C', needsCheck: true,
-    name: '건축사 자격 증빙자료',
-    why: '해체계획서 작성·검토자의 자격을 확인하는 데 쓰일 수 있습니다.',
-    how: '의뢰한 전문가에게 요청하세요. 제출 필요 여부는 담당부서에 확인하세요.',
-    law: '필요 여부는 담당부서에 문의',
     when: {}
   }
 ];
@@ -2015,21 +2021,21 @@ HC.diagnosis = (function () {
 <script>/* js/checklist.js */
 /*
  * 제출서류 맞춤 체크리스트
- * - 상황(신청인, 건축물대장, 석면조사, 시공 방법)에 맞는 서류만 보여 줍니다.
+ * - 상황(신청인, 건축물대장, 석면조사, 위반 여부, 공사비)에 맞는 서류만 보여 줍니다.
  * - 체크 상태는 이 브라우저 창(sessionStorage)에만 잠시 보관하며, 창을 닫으면 지워집니다.
  */
 var HC = window.HC = window.HC || {};
 
 HC.checklist = (function () {
-  var KEY = 'hc-checklist-v1';
+  var KEY = 'hc-checklist-v2';
   var LABELS = {
     applicant: { owner: '소유자 본인', agent: '대리인', coowner: '공동소유', corp: '법인' },
     registered: { yes: '대장 있음', no: '대장 없음', unknown: '대장 모름' },
     asbestos: { yes: '석면조사 대상', no: '석면조사 비대상', unknown: '석면조사 모름' },
     violation: { no: '일반 해체', yes: '위반건축물', unknown: '위반 여부 모름' },
-    contractor: { company: '업체 시공', undecided: '시공 미정' }
+    cost: { under: '공사비 1,500만 원 미만', over: '공사비 1,500만 원 이상', unknown: '공사비 모름' }
   };
-  var state = { situation: { applicant: 'owner', registered: 'yes', asbestos: 'unknown', violation: 'no', contractor: 'company' }, done: {} };
+  var state = { situation: { applicant: 'owner', registered: 'yes', asbestos: 'unknown', violation: 'no', cost: 'unknown' }, done: {} };
 
   function load() {
     try {
