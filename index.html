@@ -482,6 +482,14 @@ body { word-break: keep-all; overflow-wrap: anywhere; }
 .acc-items { margin: 8px 0 10px; padding-left: 1.2em; }
 .acc-items li { margin: 4px 0; }
 
+/* 안내 본문 표·서식 단추 */
+.rich-table-wrap { overflow-x: auto; margin: 4px 0 8px; }
+.rich-table { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.rich-table th, .rich-table td { border: 1px solid var(--line); padding: 8px; text-align: left; vertical-align: top; }
+.rich-table thead th { background: var(--bg); font-weight: 700; }
+.rich-table tbody th { font-weight: 600; width: 34%; }
+.rich-actions { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 6px; }
+
 </style>
 <style>
 @media print {
@@ -603,7 +611,7 @@ details > *:not(summary) { display: block !important; }
             </div>
           </div>
           <div class="seg-field">
-            <p class="seg-label" id="sl-asbestos">석면조사 대상인가요?</p>
+            <p class="seg-label" id="sl-asbestos">석면조사기관에 맡겨야 하는 규모인가요?</p>
             <div class="seg" role="radiogroup" aria-labelledby="sl-asbestos">
               <label><input type="radio" name="asbestos" value="yes" id="ss-yes"><span>예</span></label>
               <label><input type="radio" name="asbestos" value="no" id="ss-no"><span>아니요</span></label>
@@ -984,7 +992,7 @@ HC.officeFlow = ['접수', '서류 검토', '필요 시 보완', '내부 결재'
  * when: 표시 조건. 모든 조건을 만족하면 목록에 나타남. 비어 있으면 항상 표시.
  *   applicant: owner(소유자 본인) / agent(대리인) / coowner(공동소유) / corp(법인)
  *   registered: yes / no / unknown   (건축물대장 등재 여부)
- *   asbestos: yes / no / unknown     (석면조사 대상 여부)
+ *   asbestos: yes / no / unknown     (기관석면조사 대상 여부)
  *   cost: under / over / unknown       (철거 공사비 1,500만 원 미만 / 이상 / 모름)
  */
 var HC = window.HC = window.HC || {};
@@ -1052,12 +1060,23 @@ HC.documents = [
   },
   {
     id: 'asbestos', category: 'B', needsCheck: true,
-    name: '석면조사 결과서',
-    why: '해체할 건물에 석면이 있는지 확인한 결과입니다.',
-    how: '고용노동부에 등록된 석면조사기관에 의뢰합니다. 조사 대상 여부는 건물 용도·면적에 따라 다릅니다.',
-    law: '산업안전보건법 제119조, 같은 법 시행령 제89조',
-    cond: '석면조사 대상인 경우',
+    name: '기관석면조사 결과서(또는 석면조사 생략 확인 서류)',
+    why: '기관석면조사 대상 건축물은 고용노동부 지정 석면조사기관의 조사 결과를 확인합니다.',
+    how: '고용노동부 지정 석면조사기관에 의뢰해 결과서를 받습니다. 석면이 없는 것이 명백한 경우 등은 관할 지방고용노동관서에서 "석면조사의 생략 등 확인"을 받아 그 결과 통지서 사본을 대신 낼 수 있습니다. 경우별 서류는 "석면조사 안내"에서 확인하세요.',
+    law: '산업안전보건법 제119조제2항, 같은 법 시행령 제89조, 시행규칙 제175조 [별지 제74호서식]',
+    links: [{ name: '경우별 석면 서류 보기', url: '#asbestos', internal: true }],
+    cond: '기관석면조사 대상인 경우',
     when: { asbestos: ['yes', 'unknown'] }
+  },
+  {
+    id: 'asbestos-general', category: 'B', needsCheck: true,
+    name: '일반석면조사서(직접 작성)',
+    why: '기관석면조사 대상이 아니더라도 철거 전 석면조사는 해야 하며, 소유주가 직접 조사한 결과를 적은 서류입니다.',
+    how: '설계도서·자재 이력·육안 확인으로 철거할 부분의 자재와 석면 함유 여부를 조사해 적습니다. 법정서식이 없어 "석면조사 안내"의 서식(안)을 쓰시면 됩니다.',
+    law: '산업안전보건법 제119조제1항(석면 함유 여부, 함유 자재의 종류·위치·면적 기록·보존)',
+    links: [{ name: '작성 방법·서식(안) 보기', url: '#asbestos', internal: true }],
+    cond: '기관석면조사 대상이 아닌 경우',
+    when: { asbestos: ['no', 'unknown'] }
   },
   {
     id: 'agent-letter', category: 'B', needsCheck: true,
@@ -1200,7 +1219,7 @@ var HC = window.HC = window.HC || {};
     },
     {
       q: '석면조사는 반드시 해야 하나요?', needsCheck: false,
-      short: '네. 철거·해체 전에는 규모와 관계없이 석면조사를 해야 합니다. 다만 규모가 작으면 조사기관에 맡기지 않고 직접 하는 일반석면조사로 됩니다.',
+      short: '네. 철거·해체 전에는 규모와 관계없이 석면조사를 해야 합니다. 다만 규모가 작으면 조사기관에 맡기지 않고 직접 조사해 일반석면조사서를 작성하면 됩니다(서식(안)은 "석면조사 안내"에 있습니다).',
       detail: '주택은 연면적 200㎡ 이상이면서 철거 부분 200㎡ 이상, 주택이 아닌 건축물은 연면적 50㎡ 이상이면서 철거 부분 50㎡ 이상이면 석면조사기관에 맡기는 기관석면조사 대상입니다(산업안전보건법 시행령 제89조). 기관석면조사 대상이라도 석면이 없는 것이 명백하거나 2017. 7. 1. 이후 착공신고한 신축 건축물 등은 관할 지방고용노동관서에서 "석면조사의 생략 등 확인"을 받을 수 있습니다. 자세한 내용은 처음 화면의 "석면조사 안내"를 보세요.',
       links: [{ name: '노동포털 – 석면조사의 생략 등 확인신청', url: 'https://labor.moel.go.kr/minwonApply/minwonFormat.do?searchVal=SN104&searchGubun=1&searchRlm=2' }, { name: '국가법령정보센터 – 산업안전보건법', url: 'https://www.law.go.kr/법령/산업안전보건법' }]
     },
@@ -1287,6 +1306,14 @@ var HC = window.HC = window.HC || {};
     }
   ];
 })();
+
+</script>
+<script>/* data/asbestos-form.js */
+/* 일반석면조사서 서식(안) – scripts/make_forms.py로 자동 생성. 직접 고치지 말고 forms 폴더를 고친 뒤 다시 만드세요. */
+var HC = window.HC = window.HC || {};
+HC.asbForm = {
+  html: "<!doctype html><html lang=\"ko\"><head><meta charset=\"utf-8\"><title>일반석면조사서(안)</title>\n<style>\n@page { size:A4; margin:12mm 15mm; }\n* { box-sizing:border-box; }\nbody { margin:0; font-family:'Noto Sans CJK KR',sans-serif; font-size:9.3pt; color:#000; line-height:1.35; }\n.note { font-size:8pt; color:#444; }\nh1 { text-align:center; font-size:18pt; letter-spacing:.2em; margin:3mm 0 0; }\n.sub { text-align:center; font-size:9.5pt; color:#444; margin:1mm 0 3mm; }\nh2 { font-size:10.5pt; margin:3.2mm 0 1.2mm; } h2 small { font-weight:400; font-size:8pt; color:#444; }\ntable { width:100%; border-collapse:collapse; table-layout:fixed; }\ntd, th { border:0.3mm solid #000; padding:1mm 1.5mm; vertical-align:middle; }\nth { background:#E7E9EE; font-weight:700; text-align:center; }\n.r td { height:6.6mm; } .c { text-align:center; } .rt { text-align:right; }\n.res th { font-size:8.2pt; } .res td { height:6.6mm; } .tiny { font-size:7.2pt; line-height:1.25; }\n.sign { text-align:center; margin-top:3.5mm; } .sign p { margin:2mm 0; }\n.sline { text-align:right; margin:2.2mm 0; }\n.pb { break-before:page; }\n.photo td { height:54mm; text-align:center; color:#777; font-size:8pt; }\n.tips td { padding:2mm 3mm; line-height:1.6; }\n</style></head><body><div class=\"noprint\" style=\"position:sticky;top:0;background:#1F3A6E;color:#fff;padding:10px 14px;display:flex;gap:10px;align-items:center;justify-content:space-between;font-family:sans-serif\"><span>일반석면조사서 서식(안) · 인쇄하거나 PDF로 저장하세요</span><button onclick=\"window.print()\" style=\"font-size:15px;padding:8px 14px;border:0;border-radius:6px;background:#FFD24A;font-weight:700\">인쇄 / PDF 저장</button></div><style>@media print{.noprint{display:none}}@media screen{body{max-width:210mm;margin:0 auto;padding:0 4mm 10mm}}</style>\n<p class=\"note\">※ 법정서식이 아닌 참고 서식(안)입니다. 「산업안전보건법」 제119조제1항에 따른 일반석면조사 결과를 기록·보존할 때 활용하세요.</p>\n<h1>일반석면조사서</h1>\n<p class=\"sub\">(건축물·설비 철거·해체 전 석면 함유 여부 조사 결과)</p>\n\n<h2>1. 일반현황</h2>\n<table class=\"r\"><colgroup><col style=\"width:18%\"><col style=\"width:32%\"><col style=\"width:18%\"><col style=\"width:32%\"></colgroup>\n<tr><th>건축물명(설비명)</th><td></td><th>소유주(관리자)</th><td></td></tr>\n<tr><th>소재지</th><td colspan=\"3\"></td></tr>\n<tr><th>용도</th><td colspan=\"3\">□ 주택 &nbsp; □ 상가 &nbsp; □ 공장 &nbsp; □ 사무실 &nbsp; □ 창고·축사 &nbsp; □ 설비 &nbsp; □ 기타(&emsp;&emsp;&emsp;)</td></tr>\n<tr><th>연면적</th><td class=\"rt\">㎡</td><th>철거·해체 면적</th><td class=\"rt\">㎡</td></tr>\n<tr><th>해체 구분</th><td>□ 전체 해체 &nbsp; □ 일부 해체</td><th>사용승인일(건축 연도)</th><td></td></tr>\n<tr><th>조사 기간</th><td>&emsp;&emsp;. &emsp;. &emsp;. ~ &emsp;&emsp;. &emsp;. &emsp;.</td><th>조사자</th><td>성명:<br>관계: □소유주 □임차인 □대리인</td></tr>\n</table>\n\n<h2>2. 기관석면조사 대상 여부 확인 <small>(아래 기준에 하나라도 해당하면 석면조사기관에 조사를 맡겨야 합니다)</small></h2>\n<table><colgroup><col style=\"width:83%\"><col style=\"width:17%\"></colgroup>\n<tr><th>기관석면조사 기준(산업안전보건법 시행령 제89조제1항)</th><th>해당 여부</th></tr>\n<tr><td>주택이 아닌 건축물: 연면적 합계 50㎡ 이상이면서 철거·해체할 부분의 면적 합계 50㎡ 이상</td><td class=\"c\">□해당 □미해당</td></tr>\n<tr><td>주택(부속건축물 포함): 연면적 합계 200㎡ 이상이면서 철거·해체할 부분의 면적 합계 200㎡ 이상</td><td class=\"c\">□해당 □미해당</td></tr>\n<tr><td>설비: 철거·해체할 부분의 단열재·보온재·분무재·내화피복재·개스킷·패킹재·실링재 등 면적 합 15㎡ 이상 또는 부피 합 1㎥ 이상</td><td class=\"c\">□해당 □미해당</td></tr>\n<tr><td>파이프: 길이 합 80m 이상이면서 철거·해체할 부분의 보온재 사용 길이 합 80m 이상</td><td class=\"c\">□해당 □미해당</td></tr>\n</table>\n<p style=\"margin:1.2mm 0 0;font-weight:700\">→ 위 기준에 모두 해당하지 않아 일반석면조사를 실시함. (확인 □)</p>\n\n<h2>3. 조사 결과 <small>(철거·해체하는 부분만 적습니다)</small></h2>\n<table class=\"res\"><colgroup><col style=\"width:13%\"><col style=\"width:14.5%\"><col style=\"width:6.5%\"><col style=\"width:15.5%\"><col style=\"width:9.5%\"><col style=\"width:18%\"><col style=\"width:8.5%\"><col style=\"width:14%\"></colgroup>\n<tr><th>철거·해체 부분</th><th>위치<br>(기능공간명)</th><th>해당<br>(O/X)</th><th>자재 종류</th><th>자재 면적<br>(㎡)</th><th>확인 방법<br>(번호에 ○)</th><th>석면 함유<br>(O/X)</th><th>석면 함유<br>자재 면적(㎡)</th></tr>\n<tr><td class=\"c\">지붕재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">천장재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">벽재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">칸막이</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">바닥재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">분무재·내화피복재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">문(출입문·창)</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">배관·보온재</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">건물 외부</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr><tr><td class=\"c\">그 밖의 위치</td><td></td><td></td><td></td><td></td><td class=\"c tiny\">① ② ③ ④</td><td></td><td></td></tr>\n</table>\n<p class=\"note\" style=\"margin:1mm 0 0\">※ 확인 방법: ① 설계도서 ② 자재 이력 ③ 육안 ④ 성분분석. 석면 함유: 석면이 1중량%를 넘게 들어 있으면 O. 설비의 보온재 등은 부피(㎥), 파이프 보온재는 길이(m)로 적고 단위를 꼭 함께 씁니다.</p>\n\n<h2 class=\"pb\">4. 종합 의견</h2>\n<table><tr><td>□ 철거·해체 부분에 석면 함유 자재 없음</td></tr>\n<tr><td>□ 석면 함유 자재 있음 (자재 종류: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;, 면적: &emsp;&emsp;&emsp; ㎡)<br>&emsp;→ 해체 전에 고용노동부에 등록된 석면해체·제거업자를 통해 법령에 따라 제거할 예정</td></tr></table>\n\n<div class=\"sign\"><p>위와 같이 일반석면조사를 실시하였음을 확인합니다.</p><p>년 &emsp;&emsp; 월 &emsp;&emsp; 일</p></div>\n<p class=\"sline\">조사자 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; (서명 또는 인)</p>\n<p class=\"sline\">소유주(관리자) &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; (서명 또는 인)</p>\n\n<h2>5. 관련 사진 <small>(건물 전경, 철거·해체할 부분, 의심 자재 근접 사진 등)</small></h2>\n<table class=\"photo\"><tr><td>(사진 붙임)</td><td>(사진 붙임)</td></tr>\n<tr><th style=\"text-align:left;height:auto\">① 건물 전경 :</th><th style=\"text-align:left\">② 철거·해체할 부분 :</th></tr>\n<tr><td>(사진 붙임)</td><td>(사진 붙임)</td></tr>\n<tr><th style=\"text-align:left\">③ 자재 근접 사진 :</th><th style=\"text-align:left\">④ 기타(제품 표시·라벨 등) :</th></tr></table>\n\n<h2>작성 요령</h2>\n<table class=\"tips\"><tr><td>\n· <b>누가:</b> 철거·해체하려는 건축물·설비의 소유주 또는 임차인 등이 직접 조사합니다(기관석면조사 대상이 아닌 경우).<br>\n· <b>어떻게:</b> 설계도서(시방서 등), 자재 이력, 육안 확인으로 자재 종류와 면적을 조사하고 석면 함유 여부를 확인합니다.<br>\n· <b>석면이 없는 자재(예):</b> 목재, 합판·MDF, 고무, 유리, 철재, 플라스틱, 콘크리트(보수한 갈라진 부분 제외), 스티로폼, 파티클보드, 벽지, 시방서에 무석면으로 표기된 자재<br>\n· <b>의심 자재:</b> 슬레이트 지붕, 오래된 천장재(텍스), 바닥재, 보온재 등은 제조사·제품명(모델명)·생산연월·KS번호를 확인해 석면함유 건축자재 목록과 대조합니다.<br>\n· <b>판단이 어려우면:</b> 고용노동부 지정 석면조사기관에 성분분석을 의뢰하고, 분석 결과서를 함께 붙입니다.<br>\n· <b>보존:</b> 조사 결과는 해체·제거 작업이 끝날 때까지 보존합니다.<br>\n· <b>주의:</b> 석면 의심 자재를 직접 뜯어내지 마세요. 석면 함유 자재는 등록된 석면해체·제거업자가 법령에 따라 제거해야 할 수 있습니다.\n</td></tr></table>\n<p class=\"note\">근거: 「산업안전보건법」 제119조, 같은 법 시행령 제89조 / 참고: 안전보건공단 일반석면조사 안내자료. 이 서식(안)은 법정서식이 아니므로 관할 기관의 안내에 따라 보완하여 사용합니다.</p>\n</body></html>\n"
+};
 
 </script>
 <script>/* js/legal-data.js */
@@ -2031,7 +2058,7 @@ HC.checklist = (function () {
   var LABELS = {
     applicant: { owner: '소유자 본인', agent: '대리인', coowner: '공동소유', corp: '법인' },
     registered: { yes: '대장 있음', no: '대장 없음', unknown: '대장 모름' },
-    asbestos: { yes: '석면조사 대상', no: '석면조사 비대상', unknown: '석면조사 모름' },
+    asbestos: { yes: '기관석면조사 대상', no: '일반석면조사', unknown: '석면조사 모름' },
     violation: { no: '일반 해체', yes: '위반건축물', unknown: '위반 여부 모름' },
     cost: { under: '공사비 1,500만 원 미만', over: '공사비 1,500만 원 이상', unknown: '공사비 모름' }
   };
@@ -2254,7 +2281,7 @@ HC.homeMenu = [
   { href: '#checklist', icon: 'doc', title: '제출서류 체크리스트', desc: '내 상황에 맞는 서류만 골라 보기' },
   { href: '#procedure', icon: 'route', title: '신청 절차 13단계', desc: '대상 확인부터 해체공사 완료 신고까지' },
   { href: '#architect', icon: 'pen', title: '건축사 상담 준비', desc: '해체계획서 의뢰 전 알아둘 점', upcoming: true },
-  { href: '#asbestos', icon: 'mask', title: '석면조사 안내', desc: '조사 대상과 주의사항', upcoming: true },
+  { href: '#asbestos', icon: 'mask', title: '석면조사 안내', desc: '조사 대상·제출서류·서식(안)', upcoming: true },
   { href: '#estimate', icon: 'won', title: '철거공사 견적 준비', desc: '견적서에서 확인할 항목', upcoming: true },
   { href: '#faq', icon: 'help', title: '자주 묻는 질문', desc: '민원인이 많이 묻는 16가지' },
   { href: '#contact', icon: 'phone', title: '담당부서 문의', desc: '진건⁠·⁠퇴계원행정복지센터 도시건축과 건축팀' }
@@ -2428,25 +2455,47 @@ HC.upcoming = {
     body: [
       ['석면조사는 누가, 언제 하나요?', [
         { p: '건축물이나 설비를 철거·해체하려는 소유주 등은 공사 규모와 관계없이 철거 전에 석면조사를 해야 합니다(산업안전보건법 제119조).' },
-        { ul: ['기관석면조사: 규모가 아래 기준 이상이면 고용노동부 지정 석면조사기관에 맡겨 조사합니다.', '일반석면조사: 기준보다 작으면 소유주가 설계도서·자재 이력·육안 확인 등으로 직접 조사합니다.'] }
+        { ul: ['기관석면조사: 규모가 아래 기준 이상이면 고용노동부 지정 석면조사기관에 맡겨 조사합니다.', '일반석면조사: 기준보다 작으면 소유주가 설계도서·자재 이력·육안 확인 등으로 직접 조사하고, 결과를 일반석면조사서에 적어 둡니다.'] }
+      ]],
+      ['해체 신고 때 어떤 석면 서류를 내나요?', [
+        { p: '석면조사는 규모와 관계없이 해야 하므로, 해체 신고(허가) 때에는 내 경우에 맞는 석면 서류 한 가지를 준비하세요.' },
+        { table: { head: ['내 경우', '준비할 서류', '누가 만드나요'], rows: [
+          ['기관석면조사 대상(아래 기준 이상)', '기관석면조사 결과서', '고용노동부 지정 석면조사기관'],
+          ['기관석면조사 대상이 아님(기준보다 작음)', '일반석면조사서', '소유주(또는 임차인)가 직접 작성, 아래 서식(안) 활용'],
+          ['기관석면조사 대상이지만 생략 확인을 받음', '석면조사의 생략 등 확인 결과 통지서 사본', '관할 지방고용노동관서'],
+          ['2017. 7. 1. 이후 착공신고한 신축 건축물', '석면조사의 생략 등 확인신청서 사본과 건축물대장 사본', '소유주가 지방고용노동관서에 신청'],
+          ['석면안전관리법에 따른 건축물석면조사를 이미 함', '건축물석면조사 결과서 사본', '당시 조사한 석면조사기관']
+        ] } },
+        { p: '※ 철거·해체할 때 석면조사 자체를 하지 않아도 되는 경우는 법령에 없습니다. "석면조사기관의 결과서를 내지 않아도 되는 경우"는 위 표처럼 일반석면조사서나 생략 확인 서류로 갈음하는 경우입니다.' }
       ]],
       ['석면조사기관에 맡겨야 하는 경우(기관석면조사 대상)', [
         { p: '아래 중 하나에 해당하면 기관석면조사 대상입니다(산업안전보건법 시행령 제89조제1항, 시행 2026. 8. 1.).' },
         { ul: ['주택이 아닌 건축물: 연면적 합계 50㎡ 이상이고, 철거·해체할 부분의 면적 합계도 50㎡ 이상', '주택(부속건축물 포함): 연면적 합계 200㎡ 이상이고, 철거·해체할 부분의 면적 합계도 200㎡ 이상', '설비: 철거·해체할 부분의 단열재·보온재·분무재·내화피복재·개스킷·패킹재·실링재 등 면적 합 15㎡ 이상 또는 부피 합 1㎥ 이상', '파이프: 길이 합 80m 이상이고, 철거·해체할 부분의 보온재 사용 길이 합도 80m 이상'] },
-        { p: '예) 연면적 150㎡ 단독주택 전체 철거 → 주택 기준(200㎡)에 못 미쳐 기관석면조사 대상이 아니며, 일반석면조사를 직접 합니다.' }
+        { p: '두 조건(전체 연면적과 철거할 부분 면적)을 모두 넘어야 대상입니다. 예) 연면적 150㎡ 단독주택 전체 철거 → 주택 기준(200㎡)에 못 미쳐 기관석면조사 대상이 아니며, 일반석면조사서를 직접 작성합니다. 예) 연면적 300㎡ 상가에서 40㎡만 철거 → 철거 부분이 50㎡ 미만이라 일반석면조사 대상입니다.' }
       ]],
-      ['석면조사기관에 맡기지 않아도 되는 경우', [
+      ['기관석면조사 결과서를 내지 않아도 되는 경우', [
         { h: '① 위 기준보다 작은 경우' },
-        { p: '기관석면조사는 하지 않아도 됩니다. 다만 일반석면조사는 직접 해야 하며, 조사 결과는 철거가 끝날 때까지 보관하세요.' },
+        { p: '기관석면조사는 하지 않아도 됩니다. 대신 일반석면조사를 직접 하고 일반석면조사서를 작성해 해체 신고 때 함께 내세요. 조사 결과는 철거가 끝날 때까지 보관합니다.' },
         { h: '② 기관석면조사 대상이지만 "석면조사의 생략 등 확인"을 받은 경우' },
-        { p: '아래에 해당하면 관할 지방고용노동관서에 확인을 신청할 수 있습니다(시행령 제89조제2항, 시행규칙 제175조).' },
+        { p: '아래에 해당하면 관할 지방고용노동관서에 확인을 신청할 수 있습니다(산업안전보건법 제119조제2항 단서, 시행령 제89조제2항, 시행규칙 제175조).' },
         { ul: ['설계도서·자재 이력 등으로 석면이 없는 것이 명백한 경우: 설계도서 사본, 건축자재 목록·사진·성분분석표(자재 생산회사 발급), 건축물 안팎 사진을 첨부', '2017. 7. 1. 이후 건축법에 따라 착공신고한 신축 건축물: 건축물대장 사본을 내면 확인 통지를 받은 것으로 봅니다.', '석면이 1%(무게 기준)를 넘게 들어간 자재를 쓴 것이 명백한 경우: 공사계약서 사본(자체 공사는 공사계획서) 첨부. 이 경우 조사 대신 석면해체·제거업자를 통해 제거해야 합니다.'] },
         { h: '③ 석면안전관리법에 따른 건축물석면조사를 이미 한 경우' },
         { p: '신청서에 그 사실을 표시하고 조사 결과서를 첨부합니다. 그 결과를 이미 관계 행정기관에 제출했다면 신청서를 내지 않아도 됩니다.' },
         { h: '신청 방법' },
-        { ul: ['신청서: 석면조사의 생략 등 확인신청서(산업안전보건법 시행규칙 별지 제74호서식)', '제출처: 관할 지방고용노동관서(노동포털 온라인 신청 가능)', '처리: 접수일부터 20일 이내에 결과 통지. 결과를 받은 뒤 철거를 진행하는 것이 안전합니다.'] },
+        { ul: ['신청서: 석면조사의 생략 등 확인신청서(산업안전보건법 시행규칙 별지 제74호서식)', '제출처: 관할 지방고용노동관서(노동포털 온라인 신청 가능), 수수료 없음', '처리: 접수일부터 20일 이내에 결과 통지. 결과를 받은 뒤 철거를 진행하는 것이 안전합니다.'] },
         { links: [{ name: '노동포털에서 온라인 신청(석면조사의 생략 등 확인신청)', url: 'https://labor.moel.go.kr/minwonApply/minwonFormat.do?searchVal=SN104&searchGubun=1&searchRlm=2' }, { name: '신청서 서식 보기(국가법령정보센터, 별지 제74호서식)', url: 'https://www.law.go.kr/lsBylInfoPLinkR.do?bylCls=BF&lsNm=' + encodeURIComponent('산업안전보건법 시행규칙') + '&bylNo=0074&bylBrNo=00' }] },
         { tel: '문의: 고용노동부 고객상담센터 1350(국번없이, 유료)' }
+      ]],
+      ['일반석면조사서는 어떻게 쓰나요?', [
+        { p: '기관석면조사 대상이 아니면 소유주(또는 임차인)가 직접 조사해 결과를 적습니다. 일반석면조사서는 정해진 법정서식이 없으므로, 아래 서식(안)을 쓰시면 됩니다.' },
+        { h: '꼭 들어가야 할 내용' },
+        { ul: ['석면이 들어 있는지 여부(법정 기재사항)', '석면이 들어 있는 자재가 있으면 그 종류, 위치, 면적(법정 기재사항)', '건물 현황: 건축물명, 소재지, 용도, 연면적, 철거·해체할 면적, 조사 기간, 조사자', '기관석면조사 대상이 아니라는 확인(위 면적 기준)', '철거할 부분별(지붕·천장·벽·칸막이·바닥·배관 등) 자재 종류·면적과 확인 방법', '관련 사진(건물 전경, 철거할 부분, 의심 자재)과 조사자·소유주 서명'] },
+        { h: '조사하는 방법' },
+        { ul: ['설계도서(시방서 등)와 자재 이력(구입 내역·제품 표시)을 확인하고, 현장을 눈으로 확인합니다.', '석면이 없는 자재(예): 목재, 합판·MDF, 고무, 유리, 철재, 플라스틱, 콘크리트(보수한 갈라진 부분 제외), 스티로폼, 벽지 등', '의심 자재(예): 슬레이트 지붕, 오래된 천장재(텍스), 바닥재, 보온재 → 제조사·제품명·생산연월·KS번호를 확인합니다.', '스스로 판단하기 어려우면 석면조사기관에 성분분석만 따로 맡기고, 분석 결과서를 함께 붙입니다.', '석면이 무게 기준 1%를 넘게 들어 있으면 "석면 함유"로 적습니다.'] },
+        { h: '보관' },
+        { p: '일반석면조사 결과는 해체·제거 작업이 끝날 때까지 보관해야 합니다(산업안전보건법 제119조제1항).' },
+        { actions: [{ name: '일반석면조사서 서식(안) 보기·인쇄', act: 'asb-open', primary: true }] },
+        { p: '※ 서식(안)은 법정서식이 아닌 참고 서식입니다. 화면에서 인쇄해 손으로 쓰거나 PDF로 저장할 수 있고, 한글파일이 필요하면 담당부서에 요청하세요. 같은 내용이 들어 있다면 다른 양식으로 작성해도 됩니다.' }
       ]],
       ['석면조사기관은 어디서 찾나요?', 'LIST:asbestosFinders'],
       ['주의하세요', '석면이 의심되는 자재(슬레이트 지붕, 오래된 천장재 등)를 직접 뜯어내지 마세요. 조사 의무와 제거 작업 의무는 서로 다르며, 석면이 있으면 고용노동부에 등록된 석면해체·제거업자가 법령에 따른 방법으로 제거해야 합니다.']
@@ -2464,7 +2513,7 @@ HC.upcoming = {
   }
 };
 
-/** 안내 본문 블록: {p} 문단, {h} 소제목, {ul} 목록, {links} 바로가기, {tel} 문의 */
+/** 안내 본문 블록: {p} 문단, {h} 소제목, {ul} 목록, {links} 바로가기, {tel} 문의, {table} 표, {actions} 서식 단추 */
 function richBlocks(blocks) {
   var e = HC.ui.esc;
   return blocks.map(function (b) {
@@ -2475,9 +2524,29 @@ function richBlocks(blocks) {
       return '<a class="form-link" href="' + e(l.url) + '" target="_blank" rel="noopener noreferrer"><span><strong>' + e(l.name) + '</strong></span>' + HC.ui.ICONS.chev + '</a>';
     }).join('');
     if (b.tel) return '<p class="finder-tel">' + e(b.tel) + '</p>';
+    if (b.table) return '<div class="rich-table-wrap"><table class="rich-table"><thead><tr>' +
+      b.table.head.map(function (h) { return '<th scope="col">' + e(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      b.table.rows.map(function (r) { return '<tr>' + r.map(function (c, i) { return i === 0 ? '<th scope="row">' + e(c) + '</th>' : '<td>' + e(c) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      '</tbody></table></div>';
+    if (b.actions) return '<div class="rich-actions">' + b.actions.map(function (a) {
+      return '<button type="button" class="btn ' + (a.primary ? 'btn-primary' : 'btn-ghost') + ' btn-block" data-act="' + e(a.act) + '">' + e(a.name) + '</button>';
+    }).join('') + '</div>';
     return '';
   }).join('');
 }
+
+/* 서식(안) 단추: 인쇄용 화면 열기 */
+HC.formActions = {
+  'asb-open': function () {
+    var url = URL.createObjectURL(new Blob([HC.asbForm.html], { type: 'text/html;charset=utf-8' }));
+    var w = window.open(url, '_blank');
+    if (!w) window.location.href = url;
+  }
+};
+document.addEventListener('click', function (ev) {
+  var t = ev.target.closest ? ev.target.closest('[data-act]') : null;
+  if (t && HC.formActions[t.getAttribute('data-act')]) { ev.preventDefault(); HC.formActions[t.getAttribute('data-act')](); }
+});
 
 function renderUpcoming(key) {
   var e = HC.ui.esc, u = HC.upcoming[key];
