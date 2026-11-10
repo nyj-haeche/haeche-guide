@@ -1777,7 +1777,7 @@ HC.diagnosis = (function () {
         ['order', '위반건축물: 시정명령을 받아 철거해요'], ['penalty', '위반건축물: 이행강제금이 부과되어 위법사항을 없애려고 해요'],
         ['unknown', '위반건축물인지 잘 모르겠어요']] },
     { key: 'location', type: 'choice', q: '건물은 어디에 있나요?', help: '상세 주소는 입력하지 않습니다.',
-      options: [['jingeon', '남양주시 진건읍'], ['nyj-other', '남양주시 다른 읍·면·동'], ['outside', '남양주시 외 지역']] }
+      options: [['jingeon', '남양주시 진건읍·퇴계원읍'], ['nyj-other', '남양주시 다른 읍·면·동'], ['outside', '남양주시 외 지역']] }
   ];
 
   var TYPE_NOTES = {
@@ -1944,7 +1944,7 @@ HC.diagnosis = (function () {
     html += '<div class="verdict r-' + r.result.code + '"><p class="k">자가진단 결과</p><p class="v" id="verdictLabel">' + e(r.result.label) + '</p><p>' + e(expl) + '</p></div>';
 
     if (input.location !== 'jingeon') {
-      html += '<div class="note note-warn"><strong>관할 안내</strong><p>진건읍 외 지역의 건물은 해당 지역 담당부서에 문의하세요. 조례 기준이 다를 수 있습니다.</p></div>';
+      html += '<div class="note note-warn"><strong>관할 안내</strong><p>진건읍 및 퇴계원읍 외 지역의 건물은 해당 지역 담당부서에 문의하세요. 조례 기준이 다를 수 있습니다.</p></div>';
     }
 
     html += '<section class="sec"><h2>담당부서에 확인할 사항</h2><div class="sec-body"><ol class="todo">' +
@@ -2471,7 +2471,7 @@ function renderContact() {
     (o.hours ? '<dt>응대 시간</dt><dd>' + e(o.hours) + '</dd>' : '') + '</dl>' +
     '</div>' +
     '<div class="note"><strong>전화 전에 준비하면 좋아요</strong><p>건물 위치(읍·리), 건축물대장 유무, 철거하려는 부분, 위반건축물인 경우 받은 시정명령서가 있는지 알려 주시면 더 빨리 안내받을 수 있습니다.</p></div>' +
-    '<div class="note note-warn"><strong>관할 확인</strong><p>진건읍 외 지역의 건물은 해당 읍·면·동 또는 시청 담당부서에 문의하세요.</p></div>' +
+    '<div class="note note-warn"><strong>관할 확인</strong><p>진건읍 및 퇴계원읍 외 지역의 건물은 해당 읍·면·동 또는 시청 담당부서에 문의하세요.</p></div>' +
     (c.deptContacts.length ? '<div><h2 class="list-title">관할별 해체신고 담당부서</h2><ul class="link-list dept-list">' + c.deptContacts.map(function (d) {
       return '<li><div class="dept-row"><span><strong>' + e(d.area) + '</strong><span>' + e(d.dept) + (d.duty ? ' · ' + e(d.duty) : '') + '</span></span><b class="dept-tel">' + e(d.phone) + '</b></div></li>';
     }).join('') + '</ul></div>' : '') +
