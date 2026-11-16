@@ -607,6 +607,19 @@ a.proto-chip { text-decoration: none; }
 .rs-time { padding-left: 20px; display: flex; flex-direction: column; gap: 10px; }
 .rs-items { padding-left: 0; list-style: none; margin: 0; display: flex; flex-direction: column; gap: 4px; }
 
+/* 유형 안내 보강(기준·오해·출처) */
+.rs-notice { margin: 4px 0 0; }
+.rs-src .rs-org { display: block; font-size: var(--fs-sm); color: var(--muted, #5b6676); margin-bottom: 2px; }
+.rs-basics { list-style: none; counter-reset: rsb; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.rs-basics li { counter-increment: rsb; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); }
+.rs-basics li strong { font-size: var(--fs-md); }
+.rs-basics li strong::before { content: counter(rsb) ". "; color: var(--accent, #1d4ed8); }
+.rs-myths { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.rs-myths li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); }
+.rs-myth-q { font-weight: 700; }
+.rs-myth-a::before { content: "→ "; color: var(--accent, #1d4ed8); font-weight: 700; }
+.rs-basics, .rs-myths { margin-bottom: 18px; }
+
 </style>
 <style>
 @media print {
@@ -2744,13 +2757,13 @@ HC.ask = (function () {
  *
  * - 공개된 안내자료(법제처 찾기쉬운 생활법령정보, 지방자치단체 위반건축물 예방 안내, 국토교통부 발표)를
  *   바탕으로 흔한 위반 유형을 일반화한 교육용 자료입니다. 특정 건물·특정 사건의 내용은 싣지 않습니다.
- * - 다른 지방자치단체 자료의 기간·횟수·감경 기준은 싣지 않았습니다(조례마다 다름). 남양주시 기준은 담당부서 확인 대상입니다.
- * - status: review(원상복구 검토 대상) / verify(경우에 따라 다름 · 확인 필요)
+ * - 다른 지방자치단체 자료의 기간·횟수·감경 기준은 싣지 않았습니다(조례마다 다름). 남양주시 기준은 별도 검증 대상입니다.
+ * - status: review(원상복구 검토 대상) / verify(경우에 따라 다름)
  */
 var HC = window.HC || (window.HC = {});
 HC.restorationData = {
-  verifiedAt: '2026-11-11',
-  lawNote: '법제처 생활법령정보(2026. 10. 15. 기준)에 「건축법」 2026. 11. 12. 시행 개정 사항을 검토 중이라는 안내가 있습니다. 조문 번호와 내용은 국가법령정보센터에서 다시 확인해야 합니다.',
+  verifiedAt: '2026-11-16',
+  lawNote: '법제처 생활법령정보(2026. 10. 15. 기준)에 「건축법」 2026. 11. 12. 시행 개정 사항을 검토 중이라는 안내가 있습니다. 조문 번호와 내용은 국가법령정보센터에서 다시 확인할 수 있습니다.',
   // 관련 법령(공개 안내자료에 인용된 조문 · 원문 대조 전이라 「재검증 필요」)
   laws: {
     'BA-79': { law: '건축법', article: '제79조', title: '위반 건축물 등에 대한 조치 등', status: '재검증 필요' },
@@ -2770,12 +2783,14 @@ HC.restorationData = {
     'EL-1': { org: '법제처 찾기쉬운 생활법령정보', title: '「건축법」 위반건축물 — 위법한 건축행위의 유형 및 제재', date: '2026. 10. 15. 기준', url: 'https://www.easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=1406&ccfNo=3&cciNo=2&cnpClsNo=1' },
     'EL-2': { org: '법제처 찾기쉬운 생활법령정보', title: '「건축법」 위반건축물 — 위법한 대수선 등의 유형 및 제재', date: '2026. 10. 15. 기준', url: 'https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1406&ccfNo=3&cciNo=2&cnpClsNo=2' },
     'EL-3': { org: '법제처 찾기쉬운 생활법령정보', title: '「주차장법」 위반행위의 유형 및 제재', date: '2026. 10. 15. 기준', url: 'https://www.easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=1406&ccfNo=3&cciNo=3&cnpClsNo=1' },
-    'SS': { org: '부산광역시 사상구청', title: '위반건축물 예방 안내', date: '', url: 'https://www.sasang.go.kr/index.sasang?menuCd=DOM_000000113015000000' },
-    'YD': { org: '부산광역시 영도구청', title: '위반건축물 안내', date: '', url: 'https://www.yeongdo.go.kr/00672/00725/03479.web' },
-    'MC': { org: '인천광역시 남구(현 미추홀구)', title: '위반건축행위 예방사례집', date: '2012', url: 'https://www.michuhol.go.kr/upfiles/board_112/2012%20%EC%9C%84%EB%B0%98%EA%B1%B4%EC%B6%95%ED%96%89%EC%9C%84%EC%98%88%EB%B0%A9%EC%82%AC%EB%A1%80%EC%A7%91.pdf' },
-    'SE': { org: '서울특별시', title: '주택 비가림 지붕도 불법? 소규모 위반건축물 지원 방안 마련', date: '2025. 8. 8.', url: 'https://mediahub.seoul.go.kr/archives/2015305' },
-    'YI': { org: '용인특례시(경기신문 보도)', title: '건축법 위반 행위 예방 위한 사전 안내·홍보 강화', date: '2026. 5. 14.', url: 'https://www.kgnews.co.kr/news/article.html?no=895789' },
-    'ML': { org: '국토교통부(머니투데이 보도)', title: '위반건축물 합리적 관리방안 발표', date: '2025. 10. 1.', url: 'https://www.mt.co.kr/estate/2025/10/01/2025100110573769101' }
+    'SS': { org: '지방자치단체 공개 안내', title: '위반건축물 예방 안내', date: '', url: 'https://www.sasang.go.kr/index.sasang?menuCd=DOM_000000113015000000' },
+    'YD': { org: '지방자치단체 공개 안내', title: '위반건축물 유형·조치 안내', date: '', url: 'https://www.yeongdo.go.kr/00672/00725/03479.web' },
+    'MC': { org: '지방자치단체 발간 자료', title: '위반건축행위 예방사례집', date: '2012', url: 'https://www.michuhol.go.kr/upfiles/board_112/2012%20%EC%9C%84%EB%B0%98%EA%B1%B4%EC%B6%95%ED%96%89%EC%9C%84%EC%98%88%EB%B0%A9%EC%82%AC%EB%A1%80%EC%A7%91.pdf' },
+    'SE': { org: '광역자치단체 발표 자료', title: '주택 비가림 지붕도 불법? 소규모 위반건축물 지원 방안 마련', date: '2025. 8. 8.', url: 'https://mediahub.seoul.go.kr/archives/2015305' },
+    'YI': { org: '지방자치단체 예방 홍보(언론 보도)', title: '건축법 위반 행위 예방 위한 사전 안내·홍보 강화', date: '2026. 5. 14.', url: 'https://www.kgnews.co.kr/news/article.html?no=895789' },
+    'GA': { org: '지방자치단체 발간 자료', title: '건축행정 바로알기 — 위반건축물 예방과 시정', date: '2012', url: 'https://www.michuhol.go.kr/upfiles/board_112/2012%20%EA%B1%B4%EC%B6%95%ED%96%89%EC%A0%95%20%EB%B0%94%EB%A1%9C%EC%95%8C%EA%B8%B0.pdf' },
+    'JN': { org: '지방자치단체 상담 운영(언론 보도)', title: '위반건축물 맞춤형 상담센터 운영', date: '2026. 1. 8.', url: 'https://www.heraldk.com/article/2026010814144703394' },
+    'ML': { org: '국토교통부 발표(언론 보도)', title: '위반건축물 합리적 관리방안 발표', date: '2025. 10. 1.', url: 'https://www.mt.co.kr/estate/2025/10/01/2025100110573769101' }
   },
   cases: [
     { case_id: 'VT-01', title: '옥상에 방이나 창고를 올린 경우', violation_type: '무단 증축', illustration_id: 'rooftop', where: '다세대·다가구주택, 상가주택 옥상',
@@ -2783,28 +2798,28 @@ HC.restorationData = {
       status_note: '위로 올린 부분은 층별 평면도와 현장 확인이 있어야 범위를 알 수 있습니다. 이 화면은 위반 여부를 판단하지 않습니다.',
       items: [{ part: 'rooftop', name: '옥상에 올린 방·창고', status: 'review',
         act: '옥상에 벽과 지붕이 있는 공간을 새로 만듦',
-        examples: ['옥탑방을 만들어 살거나 세를 놓음', '조립식 판넬 창고를 올림', '물탱크실·계단실을 넓혀 방으로 씀'],
+        examples: ['옥탑방을 만들어 살거나 세를 놓음', '조립식 판넬 창고를 올림', '물탱크실·계단실을 넓혀 방으로 씀', '허가받은 층수보다 한 층을 더 올림'],
         issue: '허가·신고 없이 면적·층수·높이가 늘어나는 증축에 해당할 수 있습니다.',
         fix: '올린 부분을 없애 허가받은 모습으로 되돌리는 것이 원칙입니다. 현행 기준에 맞는 경우에만 사후 허가·신고(추인)를 검토할 수 있습니다.',
         check: '건축물대장의 층수·면적과 실제 모습이 같은지 견주어 봅니다.' }],
       safety_considerations: ['옥상 구조물은 떨어지거나 넘어질 위험이 커서 해체 방법은 전문가 검토 필요', '해체 규모에 따라 「건축물관리법」의 해체 허가·신고 대상인지 확인'],
-      related_laws: ['BA-11', 'BA-79', 'BA-80', 'BM-30'], source_references: ['EL-1', 'SS', 'YD', 'MC'] },
+      related_laws: ['BA-11', 'BA-79', 'BA-80', 'BM-30'], source_references: ['EL-1', 'SS', 'YD', 'MC', 'JN'] },
 
     { case_id: 'VT-02', title: '베란다·테라스에 샷시나 지붕을 씌워 방처럼 쓰는 경우', violation_type: '무단 증축', illustration_id: 'veranda', where: '다세대·다가구주택의 계단식 베란다, 테라스',
       summary: '위층이 뒤로 물러나며 생긴 베란다·테라스에 샷시와 지붕을 씌워 실내처럼 쓰는 경우입니다. 다세대·다가구주택에서 사용승인 뒤에 자주 생기는 유형으로 안내됩니다.',
-      status_note: '모든 샷시 설치가 위반은 아닙니다. 허가받은 발코니인지, 높이·일조 기준 때문에 물러난 부분인지에 따라 달라지므로 도면 확인이 필요합니다.',
+      status_note: '모든 샷시 설치가 위반은 아닙니다. 허가받은 발코니인지, 높이·일조 기준 때문에 물러난 부분인지에 따라 달라지며, 승인도면으로 알 수 있습니다.',
       items: [{ part: 'veranda', name: '샷시·지붕을 씌운 베란다(테라스)', status: 'verify',
         act: '바깥 공간에 샷시와 지붕을 설치해 실내로 만듦',
-        examples: ['계단식 베란다에 샷시를 달아 방·주방으로 씀', '테라스에 지붕을 덮어 창고로 씀'],
+        examples: ['계단식 베란다에 샷시를 달아 방·주방으로 씀', '테라스에 지붕을 덮어 창고로 씀', '공동주택 발코니를 절차 없이 넓힘'],
         issue: '바닥면적이 늘어나는 증축이 되거나, 높이·일조 기준 때문에 비워 둔 부분을 막는 것이 될 수 있습니다.',
         fix: '위반으로 확인되면 덧씌운 부분을 없애 바깥 공간으로 되돌립니다. 이전 소유자가 설치했더라도 현재 소유자가 시정 대상이 될 수 있다고 안내됩니다.',
         check: '승인도면에서 그 자리가 실내인지 바깥 공간인지 확인합니다.' }],
       safety_considerations: ['높은 곳의 샷시·지붕은 떨어질 위험이 있어 전문업체와 상의'],
-      related_laws: ['BA-11', 'BA-79', 'BA-80'], source_references: ['MC', 'YD', 'SE', 'EL-1'] },
+      related_laws: ['BA-11', 'BA-79', 'BA-80'], source_references: ['MC', 'YD', 'SE', 'EL-1', 'GA'] },
 
     { case_id: 'VT-03', title: '비가림 지붕·캐노피를 덧붙인 경우', violation_type: '무단 증축', illustration_id: 'canopy', where: '주택 마당, 주차장, 가게 앞, 외부계단 위',
       summary: '비나 눈을 막으려고 기둥과 지붕을 세워 건물에 덧붙인 경우입니다. 생활 편의를 위해 설치했더라도 위반건축물로 적발되는 사례가 많다고 안내됩니다.',
-      status_note: '국토교통부가 2025년 10월 외부계단·옥상 비가림시설을 면적 산정에서 빼는 방안을 발표했으나, 시행 여부와 적용 범위는 확인이 필요합니다.',
+      status_note: '국토교통부가 2025년 10월 외부계단·옥상 비가림시설을 면적 산정에서 빼는 방안을 발표했습니다. 시행 시기와 적용 범위는 따로 정해집니다.',
       items: [{ part: 'canopy', name: '비가림 지붕(캐노피)', status: 'review',
         act: '건물 옆이나 앞에 기둥을 세우고 지붕을 덮음',
         examples: ['주차장 위 캐노피', '가게 앞 천막·판넬 지붕', '외부계단 위 비가림 지붕'],
@@ -2821,7 +2836,7 @@ HC.restorationData = {
         examples: ['마당에 창고용 컨테이너 설치', '주차장 자리에 사무실용 컨테이너 설치', '컨테이너를 2단으로 쌓아 사용'],
         issue: '허가·신고 없는 신축 또는 증축에 해당할 수 있습니다.',
         fix: '컨테이너를 치워 원래 상태로 되돌리거나, 요건이 맞으면 가설건축물 축조신고 등 절차를 검토합니다.',
-        check: '임시로 쓰는 것이라도 가설건축물 신고 대상인지 담당부서에 확인합니다.' },
+        check: '임시로 쓰는 것이라도 가설건축물 신고 대상일 수 있어 설치 전에 알아봅니다.' },
         { part: 'yard', name: '바깥에 쌓아 둔 물건', status: 'verify',
           act: '컨테이너 주변에 자재·물건을 쌓아 둠',
           examples: ['건설자재·폐자재 적치'],
@@ -2835,7 +2850,7 @@ HC.restorationData = {
       summary: '건물 벽에 붙여 조립식 판넬·철파이프로 창고나 방을 덧붙인 경우입니다. 대지 안 자투리 공간에 생기는 대표적인 무단 증축 유형으로 안내됩니다.',
       items: [{ part: 'shed', name: '덧붙인 창고·방', status: 'review',
         act: '건물 벽에 붙여 지붕과 벽이 있는 공간을 만듦',
-        examples: ['조립식 판넬 창고', '보일러실·다용도실 확장', '건물 뒤편 빈 땅에 따로 지은 작은 건물'],
+        examples: ['조립식 판넬 창고', '보일러실·다용도실 확장', '이웃 대지 경계 쪽 빈틈에 지붕과 벽을 덧댐', '건물 뒤편 빈 땅에 따로 지은 작은 건물'],
         issue: '작은 면적이라도 허가·신고 없이 늘리면 증축에 해당할 수 있습니다.',
         fix: '덧붙인 부분을 없애 허가받은 모습으로 되돌리는 것이 원칙이며, 현행 기준에 맞으면 사후 허가·신고(추인)를 검토합니다.',
         check: '건축물대장 면적과 실제 면적, 대지 경계와의 거리를 확인합니다.' }],
@@ -2858,36 +2873,36 @@ HC.restorationData = {
       status_note: '구조부를 건드린 공사는 건물 안전과 직결됩니다. 되돌리는 방법도 구조 검토가 먼저입니다.',
       items: [{ part: 'wallin', name: '늘리거나 없앤 벽·기둥', status: 'review',
         act: '세대 사이 벽을 늘리거나 없앰, 내력벽·기둥·보를 고침',
-        examples: ['한 집을 벽으로 막아 여러 가구로 나눔', '통로를 내려고 내력벽을 헐어 냄', '불편하다고 기둥을 없앰', '방화구획 벽을 바꿈'],
+        examples: ['한 집을 벽으로 막아 여러 가구로 나눔(이른바 방 쪼개기)', '허가받은 가구 수보다 많은 가구로 나누어 세를 놓음', '통로를 내려고 내력벽을 헐어 냄', '불편하다고 기둥을 없앰', '방화구획 벽을 바꿈'],
         issue: '허가·신고가 필요한 대수선에 해당할 수 있고, 방화구획을 해치면 화재 때 위험해집니다.',
         fix: '승인도면의 세대 수·벽 위치대로 되돌립니다. 구조부는 건축사·구조 전문가 검토를 거쳐야 합니다.',
         check: '건축물대장의 세대(가구) 수와 실제 사용 세대 수를 견주어 봅니다.' }],
       safety_considerations: ['내력벽·기둥·보를 다루는 공사는 붕괴 위험이 있어 반드시 구조 전문가 검토 필요', '방화구획을 되돌릴 때는 소방 관련 기준도 함께 확인'],
-      related_laws: ['BD-3-2', 'BA-11', 'BA-79', 'BA-80'], source_references: ['EL-2', 'YI', 'SS', 'MC'] },
+      related_laws: ['BD-3-2', 'BA-11', 'BA-79', 'BA-80'], source_references: ['EL-2', 'YI', 'SS', 'MC', 'JN'] },
 
     { case_id: 'VT-08', title: '허가받은 용도와 다르게 쓰는 경우', violation_type: '무단 용도변경', illustration_id: 'usechange', where: '근린생활시설, 창고, 주택',
       summary: '건축물대장에 적힌 용도와 다르게 쓰는 경우입니다. 건물을 헐지 않아도 되는 경우가 많지만, 용도를 바꾸며 설치한 시설은 정리해야 할 수 있습니다.',
-      status_note: '용도에 따라 허가, 신고, 건축물대장 기재변경으로 절차가 나뉩니다. 어느 절차인지는 담당부서 확인이 필요합니다.',
+      status_note: '용도에 따라 허가, 신고, 건축물대장 기재변경으로 절차가 나뉩니다.',
       items: [{ part: 'main', name: '용도를 바꿔 쓰는 부분', status: 'verify',
         act: '허가·신고나 기재변경 없이 다른 용도로 사용',
-        examples: ['근린생활시설(사무소·소매점)을 주택으로 사용', '주택을 음식점으로 사용', '창고를 공장·판매시설로 사용', '고시원 방마다 취사시설 설치'],
+        examples: ['근린생활시설(사무소·소매점)을 주택으로 사용', '주택을 음식점으로 사용', '창고를 공장·판매시설로 사용', '고시원 방마다 취사시설 설치', '사무소로 허가받은 층을 원룸으로 임대'],
         issue: '허가·신고 없는 용도변경에 해당할 수 있습니다. 같은 시설군 안에서 바꿀 때도 건축물대장 기재변경이 필요한 경우가 있다고 안내됩니다.',
         fix: '원래 용도로 되돌리거나(바꾸며 설치한 취사시설·칸막이 등 정리), 기준에 맞으면 용도변경 허가·신고 절차를 밟습니다.',
         check: '건축물대장의 층별 용도와 실제 사용 용도를 견주어 봅니다.' }],
       safety_considerations: ['내부 설비·칸막이를 정리할 범위는 승인도면과 견주어 확인'],
-      related_laws: ['BA-19', 'BA-79', 'BA-80'], source_references: ['EL-2', 'SS', 'YD', 'MC'] },
+      related_laws: ['BA-19', 'BA-79', 'BA-80'], source_references: ['EL-2', 'SS', 'YD', 'MC', 'GA', 'JN'] },
 
     { case_id: 'VT-09', title: '가설건축물을 신고 없이 두거나 기간이 지난 경우', violation_type: '가설건축물 위반', illustration_id: 'tent', where: '공사 현장, 농지, 공장·창고 부지',
       summary: '임시로 쓰는 천막·파이프 구조물, 임시 창고·사무실을 신고 없이 설치했거나, 신고한 존치기간이 지났는데도 계속 쓰는 경우입니다.',
-      status_note: '존치기간을 늘리려면 기간이 끝나기 전에 연장신고를 해야 합니다. 신고 기한은 담당부서에 확인하세요.',
+      status_note: '존치기간을 늘리려면 기간이 끝나기 전에 연장신고를 해야 합니다. 처음 신고한 구조·용도·면적과 달라졌다면 연장이 어려울 수 있습니다.',
       items: [{ part: 'tent', name: '천막·파이프 구조물, 임시 건물', status: 'review',
         act: '신고 없이 설치하거나 존치기간이 지난 뒤에도 사용',
-        examples: ['철파이프·천막 창고', '임시 사무실·숙소', '기간 연장신고를 놓친 가설건축물'],
+        examples: ['철파이프·천막 창고', '임시 사무실·숙소', '기간 연장신고를 놓친 가설건축물', '농막을 신고 없이 놓거나 신고 내용과 다르게 넓힘', '처음 신고한 것과 다른 구조·용도로 바꾼 가설건축물'],
         issue: '가설건축물도 축조신고가 필요하며, 기간이 지나면 위반건축물이 될 수 있습니다.',
         fix: '구조물을 치우거나, 요건이 맞으면 축조신고·연장신고 절차를 밟습니다.',
         check: '가설건축물 관리대장의 존치기간과 신고 내용을 확인합니다.' }],
       safety_considerations: ['파이프 구조물은 해체 중 넘어질 수 있어 전문업체와 상의'],
-      related_laws: ['BA-20', 'BA-79', 'BA-80'], source_references: ['EL-2', 'YI', 'YD'] },
+      related_laws: ['BA-20', 'BA-79', 'BA-80'], source_references: ['EL-2', 'YI', 'YD', 'GA'] },
 
     { case_id: 'VT-10', title: '담장·옹벽을 신고 없이 쌓은 경우', violation_type: '공작물 축조 위반', illustration_id: 'wall', where: '대지 경계, 경사지',
       summary: '일정 높이를 넘는 담장·옹벽, 큰 광고판 같은 공작물을 신고 없이 설치한 경우입니다. 생활법령정보는 2미터를 넘는 담장·옹벽을 예로 듭니다.',
@@ -2896,7 +2911,7 @@ HC.restorationData = {
         examples: ['높이 2미터를 넘는 담장', '경사지 옹벽', '대형 광고탑·광고판'],
         issue: '규모에 따라 공작물 축조신고가 필요할 수 있습니다. 신고 대상인지는 종류와 높이로 정해집니다.',
         fix: '신고 대상이면 낮추거나 없애 되돌리거나, 기준에 맞으면 사후 신고를 검토합니다.',
-        check: '공작물의 종류와 높이를 재어 신고 대상인지 담당부서에 확인합니다.' }],
+        check: '공작물의 종류와 높이를 재어 신고 대상인지 살펴봅니다.' }],
       safety_considerations: ['옹벽은 흙을 버티는 구조물이라 임의로 헐면 무너질 수 있어 반드시 전문가 검토 필요'],
       related_laws: ['BA-83', 'BA-79'], source_references: ['EL-2', 'MC'] },
 
@@ -2904,7 +2919,7 @@ HC.restorationData = {
       summary: '건물에 딸린 주차장을 막아 창고·방·가게로 쓰거나, 물건을 쌓아 차를 댈 수 없게 한 경우입니다. 「주차장법」 위반이면서 위반건축물로도 다뤄진다고 안내됩니다.',
       items: [{ part: 'parking', name: '주차장 자리', status: 'review',
         act: '주차장을 다른 용도로 쓰거나 주차 기능을 못 하게 함',
-        examples: ['필로티 주차장에 벽을 세워 창고·방으로 사용', '주차구획에 물건·시설 설치', '주차장 입구를 막음'],
+        examples: ['필로티 주차장에 벽을 세워 창고·방으로 사용', '주차구획에 물건·시설 설치', '주차장 입구를 막음', '주차장 자리에 점포·사무실을 들임'],
         issue: '부설주차장은 주차장 외의 용도로 쓸 수 없고, 본래 기능을 유지해야 합니다.',
         fix: '막은 벽과 시설·물건을 치워 차를 댈 수 있는 상태로 되돌립니다(원상회복).',
         check: '승인도면의 주차 대수·위치와 현재 상태를 견주어 봅니다.' }],
@@ -2934,14 +2949,28 @@ HC.restorationData = {
       related_laws: ['BA-46', 'BA-11', 'BA-79', 'BA-80'], source_references: ['MC', 'SE', 'EL-2'] }
   ],
   // 위반건축물이 되면 생길 수 있는 일(공개 안내자료 공통 내용)
-  effects: ['건축물대장에 「위반건축물」로 표시될 수 있습니다.', '그 건물에서 하려는 영업의 허가·신고가 제한될 수 있습니다.', '매매·임대·대출 과정에서 불리할 수 있습니다.', '시정명령을 따르지 않으면 이행강제금이 고칠 때까지 반복해 부과될 수 있습니다.', '사안에 따라 고발될 수 있습니다.'],
+  effects: ['건축물대장에 「위반건축물」로 표시될 수 있습니다.', '그 건물에서 하려는 영업의 허가·신고가 제한될 수 있습니다.', '매매·임대·대출 과정에서 불리할 수 있습니다.', '시정명령을 따르지 않으면 이행강제금이 고칠 때까지 반복해 부과될 수 있습니다.', '이행강제금을 내지 않으면 재산 압류 등 징수 절차로 이어질 수 있습니다.', '사안에 따라 고발될 수 있습니다.'],
   // 일반적인 처리 흐름(기간·횟수는 지방자치단체마다 달라 싣지 않음)
   flow: [['위반 사실 확인', '항공사진 판독, 민원 신고, 다른 기관과의 합동점검, 현장 순찰 등으로 확인합니다.'],
     ['시정명령 사전통지', '위반 내용을 알리고 의견을 낼 기회를 줍니다.'],
     ['시정명령', '기한을 정해 원상복구 등을 요구합니다. 건축물대장에 위반건축물로 표시될 수 있습니다.'],
     ['이행강제금 부과 예고', '기한 안에 고치지 않으면 부과를 미리 알립니다.'],
     ['이행강제금 부과', '고칠 때까지 반복해 부과될 수 있습니다.'],
-    ['시정 완료 확인', '원상복구하거나 사후 허가·신고(추인)를 마친 뒤 담당부서 확인을 거쳐 후속 행정처리를 합니다.']],
+    ['시정 완료 확인', '원상복구하거나 사후 허가·신고(추인)를 마친 뒤 현장 확인을 거쳐 후속 행정처리를 합니다.']],
+  // 위반 여부를 볼 때 살펴보는 기준(공개 안내자료 공통 내용을 일반화)
+  basics: [['절차를 거쳤나요', '새로 짓거나 넓히거나 구조를 고칠 때 필요한 허가·신고를 거쳤는지 봅니다. 면적이 작아도 대상일 수 있습니다.'],
+    ['허가받은 내용과 같나요', '건축물대장과 승인도면에 적힌 면적·층수·용도·가구 수가 지금 모습과 같은지 견주어 봅니다.'],
+    ['대지 기준을 지키나요', '건폐율·용적률, 주차장, 조경, 건축선처럼 땅에 걸린 기준을 벗어나지 않았는지 봅니다.'],
+    ['임시 시설은 신고와 기간을 지키나요', '컨테이너·천막 같은 가설건축물은 신고했는지, 존치기간이 남았는지 봅니다.']],
+  // 자주 하는 오해
+  myths: [['면적이 작으면 괜찮다', '면적이 작아도 허가나 신고 대상일 수 있습니다.'],
+    ['옮길 수 있는 컨테이너는 건축물이 아니다', '땅에 놓고 계속 쓰면 건축물이나 가설건축물로 다뤄질 수 있습니다.'],
+    ['전 주인이 지은 것이라 나와 상관없다', '시정명령은 지금의 소유자·관리자·점유자에게도 내려질 수 있습니다.'],
+    ['오래된 것이라 괜찮다', '오래되었다고 해서 저절로 적법해지지는 않습니다.'],
+    ['이행강제금을 내면 끝난다', '고칠 때까지 반복해 부과될 수 있고, 건축물대장의 위반 표시도 남을 수 있습니다.'],
+    ['철거만 하면 저절로 정리된다', '해체신고와 시정 완료 확인은 서로 다른 절차입니다. 철거 뒤 현장 확인을 거쳐 표시가 정리됩니다.']],
+  // 공사·매매·임대 전에 살펴볼 것
+  before: ['건축물대장에 「위반건축물」 표시가 있는지 봅니다.', '건축물대장의 면적·층수·용도와 실제 모습이 같은지 견주어 봅니다.', '증축, 구조 변경, 용도를 바꾸는 공사는 시작하기 전에 허가·신고 대상인지 알아봅니다.', '가설건축물은 존치기간이 끝나기 전에 연장신고를 합니다.', '공동주택 발코니처럼 이웃과 함께 쓰는 부분에 영향을 주는 공사는 관리주체의 절차를 먼저 알아봅니다.', '건축사 등 전문가 상담으로 원상복구와 사후 허가·신고(추인) 가운데 맞는 길을 찾을 수 있습니다.'],
   // 원상복구 체크리스트(공통). 해체 방법·순서는 안내하지 않습니다.
   checklist: [
     ['notice', '시정명령서 또는 관련 통지를 확인했나요?', '위반 내용·위치·면적·기한이 적혀 있습니다.'],
@@ -2951,9 +2980,9 @@ HC.restorationData = {
     ['measure', '현장 실측이 필요한지 확인했나요?', '면적이 분명하지 않으면 실측이 필요할 수 있습니다.'],
     ['safety', '구조·안전 검토가 필요한지 확인했나요?', '위로 올린 부분, 지붕, 바깥 계단, 벽·기둥, 옹벽은 전문가 검토가 필요합니다.', true],
     ['expert', '원상복구 방법을 전문가와 상담했나요?', '건축사 등 전문가에게 방법과 범위, 추인 가능 여부를 확인합니다.', true],
-    ['demolition', '해체공사 법정 절차(해체 허가·신고)를 검토했나요?', '이 서비스의 자가진단·절차 안내를 참고하고 담당부서에 확인합니다.'],
+    ['demolition', '해체공사 법정 절차(해체 허가·신고)를 검토했나요?', '이 서비스의 자가진단과 절차 안내에서 미리 살펴볼 수 있습니다.'],
     ['waste', '폐기물 처리와 현장 안전을 확인했나요?', '폐기물 처리 방법과 작업 중 안전조치를 확인합니다.'],
-    ['followup', '원상복구 뒤 담당부서 확인 절차를 알아봤나요?', '현장확인, 건축물대장 표시 정리, 이행강제금 관련 처리는 담당부서에 확인합니다.']
+    ['followup', '원상복구 뒤 마무리 절차를 알아봤나요?', '현장 확인, 건축물대장 표시 정리, 이행강제금 관련 처리가 이어집니다. 궁금한 점은 담당부서로 문의하시면 됩니다.']
   ]
 };
 
@@ -2976,7 +3005,7 @@ HC.restoration = (function () {
   var ST = {
     review:   { label: '원상복구 검토 대상', mark: '!', fill: '#fde3e0', stroke: '#b3261e', dash: '' },
     restored: { label: '원상복구한 뒤 없어지는 부분', mark: '✓', fill: '#def3e3', stroke: '#17703a', dash: '9 5' },
-    verify:   { label: '경우에 따라 다름 · 확인 필요', mark: '?', fill: '#fff2bf', stroke: '#8a5f00', dash: '3 4' },
+    verify:   { label: '경우에 따라 다름', mark: '?', fill: '#fff2bf', stroke: '#8a5f00', dash: '3 4' },
     keep:     { label: '기존 건축물·유지되는 부분', mark: '', fill: '#dce8fb', stroke: '#1d4fa8', dash: '' },
     back:     { label: '원래 쓰임으로 되돌린 부분', mark: '✓', fill: '#def3e3', stroke: '#17703a', dash: '' }
   };
@@ -3091,18 +3120,18 @@ HC.restoration = (function () {
   function detail(c, partId) {
     var its = itemsOf(c, partId); if (!its.length) return '';
     return its.map(function (it) {
-      var s = ST[it.status], need = it.status === 'verify' ? '경우에 따라 위반이 아닐 수 있습니다. 승인도면과 현장을 담당부서·전문가와 함께 확인해야 합니다.' :
-        '원상복구 범위는 시정명령서와 승인도면으로 정해집니다. 해체 방법과 순서는 전문가 검토가 필요합니다.';
+      var s = ST[it.status], need = it.status === 'verify' ? '경우에 따라 위반이 아닐 수 있습니다. 승인도면과 현장을 견주어 보면 알 수 있습니다.' :
+        '원상복구 범위는 시정명령서와 승인도면으로 정해집니다. 해체 방법과 순서는 건축사 등 전문가와 정합니다.';
       return '<article class="rs-detail" data-status="' + it.status + '"><h3>' + HC.ui.esc(it.name) + ' <span class="rs-chip" style="border-color:' + s.stroke + ';color:' + s.stroke + '">' + (s.mark ? s.mark + ' ' : '') + s.label + '</span></h3><dl>' +
         '<dt>어떤 행위인가요</dt><dd>' + HC.ui.esc(it.act) + '</dd>' +
         '<dt>이런 경우가 해당합니다</dt><dd><ul>' + it.examples.map(function (x) { return '<li>' + HC.ui.esc(x) + '</li>'; }).join('') + '</ul></dd>' +
         '<dt>왜 문제가 되나요</dt><dd>' + HC.ui.esc(it.issue) + '</dd>' +
         '<dt>어떻게 바로잡나요(일반)</dt><dd>' + HC.ui.esc(it.fix) + '</dd>' +
         '<dt>먼저 확인할 것</dt><dd>' + HC.ui.esc(it.check) + '<br><span class="small muted">확인자료: ' + DOCS.join(', ') + '</span></dd>' +
-        '<dt>전문가·행정기관 확인 필요사항</dt><dd>' + need + '</dd></dl></article>'; }).join('');
+        '<dt>함께 살펴볼 것</dt><dd>' + need + '</dd></dl></article>'; }).join('');
   }
   function srcList(keys) {
-    return '<ul class="law-list rs-src">' + keys.map(function (k) { var x = D.sources[k]; return '<li><strong>' + HC.ui.esc(x.org) + '</strong><a href="' + HC.ui.esc(x.url) + '" target="_blank" rel="noopener noreferrer">' + HC.ui.esc(x.title) + '</a>' + (x.date ? ' <span class="small muted">' + HC.ui.esc(x.date) + '</span>' : '') + '</li>'; }).join('') + '</ul>';
+    return '<ul class="law-list rs-src">' + keys.map(function (k) { var x = D.sources[k]; return '<li><span class="rs-org">' + HC.ui.esc(x.org) + '</span><a href="' + HC.ui.esc(x.url) + '" target="_blank" rel="noopener noreferrer">' + HC.ui.esc(x.title) + '</a>' + (x.date ? ' <span class="small muted">' + HC.ui.esc(x.date) + '</span>' : '') + '</li>'; }).join('') + '</ul>';
   }
 
   /* ── 3. 화면 ─────────────────────────────────────────────────── */
@@ -3114,15 +3143,17 @@ HC.restoration = (function () {
   function load() { try { st.done = JSON.parse(sessionStorage.getItem(KEY) || '{}') || {}; } catch (x) { st.done = {}; } }
   function save() { try { sessionStorage.setItem(KEY, JSON.stringify(st.done)); } catch (x) { /* 무시 */ } }
   function chip(c) { return '<span class="rs-status" data-s="유형">' + e(c.violation_type) + '</span>'; }
-  var NOTICE = '<div class="note note-warn"><strong>일반적인 유형 안내입니다</strong><p>공개된 안내자료를 바탕으로 한 설명용 예시이며 실제 원상복구 범위는 개별 행정처분과 현장 조건에 따라 달라집니다. 그림의 색 표시는 법적 철거명령의 범위를 정하지 않습니다. 정확한 대상은 승인도면, 현장조사, 시정명령서 등 행정문서로 확인해야 합니다.</p></div>';
+  var NOTICE = '<p class="small muted rs-notice">일반적인 유형 안내입니다. 실제 원상복구 범위는 시정명령서와 승인도면, 현장 조건에 따라 정해집니다.</p>';
 
   function listView() {
     return '<p class="muted">해체·원상복구 대상이 되기 쉬운 위반건축물 유형 ' + D.cases.length + '가지를 법제처·지방자치단체·국토교통부 공개 자료를 바탕으로 정리했습니다. 내 상황과 비슷한 유형을 골라 그림으로 확인하세요. 특정 건물의 사례가 아니며, 사진을 올리거나 분석하지 않습니다.</p>' + NOTICE +
       '<ul class="rs-list">' + D.cases.map(function (c) {
         return '<li><button type="button" class="lg-card rs-card" data-id="' + c.case_id + '"><span class="rs-thumb" aria-hidden="true">' + svg(c, 'now') + '</span><span class="rs-card-t"><strong>' + e(c.title) + '</strong><span class="small">' + '흔한 곳: ' + e(c.where) + '</span>' + chip(c) + '</span></button></li>'; }).join('') + '</ul>' +
       '<h2 class="lg-h">위반건축물이 되면 생길 수 있는 일</h2><ul class="rs-items">' + D.effects.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
-      '<p class="small muted">개발제한구역 등 지역에 따라 추가 제한이 있을 수 있습니다. 실제 적용은 담당부서에 확인하세요.</p>' +
-      '<h2 class="lg-h">참고한 공개 자료</h2>' + srcList(Object.keys(D.sources)) + '<p class="small muted">다른 지방자치단체 자료의 기간·횟수·감경 기준은 싣지 않았습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>';
+      '<h2 class="lg-h">위반 여부는 이렇게 살펴봅니다</h2><ol class="rs-basics">' + D.basics.map(function (x) { return '<li><strong>' + e(x[0]) + '</strong><span>' + e(x[1]) + '</span></li>'; }).join('') + '</ol>' +
+      '<h2 class="lg-h">자주 하는 오해</h2><ul class="rs-myths">' + D.myths.map(function (x) { return '<li><span class="rs-myth-q">“' + e(x[0]) + '”</span><span class="rs-myth-a">' + e(x[1]) + '</span></li>'; }).join('') + '</ul>' +
+      '<h2 class="lg-h">공사·매매·임대 전에 살펴볼 것</h2><ul class="rs-items">' + D.before.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
+      '<h2 class="lg-h">참고한 공개 자료</h2>' + srcList(Object.keys(D.sources)) + '<p class="small muted">기간·횟수·감경 기준은 지역마다 달라 싣지 않았습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>';
   }
   function panel(c) {
     var f = fields(c), h = '';
@@ -3135,7 +3166,7 @@ HC.restoration = (function () {
         '<tr><th scope="row">자료 확인일</th><td>' + e(f.last_verified_at) + '</td></tr></tbody></table>' +
         '<h3 class="lg-h">참고한 공개 자료</h3>' + srcList(c.source_references);
     } else if (st.tab === 'where') {
-      h = '<p class="muted">그림에서 표시된 부분을 누르면 설명이 나옵니다. 키보드는 Tab으로 옮기고 Enter로 엽니다.</p>' +
+      h = '<p class="muted">그림에서 표시된 부분을 누르면 설명이 나옵니다. 키보드는 Tab으로 옮기고 Enter로 엽니다. 색 표시는 이해를 돕는 예시이며 법적 철거명령의 범위를 정하지 않습니다.</p>' +
         '<div class="ph-row ph-noprint" role="group" aria-label="그림 크기"><button type="button" class="btn btn-ghost" id="rsZoomOut" aria-label="그림 작게">－ 작게</button><button type="button" class="btn btn-ghost" id="rsZoomIn" aria-label="그림 크게">＋ 크게</button><button type="button" class="btn btn-ghost" id="rsZoom0">원래 크기</button></div>' +
         '<div class="rs-stage" id="rsStage"><div class="rs-zoom" style="width:' + (st.zoom * 100) + '%">' + svg(c, 'now', st.part) + '</div></div>' + legend(c) +
         '<div id="rsDetail" aria-live="polite">' + (st.part ? detail(c, st.part) : '<p class="muted">부위를 눌러 주세요.</p>') + '</div>' +
@@ -3143,13 +3174,13 @@ HC.restoration = (function () {
     } else if (st.tab === 'compare') {
       h = '<p class="muted">공식 도면이 아니라 이해를 돕는 개념도입니다. 「변경 전」은 승인된 원래 상태가 아니라 가상 예시입니다.</p><div class="rs-cmp">' +
         ['before', 'now', 'after'].map(function (m) { return '<figure>' + svg(c, m) + '<figcaption class="small">' + { before: '① 변경 전 가상 예시', now: '② 위반 상태 예시', after: '③ 원상복구한 뒤 예시' }[m] + '</figcaption></figure>'; }).join('') + '</div>' + legend(c, true) +
-        (f.restoration_review_parts.length ? '' : '<p class="small muted">이 유형은 경우에 따라 위반이 아닐 수 있어 ②와 ③을 같게 그렸습니다. 확인 결과에 따라 달라집니다.</p>');
+        (f.restoration_review_parts.length ? '' : '<p class="small muted">이 유형은 경우에 따라 위반이 아닐 수 있어 ②와 ③을 같게 그렸습니다.</p>');
     } else if (st.tab === 'process') {
       h = '<h3 class="lg-h">일반적인 처리 흐름</h3><ol class="rs-time">' + D.flow.map(function (t) { return '<li><strong>' + e(t[0]) + '</strong><p class="small">' + e(t[1]) + '</p></li>'; }).join('') + '</ol>' +
-        '<p class="small muted">단계별 기간과 이행강제금 부과 횟수·금액은 지방자치단체 조례와 사안에 따라 다릅니다. 실제 절차와 기한은 통지서와 담당부서 안내를 따릅니다. <a href="#procedure">해체신고 절차 보기</a></p>' +
-        '<h3 class="lg-h">바로잡는 두 가지 길</h3><ol class="todo"><li><strong>원상복구</strong> — 위반 부분을 없애거나 원래 쓰임으로 되돌립니다. 해체가 필요하면 해체 허가·신고 대상인지 먼저 확인합니다.</li><li><strong>사후 허가·신고(추인)</strong> — 현행 기준에 맞는 경우에만 가능합니다. 가능 여부는 건축사 등 전문가와 담당부서에 확인합니다.</li></ol>' +
+        '<p class="small muted">단계별 기간과 이행강제금 부과 횟수·금액은 지역과 사안에 따라 다릅니다. 기한은 받으신 통지서에 적혀 있습니다. <a href="#procedure">해체신고 절차 보기</a></p>' +
+        '<h3 class="lg-h">바로잡는 두 가지 길</h3><ol class="todo"><li><strong>원상복구</strong> — 위반 부분을 없애거나 원래 쓰임으로 되돌립니다. 해체가 필요하면 해체 허가·신고 대상인지 먼저 확인합니다.</li><li><strong>사후 허가·신고(추인)</strong> — 현행 기준에 맞는 경우에만 가능합니다. 건축사 등 전문가 상담으로 가능 여부를 알 수 있습니다.</li></ol>' +
         '<h3 class="lg-h">위반건축물이 되면 생길 수 있는 일</h3><ul class="rs-items">' + D.effects.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
-        '<h3 class="lg-h">관련 법령</h3><ul class="law-list">' + c.related_laws.map(function (k) { var l = D.laws[k]; return '<li><strong>' + e(l.law + ' ' + l.article) + '</strong>' + e(l.title) + ' <span class="small muted">(' + e(l.status) + ')</span></li>'; }).join('') + '</ul><p class="small muted">' + e(D.lawNote) + ' 검증일 ' + e(D.verifiedAt) + '</p>' +
+        '<h3 class="lg-h">관련 법령</h3><ul class="law-list">' + c.related_laws.map(function (k) { var l = D.laws[k]; return '<li><strong>' + e(l.law + ' ' + l.article) + '</strong>' + e(l.title) + '</li>'; }).join('') + '</ul><p class="small muted">조문은 개정될 수 있으며 최신 내용은 국가법령정보센터에서 볼 수 있습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>' +
         '<h3 class="lg-h">참고한 공개 자료</h3>' + srcList(c.source_references);
     } else {
       var done = st.done[c.case_id] || {};
