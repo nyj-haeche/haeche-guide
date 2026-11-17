@@ -669,6 +669,11 @@ a.proto-chip { text-decoration: none; }
 /* 현장 사례 그림을 기존 도식으로 통일 */
 .nj-pic { aspect-ratio: auto; background: #f6f9fd; } .nj-pic .rs-svg { display: block; width: 100%; height: auto; }
 .nj-dash { border-top-style: solid; }
+/* 체크리스트 항목: 제목과 「전문가 검토」 표시는 한 줄에 나란히, 설명은 그 아래 */
+.rs-ck { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.rs-ck-t { display: block; }
+.rs-chip { white-space: nowrap; line-height: 1.5; padding: 1px 9px; }
+.rs-chip-pro { border-color: #b3261e; color: #b3261e; margin-left: 4px; }
 
 </style>
 <style>
@@ -3566,7 +3571,7 @@ HC.restoration = (function () {
       var done = st.done[c.case_id] || {};
       h = '<p class="muted">원상복구를 준비할 때 확인할 일입니다. 해체 방법이나 순서는 이 그림만으로 정할 수 없습니다.</p>' +
         (c.safety_considerations.length ? '<div class="note note-warn"><strong>안전 유의사항</strong><ul>' + c.safety_considerations.map(function (s) { return '<li>' + e(s) + '</li>'; }).join('') + '</ul></div>' : '') +
-        '<p class="small" id="rsProg"></p><ul class="ph-proc">' + D.checklist.map(function (k) { return '<li><label class="opt"><input type="checkbox" class="rs-chk" value="' + k[0] + '"' + (done[k[0]] ? ' checked' : '') + '><span><strong>' + e(k[1]) + '</strong>' + (k[3] ? ' <em class="rs-chip" style="border-color:#b3261e;color:#b3261e">전문가 검토</em>' : '') + '<br><span class="small muted">' + e(k[2]) + '</span></span></label></li>'; }).join('') + '</ul>';
+        '<p class="small" id="rsProg"></p><ul class="ph-proc">' + D.checklist.map(function (k) { return '<li><label class="opt"><input type="checkbox" class="rs-chk" value="' + k[0] + '"' + (done[k[0]] ? ' checked' : '') + '><span><span class="rs-ck"><span class="rs-ck-t"><strong>' + e(k[1]) + '</strong>' + (k[3] ? ' <em class="rs-chip rs-chip-pro">전문가 검토</em>' : '') + '</span><span class="small muted">' + e(k[2]) + '</span></span></span></label></li>'; }).join('') + '</ul>';
     }
     return h;
   }
