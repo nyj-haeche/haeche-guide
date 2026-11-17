@@ -628,6 +628,8 @@ a.proto-chip { text-decoration: none; }
 .rs-card-t { flex: 1; align-self: stretch; }
 .rs-card .rs-status { margin-top: auto; }
 @media (min-width: 620px) { .rs-list { grid-auto-rows: 1fr; } }
+/* 유형 안내: 인쇄 단추는 보조 동작이라 작게, 위 내용과 간격 확보 */
+.rs-actions { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); align-items: flex-start; }
 
 </style>
 <style>
@@ -2963,7 +2965,7 @@ HC.restorationData = {
       related_laws: ['BA-46', 'BA-11', 'BA-79', 'BA-80'], source_references: ['MC', 'SE', 'EL-2'] }
 ,
 
-    { case_id: 'VT-14', title: '아파트 발코니·전실을 넓혀 쓰는 경우', violation_type: '공동주택 구조 변경', illustration_id: 'apt', where: '아파트 등 공동주택의 발코니, 현관 앞 전실',
+    { case_id: 'VT-14', indoor: true, title: '아파트 발코니·전실을 넓혀 쓰는 경우', violation_type: '공동주택 구조 변경', illustration_id: 'apt', where: '아파트 등 공동주택의 발코니, 현관 앞 전실',
       summary: '아파트에서 발코니를 거실·방으로 넓히거나, 현관 앞 전실에 문이나 벽을 달아 세대 안처럼 쓰는 경우입니다. 발코니와 전실은 살펴볼 내용이 서로 다릅니다.',
       status_note: '발코니 확장은 정해진 기준과 절차에 맞으면 할 수 있습니다. 전실은 그 공간이 세대 전유부분인지 공용부분인지에 따라 달라집니다. 「전실」이라는 이름이나 그림만으로 위반 여부와 되돌릴 범위를 정할 수 없으며, 이 화면은 위반 여부를 판단하지 않습니다.',
       items: [{ part: 'balcony', name: '발코니 확장', status: 'verify',
@@ -3006,6 +3008,8 @@ HC.restorationData = {
     ['철거만 하면 저절로 정리된다', '해체신고와 시정 완료 확인은 서로 다른 절차입니다. 철거 뒤 현장 확인을 거쳐 표시가 정리됩니다.']],
   // 공사·매매·임대 전에 살펴볼 것
   before: ['건축물대장에 「위반건축물」 표시가 있는지 봅니다.', '건축물대장의 면적·층수·용도와 실제 모습이 같은지 견주어 봅니다.', '증축, 구조 변경, 용도를 바꾸는 공사는 시작하기 전에 허가·신고 대상인지 알아봅니다.', '가설건축물은 존치기간이 끝나기 전에 연장신고를 합니다.', '공동주택 발코니처럼 이웃과 함께 쓰는 부분에 영향을 주는 공사는 관리주체의 절차를 먼저 알아봅니다.', '건축사 등 전문가 상담으로 원상복구와 사후 허가·신고(추인) 가운데 맞는 길을 찾을 수 있습니다.'],
+  // 건물 안에서 생기는 유형(indoor)은 항공사진으로 알 수 없어 첫 단계 설명을 달리 씁니다.
+  flowIndoorFirst: '민원 신고, 다른 기관과의 합동점검, 현장 점검 등으로 확인합니다.',
   // 원상복구 체크리스트(공통). 해체 방법·순서는 안내하지 않습니다.
   checklist: [
     ['notice', '시정명령서 또는 관련 통지를 확인했나요?', '위반 내용·위치·면적·기한이 적혀 있습니다.'],
@@ -3059,7 +3063,7 @@ HC.restoration = (function () {
     rooftop:  { name: '옥탑 증축', parts: [P('main', '기존 건물', 1, 'bldg', [130, 95, 200, 140], 2), P('rooftop', '옥상에 올린 부분', 0, 'box', [170, 45, 110, 50])] },
     wall:     { name: '담장·옹벽', parts: [P('main', '기존 건물', 1, 'bldg', [90, 95, 200, 140], 2), P('wall', '담장·옹벽', 0, 'box', [350, 130, 26, 105])] },
     parking:  { name: '주차장', parts: [P('main', '기존 건물(위층)', 1, 'bldg', [120, 55, 220, 120], 2), P('parking', '1층 주차장 자리', 1, 'box', [120, 175, 220, 60])] },
-    landscape:{ name: '조경 공간', parts: [P('main', '기존 건물', 1, 'bldg', [80, 95, 200, 140], 2), P('garden', '조경 공간', 1, 'box', [300, 190, 120, 45])] },
+    landscape:{ name: '조경 공간', parts: [P('main', '기존 건물', 1, 'bldg', [80, 95, 200, 140], 2), P('garden', '조경 공간', 1, 'garden', [300, 190, 120, 45])] },
     split:    { name: '벽·기둥', parts: [P('main', '기존 건물', 1, 'bldg', [110, 95, 220, 140], 2), P('wallin', '늘리거나 없앤 벽·기둥', 0, 'box', [212, 100, 16, 130])] },
     apt:      { name: '아파트 평면', plan: true, desc: '세대 평면 예시입니다. 위에서부터 발코니, 세대 내부, 현관 앞 전실, 공용복도 순서로 놓여 있습니다. 발코니는 세대 내부와 맞닿은 경계를 바꿔 넓힌 곳으로, 전실은 공용복도 쪽에 출입문을 새로 단 곳으로 표시했습니다.', parts: [P('corridor', '공용복도', 1, 'plan', [40, 200, 380, 36]), P('unit', '세대 내부', 1, 'plan', [110, 68, 240, 82]), P('balcony', '발코니', 1, 'plan', [110, 34, 240, 34]), P('vestibule', '현관 앞 전실', 1, 'plan', [200, 150, 60, 50])] },
     deck:     { name: '데크·영업 공간', parts: [P('main', '기존 건물', 1, 'bldg', [80, 95, 200, 140], 2), P('deck', '데크·바깥 영업 공간', 0, 'canopy', [280, 160, 120, 75])] }
@@ -3086,6 +3090,15 @@ HC.restoration = (function () {
     } else if (p.look === 'tent') { o += '<path d="M' + x + ' ' + (y + h) + ' L' + x + ' ' + (y + h * 0.45) + ' Q' + (x + w / 2) + ' ' + (y - h * 0.25) + ' ' + (x + w) + ' ' + (y + h * 0.45) + ' L' + (x + w) + ' ' + (y + h) + ' Z"' + a + '/>';
       if (!ghost) for (var t = 1; t < 5; t++) o += '<line x1="' + (x + w * t / 5) + '" y1="' + (y + h * 0.2) + '" x2="' + (x + w * t / 5) + '" y2="' + (y + h) + '"' + ln + '/>';
     } else if (p.look === 'pile') { o += '<rect x="' + x + '" y="' + (y + h * 0.5) + '" width="' + w + '" height="' + (h * 0.5) + '"' + a + '/><rect x="' + (x + w * 0.15) + '" y="' + y + '" width="' + (w * 0.6) + '" height="' + (h * 0.5) + '"' + a + '/>';
+    } else if (p.look === 'garden') {
+      // 조경이 살아 있는 상태(유지·되돌림)에는 나무를, 없앤 상태에는 빈 바닥을 그립니다.
+      var planted = !ghost && (s === ST.keep || s === ST.back);
+      if (planted) {
+        o += '<rect x="' + x + '" y="' + (y + h - 12) + '" width="' + w + '" height="12"' + a + '/>';
+        for (var g = 0; g < 3; g++) { var cx = x + w * (0.2 + g * 0.3), top = y + (g === 1 ? -6 : 4);
+          o += '<rect x="' + (cx - 2.5) + '" y="' + (top + 20) + '" width="5" height="' + (y + h - 12 - top - 20) + '" fill="#8a6a3b" stroke="#5f4520" stroke-width="1"/>' +
+            '<circle cx="' + cx + '" cy="' + (top + 12) + '" r="' + (g === 1 ? 15 : 13) + '" fill="#cfe9d3" stroke="#17703a" stroke-width="2"/>'; }
+      } else { o += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' + a + '/>' + (ghost ? '' : '<line x1="' + x + '" y1="' + (y + 8) + '" x2="' + (x + w) + '" y2="' + (y + 8) + '"' + ln + '/>'); }
     } else if (p.look === 'plan') {
       o += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' + a + '/>';
       if (p.id === 'vestibule' && !ghost && s !== ST.keep) o += '<line x1="' + x + '" y1="' + (y + h) + '" x2="' + (x + w) + '" y2="' + (y + h) + '" stroke="' + s.stroke + '" stroke-width="6"/>';
@@ -3161,7 +3174,8 @@ HC.restoration = (function () {
         shape(p, s, ghost) + '<rect class="rs-hit" x="' + (b[0] - 6) + '" y="' + (b[1] - 6) + '" width="' + Math.max(b[2] + 12, 60) + '" height="' + Math.max(b[3] + 12, 60) + '" fill="transparent"/></g>';
       if (p.look === 'plan') badges += planText(p, s);
       var m = ghost ? '✓' : s.mark;
-      var bx = p.look === 'stair' ? b[0] + b[2] * 0.28 : b[0] + b[2] / 2, by = p.look === 'stair' ? b[1] + b[3] * 0.72 : b[1] + Math.min(b[3] / 2, 40);   // 계단은 채워진 안쪽에 표시
+      var bx = p.look === 'stair' ? b[0] + b[2] * 0.28 : b[0] + b[2] / 2, by = p.look === 'stair' ? b[1] + b[3] * 0.72 : b[1] + Math.min(b[3] / 2, 40);
+      if (p.look === 'garden' && st === 'back') { bx = b[0] + b[2] - 14; by = b[1] - 14; }   // 나무를 가리지 않게 옆으로   // 계단은 채워진 안쪽에 표시
       if (m && p.look !== 'lot' && p.look !== 'plan') badges += '<g aria-hidden="true" pointer-events="none"><circle cx="' + bx + '" cy="' + by + '" r="12" fill="#fff" stroke="' + s.stroke + '" stroke-width="2"/><text x="' + bx + '" y="' + (by + 5) + '" text-anchor="middle" font-size="15" font-weight="700" fill="' + s.stroke + '">' + m + '</text></g>';
     });
     return '<svg class="rs-svg" viewBox="0 0 460 280"' + (thumb ? ' aria-hidden="true" focusable="false"' : ' role="group" aria-label="' + HC.ui.esc(alt) + '"' + (il.desc && mode === 'now' && selected !== undefined ? ' aria-describedby="rsFigDesc"' : '')) + '>' + o + badges +
@@ -3246,7 +3260,7 @@ HC.restoration = (function () {
         ['before', 'now', 'after'].map(function (m) { return '<figure>' + svg(c, m) + '<figcaption class="small">' + { before: '① 변경 전 가상 예시', now: f.restoration_review_parts.length ? '② 위반 상태 예시' : '② 변경된 상태 예시', after: '③ 원상복구한 뒤 예시' }[m] + '</figcaption></figure>'; }).join('') + '</div>' + legend(c, true) +
         (f.restoration_review_parts.length ? '' : '<p class="small muted">이 유형은 경우에 따라 위반이 아닐 수 있어 ②와 ③을 같게 그렸습니다.</p>');
     } else if (st.tab === 'process') {
-      h = '<h3 class="lg-h">일반적인 처리 흐름</h3><ol class="rs-time">' + D.flow.map(function (t) { return '<li><strong>' + e(t[0]) + '</strong><p class="small">' + e(t[1]) + '</p></li>'; }).join('') + '</ol>' +
+      h = '<h3 class="lg-h">일반적인 처리 흐름</h3><ol class="rs-time">' + D.flow.map(function (t, i) { return '<li><strong>' + e(t[0]) + '</strong><p class="small">' + e(i === 0 && c.indoor ? D.flowIndoorFirst : t[1]) + '</p></li>'; }).join('') + '</ol>' +
         '<p class="small muted">단계별 기간과 이행강제금 부과 횟수·금액은 지역과 사안에 따라 다릅니다. 기한은 받으신 통지서에 적혀 있습니다. <a href="#procedure">해체신고 절차 보기</a></p>' +
         '<h3 class="lg-h">바로잡는 두 가지 길</h3><ol class="todo"><li><span><strong>원상복구</strong> — 위반 부분을 없애거나 원래 쓰임으로 되돌립니다. 해체가 필요하면 해체 허가·신고 대상인지 먼저 확인합니다.</span></li><li><span><strong>사후 허가·신고(추인)</strong> — 현행 기준에 맞는 경우에만 가능합니다. 건축사 등 전문가 상담으로 가능 여부를 알 수 있습니다.</span></li></ol>' +
         '<h3 class="lg-h">위반건축물이 되면 생길 수 있는 일</h3><ul class="rs-items">' + D.effects.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
@@ -3265,7 +3279,7 @@ HC.restoration = (function () {
       '<div class="rs-panel" id="rsPanel" role="tabpanel" aria-labelledby="rsTab-' + st.tab + '" tabindex="0">' + panel(c) + '</div>' +
       '<div class="print-only rs-printall">' + TABS.filter(function (t) { return t[0] !== st.tab; }).map(function (t) { var keep = st.tab; st.tab = t[0]; var x = '<h3>' + t[1] + '</h3>' + panel(c); st.tab = keep; return x; }).join('') +
       '<p>주의: 이 출력물은 공식 시정명령서, 해체계획서, 철거 지시서가 아닙니다. 출력일 ' + e(HC.ui.today()) + ' · 자료 검증일 ' + e(D.verifiedAt) + '</p></div>' +
-      '<div class="ph-actions ph-noprint"><button type="button" class="btn btn-primary btn-block" id="rsPrint">인쇄 또는 PDF로 저장</button><p class="small muted">출력물은 공식 시정명령서·해체계획서·철거 지시서가 아닙니다.</p></div>';
+      '<div class="ph-actions ph-noprint rs-actions"><button type="button" class="btn btn-ghost btn-sm" id="rsPrint">인쇄 또는 PDF로 저장</button><p class="small muted">출력물은 공식 시정명령서·해체계획서·철거 지시서가 아닙니다.</p></div>';
   }
   function render() {
     var root = $('restorationRoot'); if (!root) return;
