@@ -622,6 +622,12 @@ a.proto-chip { text-decoration: none; }
 #restorationRoot .lg-h { margin: 24px 0 8px; }
 .rs-src a { display: inline-block; padding: 4px 0; }
 .site-footer a { display: inline-block; padding-block: 4px; }
+/* 유형 카드: 같은 줄·같은 화면에서 크기를 맞춥니다 */
+.rs-list > li { display: flex; }
+.rs-card { height: 100%; align-items: flex-start; }
+.rs-card-t { flex: 1; align-self: stretch; }
+.rs-card .rs-status { margin-top: auto; }
+@media (min-width: 620px) { .rs-list { grid-auto-rows: 1fr; } }
 
 </style>
 <style>
