@@ -3079,8 +3079,9 @@ HC.restoration = (function () {
     } else if (p.look === 'cont') { o += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' + a + '/>'; if (!ghost) for (var c = 1; c < 7; c++) o += '<line x1="' + (x + w * c / 7) + '" y1="' + (y + 6) + '" x2="' + (x + w * c / 7) + '" y2="' + (y + h - 6) + '"' + ln + '/>';
     } else if (p.look === 'canopy') { o += '<polygon points="' + x + ',' + (y + 22) + ' ' + (x + w) + ',' + y + ' ' + (x + w) + ',' + (y + 12) + ' ' + x + ',' + (y + 34) + '"' + a + '/>' +
       '<rect x="' + (x + 8) + '" y="' + (y + 32) + '" width="7" height="' + (h - 32) + '"' + a + '/><rect x="' + (x + w - 15) + '" y="' + (y + 12) + '" width="7" height="' + (h - 12) + '"' + a + '/>';
-    } else if (p.look === 'stair') { var pts = [], st = 6; for (var q = 0; q <= st; q++) { pts.push((x + w * q / st) + ',' + (y + h - h * q / st)); if (q < st) pts.push((x + w * (q + 1) / st) + ',' + (y + h - h * q / st)); }
-      o += '<polygon points="' + x + ',' + (y + h) + ' ' + pts.join(' ') + ' ' + (x + w) + ',' + (y + h) + '"' + a + '/>';
+    } else if (p.look === 'stair') { var pts = [], st = 6; // 건물 쪽(왼쪽)이 높도록: 바깥에서 올라가면 건물 위층에 닿습니다.
+      for (var q = 0; q <= st; q++) { pts.push((x + w - w * q / st) + ',' + (y + h - h * q / st)); if (q < st) pts.push((x + w - w * (q + 1) / st) + ',' + (y + h - h * q / st)); }
+      o += '<polygon points="' + (x + w) + ',' + (y + h) + ' ' + pts.join(' ') + ' ' + x + ',' + (y + h) + '"' + a + '/>';
     } else if (p.look === 'lift') { o += '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '"' + a + '/>' + (ghost ? '' : '<line x1="' + x + '" y1="' + y + '" x2="' + (x + w) + '" y2="' + (y + h) + '"' + ln + '/><line x1="' + (x + w) + '" y1="' + y + '" x2="' + x + '" y2="' + (y + h) + '"' + ln + '/>');
     } else if (p.look === 'tent') { o += '<path d="M' + x + ' ' + (y + h) + ' L' + x + ' ' + (y + h * 0.45) + ' Q' + (x + w / 2) + ' ' + (y - h * 0.25) + ' ' + (x + w) + ' ' + (y + h * 0.45) + ' L' + (x + w) + ' ' + (y + h) + ' Z"' + a + '/>';
       if (!ghost) for (var t = 1; t < 5; t++) o += '<line x1="' + (x + w * t / 5) + '" y1="' + (y + h * 0.2) + '" x2="' + (x + w * t / 5) + '" y2="' + (y + h) + '"' + ln + '/>';
@@ -3160,7 +3161,8 @@ HC.restoration = (function () {
         shape(p, s, ghost) + '<rect class="rs-hit" x="' + (b[0] - 6) + '" y="' + (b[1] - 6) + '" width="' + Math.max(b[2] + 12, 60) + '" height="' + Math.max(b[3] + 12, 60) + '" fill="transparent"/></g>';
       if (p.look === 'plan') badges += planText(p, s);
       var m = ghost ? '✓' : s.mark;
-      if (m && p.look !== 'lot' && p.look !== 'plan') badges += '<g aria-hidden="true" pointer-events="none"><circle cx="' + (b[0] + b[2] / 2) + '" cy="' + (b[1] + Math.min(b[3] / 2, 40)) + '" r="12" fill="#fff" stroke="' + s.stroke + '" stroke-width="2"/><text x="' + (b[0] + b[2] / 2) + '" y="' + (b[1] + Math.min(b[3] / 2, 40) + 5) + '" text-anchor="middle" font-size="15" font-weight="700" fill="' + s.stroke + '">' + m + '</text></g>';
+      var bx = p.look === 'stair' ? b[0] + b[2] * 0.28 : b[0] + b[2] / 2, by = p.look === 'stair' ? b[1] + b[3] * 0.72 : b[1] + Math.min(b[3] / 2, 40);   // 계단은 채워진 안쪽에 표시
+      if (m && p.look !== 'lot' && p.look !== 'plan') badges += '<g aria-hidden="true" pointer-events="none"><circle cx="' + bx + '" cy="' + by + '" r="12" fill="#fff" stroke="' + s.stroke + '" stroke-width="2"/><text x="' + bx + '" y="' + (by + 5) + '" text-anchor="middle" font-size="15" font-weight="700" fill="' + s.stroke + '">' + m + '</text></g>';
     });
     return '<svg class="rs-svg" viewBox="0 0 460 280"' + (thumb ? ' aria-hidden="true" focusable="false"' : ' role="group" aria-label="' + HC.ui.esc(alt) + '"' + (il.desc && mode === 'now' && selected !== undefined ? ' aria-describedby="rsFigDesc"' : '')) + '>' + o + badges +
       '<text x="8" y="18" font-size="12" font-weight="700" fill="#1b2a44">' + title + ' · 교육용 일반 도식(실제 건물 아님)</text></svg>';
