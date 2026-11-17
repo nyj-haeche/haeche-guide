@@ -618,8 +618,10 @@ a.proto-chip { text-decoration: none; }
 .rs-myths li { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 16px; background: var(--surface); display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-sm); }
 .rs-myth-q { font-weight: 700; }
 .rs-myth-a::before { content: "→ "; color: var(--accent, #1d4ed8); font-weight: 700; }
-.rs-basics, .rs-myths { margin-bottom: 18px; }
+/* 유형 안내: 소제목 위아래 간격(정보 위계) */
+#restorationRoot .lg-h { margin: 24px 0 8px; }
 .rs-src a { display: inline-block; padding: 4px 0; }
+.site-footer a { display: inline-block; padding-block: 4px; }
 
 </style>
 <style>
@@ -2777,9 +2779,9 @@ HC.restorationData = {
     'BA-83': { law: '건축법', article: '제83조', title: '옹벽 등의 공작물에의 준용', status: '재검증 필요' },
     'BD-3-2': { law: '건축법 시행령', article: '제3조의2', title: '대수선의 범위', status: '재검증 필요' },
     'PK-19-4': { law: '주차장법', article: '제19조의4', title: '부설주차장의 용도변경 금지 등', status: '재검증 필요' },
-    'BD-2': { law: '건축법 시행령', article: '제2조제14호', title: '발코니의 정의', status: '재검증 필요' },
-    'BD-46': { law: '건축법 시행령', article: '제46조', title: '방화구획 등의 설치(대피공간)', status: '재검증 필요' },
-    'AM-35': { law: '공동주택관리법', article: '제35조', title: '행위허가 기준 등', status: '재검증 필요' },
+    'BD-2': { unverified: true, law: '건축법 시행령', article: '제2조제14호', title: '발코니의 정의', status: '재검증 필요' },
+    'BD-46': { unverified: true, law: '건축법 시행령', article: '제46조', title: '방화구획 등의 설치(대피공간)', status: '재검증 필요' },
+    'AM-35': { unverified: true, law: '공동주택관리법', article: '제35조', title: '행위허가 기준 등', status: '재검증 필요' },
     'BM-30': { law: '건축물관리법', article: '제30조', title: '건축물 해체의 허가', status: '재검증 필요' }
   },
   // 참고한 공개 자료
@@ -2794,7 +2796,7 @@ HC.restorationData = {
     'YI': { kind: 'local', org: '지방자치단체 예방 홍보(언론 보도)', title: '건축법 위반 행위 예방 위한 사전 안내·홍보 강화', date: '2026. 5. 14.', url: 'https://www.kgnews.co.kr/news/article.html?no=895789' },
     'GA': { kind: 'local', org: '지방자치단체 발간 자료', title: '건축행정 바로알기 — 위반건축물 예방과 시정', date: '2012', url: 'https://www.michuhol.go.kr/upfiles/board_112/2012%20%EA%B1%B4%EC%B6%95%ED%96%89%EC%A0%95%20%EB%B0%94%EB%A1%9C%EC%95%8C%EA%B8%B0.pdf' },
     'JN': { kind: 'local', org: '지방자치단체 상담 운영(언론 보도)', title: '위반건축물 맞춤형 상담센터 운영', date: '2026. 1. 8.', url: 'https://www.heraldk.com/article/2026010814144703394' },
-    'BK': { kind: 'gov', org: '국토교통부 고시(국가법령정보센터)', title: '발코니 등의 구조변경절차 및 설치기준', date: '', url: 'https://www.law.go.kr/행정규칙/발코니등의구조변경절차및설치기준' },
+    'BK': { unverified: true, kind: 'gov', org: '국토교통부 고시(국가법령정보센터)', title: '발코니 등의 구조변경절차 및 설치기준', date: '', url: 'https://www.law.go.kr/행정규칙/발코니등의구조변경절차및설치기준' },
     'JS': { kind: 'local', org: '지방자치단체 조치 사례(언론 보도)', title: '공동주택 전실 확장 세대 조사·시정 사례', date: '2021. 10. 28.', url: 'https://www.ytn.co.kr/_ln/0115_202110280501014921' },
     'ML': { kind: 'gov', org: '국토교통부 발표(언론 보도)', title: '위반건축물 합리적 관리방안 발표', date: '2025. 10. 1.', url: 'https://www.mt.co.kr/estate/2025/10/01/2025100110573769101' }
   },
@@ -2957,19 +2959,19 @@ HC.restorationData = {
 
     { case_id: 'VT-14', title: '아파트 발코니·전실을 넓혀 쓰는 경우', violation_type: '공동주택 구조 변경', illustration_id: 'apt', where: '아파트 등 공동주택의 발코니, 현관 앞 전실',
       summary: '아파트에서 발코니를 거실·방으로 넓히거나, 현관 앞 전실에 문이나 벽을 달아 세대 안처럼 쓰는 경우입니다. 발코니와 전실은 살펴볼 내용이 서로 다릅니다.',
-      status_note: '발코니 확장은 정해진 기준과 절차에 맞으면 할 수 있습니다. 전실은 그 공간이 세대 전유부분인지 공용부분인지에 따라 달라집니다. 이 화면은 위반 여부를 판단하지 않습니다.',
+      status_note: '발코니 확장은 정해진 기준과 절차에 맞으면 할 수 있습니다. 전실은 그 공간이 세대 전유부분인지 공용부분인지에 따라 달라집니다. 「전실」이라는 이름이나 그림만으로 위반 여부와 되돌릴 범위를 정할 수 없으며, 이 화면은 위반 여부를 판단하지 않습니다.',
       items: [{ part: 'balcony', name: '발코니 확장', status: 'verify',
         act: '발코니와 거실·방 사이의 창이나 벽을 없애 실내로 넓혀 씀',
         examples: ['거실과 발코니 사이 창을 없애 거실을 넓힘', '방 쪽 발코니를 방으로 넓힘', '대피공간이나 옆 세대와 통하는 경량칸막이 앞을 막아 씀'],
         issue: '기준과 절차에 맞지 않게 넓히면 위반에 해당할 수 있고, 대피공간·방화판 같은 피난·방화시설이 빠질 수 있습니다.',
-        fix: '기준에 맞게 고칠 수 있는 경우에는 절차를 거쳐 바로잡고, 그렇지 않으면 원래 모습으로 되돌립니다.',
-        check: '원래 발코니 위치와 넓힌 범위, 분양·준공 때부터 넓혀져 있었는지, 이후 공사라면 절차를 거쳤는지, 대피공간과 방화시설이 있는지 살펴봅니다.' },
+        fix: '건축물대장, 설계도서, 인허가·사용승인 자료와 현장 상태를 견주어 본 뒤 소관 부서와 상담합니다. 기준에 맞게 고칠 수 있으면 절차를 거쳐 바로잡고, 그렇지 않으면 되돌리는 방법을 검토합니다.',
+        check: '원래 발코니 위치와 넓힌 범위, 분양·준공 때부터 넓혀져 있었는지, 이후 공사라면 절차를 거쳤는지, 그 건물에 적용되는 피난·방화 기준과 구조·설비 기준에 맞는지 살펴봅니다.' },
       { part: 'vestibule', name: '현관 앞 전실 확장', status: 'verify',
         act: '현관문 앞 공간에 출입문이나 벽을 새로 달아 세대 안처럼 씀',
         examples: ['현관 앞 복도 쪽에 문을 하나 더 닮', '전실에 벽을 세우고 신발장·창고로 씀', '엘리베이터 앞 공간 일부를 막아 씀'],
         issue: '그 공간이 공용부분이면 세대가 따로 막아 쓰는 것이 제한될 수 있고, 복도의 피난 통로와 방화문·소화전 이용에 지장을 줄 수 있습니다.',
-        fix: '공용부분을 막은 경우에는 새로 단 문과 벽을 없애 원래 모습으로 되돌리는 것이 일반적입니다.',
-        check: '그 공간이 전유부분인지 공용부분인지, 새로 단 출입문과 벽의 위치, 공용복도·피난시설·방화시설과 겹치는지, 공동주택 행위허가·신고 대상인지 살펴봅니다.' }],
+        fix: '관리주체(관리사무소), 관련 도면, 건축물대장, 허가 이력과 현장 상태를 바탕으로 소관 부서에 확인합니다. 공용부분을 막은 것으로 확인되면 새로 단 문과 벽을 없애 되돌리는 방법을 검토합니다.',
+        check: '그 공간이 전유부분인지 공용부분인지, 원래 구조와 새로 단 출입문·벽·가림시설의 위치, 공용복도·피난시설·방화시설과 겹치는지, 공동주택 행위허가·신고 대상인지 살펴봅니다.' }],
       safety_considerations: ['벽을 없애거나 새로 세우는 공사는 구조와 방화에 영향을 줄 수 있어 전문가 검토 필요', '대피공간, 경량칸막이, 방화문 앞에는 물건을 쌓아 두지 않음'],
       related_laws: ['BD-2', 'BD-46', 'AM-35', 'BA-79', 'BA-80'], source_references: ['BK', 'GA', 'JS'] }
   ],
@@ -3053,7 +3055,7 @@ HC.restoration = (function () {
     parking:  { name: '주차장', parts: [P('main', '기존 건물(위층)', 1, 'bldg', [120, 55, 220, 120], 2), P('parking', '1층 주차장 자리', 1, 'box', [120, 175, 220, 60])] },
     landscape:{ name: '조경 공간', parts: [P('main', '기존 건물', 1, 'bldg', [80, 95, 200, 140], 2), P('garden', '조경 공간', 1, 'box', [300, 190, 120, 45])] },
     split:    { name: '벽·기둥', parts: [P('main', '기존 건물', 1, 'bldg', [110, 95, 220, 140], 2), P('wallin', '늘리거나 없앤 벽·기둥', 0, 'box', [212, 100, 16, 130])] },
-    apt:      { name: '아파트 평면', plan: true, parts: [P('corridor', '공용복도', 1, 'plan', [40, 200, 380, 36]), P('unit', '세대 내부', 1, 'plan', [110, 68, 240, 82]), P('balcony', '발코니', 1, 'plan', [110, 34, 240, 34]), P('vestibule', '현관 앞 전실', 1, 'plan', [200, 150, 60, 50])] },
+    apt:      { name: '아파트 평면', plan: true, desc: '세대 평면 예시입니다. 위에서부터 발코니, 세대 내부, 현관 앞 전실, 공용복도 순서로 놓여 있습니다. 발코니는 세대 내부와 맞닿은 경계를 바꿔 넓힌 곳으로, 전실은 공용복도 쪽에 출입문을 새로 단 곳으로 표시했습니다.', parts: [P('corridor', '공용복도', 1, 'plan', [40, 200, 380, 36]), P('unit', '세대 내부', 1, 'plan', [110, 68, 240, 82]), P('balcony', '발코니', 1, 'plan', [110, 34, 240, 34]), P('vestibule', '현관 앞 전실', 1, 'plan', [200, 150, 60, 50])] },
     deck:     { name: '데크·영업 공간', parts: [P('main', '기존 건물', 1, 'bldg', [80, 95, 200, 140], 2), P('deck', '데크·바깥 영업 공간', 0, 'canopy', [280, 160, 120, 75])] }
   };
   function P(id, label, base, look, box, n) { return { id: id, label: label, base: !!base, look: look, box: box, n: n || 1 }; }
@@ -3134,7 +3136,11 @@ HC.restoration = (function () {
    */
   function svg(c, mode, selected, thumb) {
     var il = ILLUS[c.illustration_id], o = '', badges = '';
-    var title = { now: '위반 상태 예시(개념도)', before: '변경 전 가상 예시', after: '원상복구한 뒤 예시(개념도)' }[mode];
+    var hasReview = c.items.some(function (i) { return i.status === 'review'; });
+    var title = { now: (hasReview ? '위반 상태 예시' : '변경된 상태 예시') + '(개념도)', before: '변경 전 가상 예시', after: '원상복구한 뒤 예시(개념도)' }[mode];
+    // 대체 텍스트: 어디가 어떻게 달라졌는지를 짧게(위반 여부는 단정하지 않음)
+    var changedNames = il.parts.filter(function (p) { return itemsOf(c, p.id).length; }).map(function (p) { return p.label; });
+    var alt = mode === 'before' ? title + ' — 바꾸기 전 모습을 나타낸 도식' : title + ' — ' + changedNames.join(', ') + ' 위치를 표시한 도식';
     o += '<rect x="0" y="0" width="460" height="280" fill="#f6f9fd"/>' + (il.plan ? '' : '<rect x="0" y="235" width="460" height="45" fill="#cfd5dc"/>');
     il.parts.forEach(function (p) {
       var st = partState(c, p); if (!st) return;
@@ -3150,7 +3156,7 @@ HC.restoration = (function () {
       var m = ghost ? '✓' : s.mark;
       if (m && p.look !== 'lot' && p.look !== 'plan') badges += '<g aria-hidden="true" pointer-events="none"><circle cx="' + (b[0] + b[2] / 2) + '" cy="' + (b[1] + Math.min(b[3] / 2, 40)) + '" r="12" fill="#fff" stroke="' + s.stroke + '" stroke-width="2"/><text x="' + (b[0] + b[2] / 2) + '" y="' + (b[1] + Math.min(b[3] / 2, 40) + 5) + '" text-anchor="middle" font-size="15" font-weight="700" fill="' + s.stroke + '">' + m + '</text></g>';
     });
-    return '<svg class="rs-svg" viewBox="0 0 460 280"' + (thumb ? ' aria-hidden="true" focusable="false"' : ' role="group" aria-label="' + HC.ui.esc(c.title + ' — ' + title) + '"') + '>' + o + badges +
+    return '<svg class="rs-svg" viewBox="0 0 460 280"' + (thumb ? ' aria-hidden="true" focusable="false"' : ' role="group" aria-label="' + HC.ui.esc(alt) + '"' + (il.desc && mode === 'now' && selected !== undefined ? ' aria-describedby="rsFigDesc"' : '')) + '>' + o + badges +
       '<text x="8" y="18" font-size="12" font-weight="700" fill="#1b2a44">' + title + ' · 교육용 일반 도식(실제 건물 아님)</text></svg>';
   }
   function legend(c, after) {
@@ -3201,14 +3207,15 @@ HC.restoration = (function () {
   /** 통합 참고자료 화면: 법령 / 중앙행정기관 자료 / 지방자치단체 자료 / 화면 제작 기준 */
   function refsView() {
     var keys = Object.keys(D.sources), by = function (k) { return keys.filter(function (x) { return D.sources[x].kind === k; }); };
-    var item = function (x) { return '<li><span class="rs-org">' + e(x.org) + '</span><a href="' + e(x.url) + '" target="_blank" rel="noopener noreferrer">' + e(x.title) + '<span class="sr-only"> (새 창)</span></a>' + (x.date ? ' <span class="small muted">' + e(x.date) + '</span>' : '') + '</li>'; };
+    var item = function (x) { return '<li><span class="rs-org">' + e(x.org) + '</span><a href="' + e(x.url) + '" target="_blank" rel="noopener noreferrer">' + e(x.title) + '<span class="sr-only"> (새 창)</span></a>' + (x.date ? ' <span class="small muted">' + e(x.date) + '</span>' : '') + (x.unverified ? UNV : '') + '</li>'; };
+    var UNV = ' <span class="small muted">(원문 확인 필요)</span>';
     return '<button type="button" class="btn btn-ghost ph-noprint" id="rsRefsBack">← ' + (st.id ? '유형 안내로 돌아가기' : '유형 목록') + '</button><h2 class="rs-title">자료 출처 및 관련 법령</h2>' +
       '<p class="muted">유형 안내에 쓴 법령과 공개 자료를 한곳에 모았습니다. 제목을 누르면 원문이 새 창으로 열립니다.</p>' +
-      '<h3 class="lg-h">법령</h3><ul class="law-list rs-src">' + Object.keys(D.laws).map(function (k) { var l = D.laws[k]; return '<li><span class="rs-org">' + e(l.title) + '</span><a href="' + e(lawUrl(l)) + '" target="_blank" rel="noopener noreferrer">' + e(l.law + ' ' + l.article) + '<span class="sr-only"> (새 창)</span></a></li>'; }).join('') + '</ul>' +
+      '<h3 class="lg-h">법령</h3><ul class="law-list rs-src">' + Object.keys(D.laws).map(function (k) { var l = D.laws[k]; return '<li><span class="rs-org">' + e(l.title) + '</span><a href="' + e(lawUrl(l)) + '" target="_blank" rel="noopener noreferrer">' + e(l.law + ' ' + l.article) + '<span class="sr-only"> (새 창)</span></a>' + (l.unverified ? UNV : '') + '</li>'; }).join('') + '</ul>' +
       '<p class="small muted">조문은 개정될 수 있으며 최신 내용은 국가법령정보센터에서 볼 수 있습니다.</p>' +
       '<h3 class="lg-h">중앙행정기관 자료</h3><ul class="law-list rs-src">' + by('gov').map(function (k) { return item(D.sources[k]); }).join('') + '</ul>' +
       '<h3 class="lg-h">지방자치단체 자료</h3><ul class="law-list rs-src">' + by('local').map(function (k) { return item(D.sources[k]); }).join('') + '</ul>' +
-      '<h3 class="lg-h">화면 제작에 참고한 기준</h3><ul class="law-list rs-src">' + D.guides.map(item).join('') + '</ul>' +
+      '<h3 class="lg-h">웹 접근성 제작기법</h3><ul class="law-list rs-src">' + D.guides.map(item).join('') + '</ul>' +
       '<p class="small muted">기간·횟수·감경 기준은 지역마다 달라 싣지 않았습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>';
   }
   function panel(c) {
@@ -3223,17 +3230,17 @@ HC.restoration = (function () {
     } else if (st.tab === 'where') {
       h = '<p class="muted">그림에서 표시된 부분을 누르면 설명이 나옵니다. 키보드는 Tab으로 옮기고 Enter로 엽니다. 색 표시는 이해를 돕는 예시이며 법적 철거명령의 범위를 정하지 않습니다.</p>' +
         '<div class="ph-row ph-noprint" role="group" aria-label="그림 크기"><button type="button" class="btn btn-ghost" id="rsZoomOut" aria-label="그림 작게">－ 작게</button><button type="button" class="btn btn-ghost" id="rsZoomIn" aria-label="그림 크게">＋ 크게</button><button type="button" class="btn btn-ghost" id="rsZoom0">원래 크기</button></div>' +
-        '<div class="rs-stage" id="rsStage"><div class="rs-zoom" style="width:' + (st.zoom * 100) + '%">' + svg(c, 'now', st.part || c.items[0].part) + '</div></div>' + legend(c) +
+        '<div class="rs-stage" id="rsStage"><div class="rs-zoom" style="width:' + (st.zoom * 100) + '%">' + svg(c, 'now', st.part || c.items[0].part) + '</div></div>' + (ILLUS[c.illustration_id].desc ? '<p class="small" id="rsFigDesc">' + e(ILLUS[c.illustration_id].desc) + '</p>' : '') + legend(c) +
         '<div id="rsDetail" aria-live="polite">' + detail(c, st.part || c.items[0].part) + '</div>' +
         '<div class="print-only">' + c.items.map(function (i) { return detail(c, i.part); }).filter(function (x, i, a) { return a.indexOf(x) === i; }).join('') + '</div>';
     } else if (st.tab === 'compare') {
       h = '<p class="muted">공식 도면이 아니라 이해를 돕는 개념도입니다. 「변경 전」은 승인된 원래 상태가 아니라 가상 예시입니다.</p><div class="rs-cmp">' +
-        ['before', 'now', 'after'].map(function (m) { return '<figure>' + svg(c, m) + '<figcaption class="small">' + { before: '① 변경 전 가상 예시', now: '② 위반 상태 예시', after: '③ 원상복구한 뒤 예시' }[m] + '</figcaption></figure>'; }).join('') + '</div>' + legend(c, true) +
+        ['before', 'now', 'after'].map(function (m) { return '<figure>' + svg(c, m) + '<figcaption class="small">' + { before: '① 변경 전 가상 예시', now: f.restoration_review_parts.length ? '② 위반 상태 예시' : '② 변경된 상태 예시', after: '③ 원상복구한 뒤 예시' }[m] + '</figcaption></figure>'; }).join('') + '</div>' + legend(c, true) +
         (f.restoration_review_parts.length ? '' : '<p class="small muted">이 유형은 경우에 따라 위반이 아닐 수 있어 ②와 ③을 같게 그렸습니다.</p>');
     } else if (st.tab === 'process') {
       h = '<h3 class="lg-h">일반적인 처리 흐름</h3><ol class="rs-time">' + D.flow.map(function (t) { return '<li><strong>' + e(t[0]) + '</strong><p class="small">' + e(t[1]) + '</p></li>'; }).join('') + '</ol>' +
         '<p class="small muted">단계별 기간과 이행강제금 부과 횟수·금액은 지역과 사안에 따라 다릅니다. 기한은 받으신 통지서에 적혀 있습니다. <a href="#procedure">해체신고 절차 보기</a></p>' +
-        '<h3 class="lg-h">바로잡는 두 가지 길</h3><ol class="todo"><li><strong>원상복구</strong> — 위반 부분을 없애거나 원래 쓰임으로 되돌립니다. 해체가 필요하면 해체 허가·신고 대상인지 먼저 확인합니다.</li><li><strong>사후 허가·신고(추인)</strong> — 현행 기준에 맞는 경우에만 가능합니다. 건축사 등 전문가 상담으로 가능 여부를 알 수 있습니다.</li></ol>' +
+        '<h3 class="lg-h">바로잡는 두 가지 길</h3><ol class="todo"><li><span><strong>원상복구</strong> — 위반 부분을 없애거나 원래 쓰임으로 되돌립니다. 해체가 필요하면 해체 허가·신고 대상인지 먼저 확인합니다.</span></li><li><span><strong>사후 허가·신고(추인)</strong> — 현행 기준에 맞는 경우에만 가능합니다. 건축사 등 전문가 상담으로 가능 여부를 알 수 있습니다.</span></li></ol>' +
         '<h3 class="lg-h">위반건축물이 되면 생길 수 있는 일</h3><ul class="rs-items">' + D.effects.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
         '<h3 class="lg-h">관련 법령</h3><ul class="law-list">' + c.related_laws.map(function (k) { var l = D.laws[k]; return '<li><strong>' + e(l.law + ' ' + l.article) + '</strong>' + e(l.title) + '</li>'; }).join('') + '</ul><p class="small muted">조문은 개정될 수 있으며 최신 내용은 국가법령정보센터에서 볼 수 있습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>' + REFBTN;
     } else {
@@ -3766,6 +3773,9 @@ document.addEventListener('DOMContentLoaded', function () {
   HC.checklist.init();
 
   document.getElementById('faqSearch').addEventListener('input', function (ev) { renderFaq(ev.target.value); });
+  // 본문 바로가기: 주소(#)를 바꾸면 처음 화면으로 돌아가므로, 지금 화면의 본문으로 초점만 옮깁니다.
+  var skip = document.querySelector('.skip-link'), mainEl = document.getElementById('main');
+  if (skip && mainEl) skip.addEventListener('click', function (ev) { ev.preventDefault(); if (!mainEl.hasAttribute('tabindex')) mainEl.setAttribute('tabindex', '-1'); mainEl.focus(); mainEl.scrollIntoView(); });
   window.addEventListener('hashchange', HC.router.show);
   HC.router.show();
 });
