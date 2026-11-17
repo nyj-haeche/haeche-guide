@@ -2840,6 +2840,9 @@ HC.restorationData = {
     'BM-30': { law: '건축물관리법', article: '제30조', title: '건축물 해체의 허가', status: '재검증 필요' }
   },
   // 참고한 공개 자료
+
+  // 화면의 「자료 출처 및 관련 법령」에는 kind 가 'gov'(중앙행정기관)인 자료만 보여 줍니다.
+  // 'local'(지방자치단체 자료)과 'press'(언론 보도)는 작성 근거 기록으로만 남기고 화면에는 내지 않습니다.
   sources: {
     'EL-1': { kind: 'gov', org: '법제처 찾기쉬운 생활법령정보', title: '「건축법」 위반건축물 — 위법한 건축행위의 유형 및 제재', date: '2026. 10. 15. 기준', url: 'https://www.easylaw.go.kr/CSP/CnpClsMain.laf?csmSeq=1406&ccfNo=3&cciNo=2&cnpClsNo=1' },
     'EL-2': { kind: 'gov', org: '법제처 찾기쉬운 생활법령정보', title: '「건축법」 위반건축물 — 위법한 대수선 등의 유형 및 제재', date: '2026. 10. 15. 기준', url: 'https://easylaw.go.kr/CSP/CnpClsMain.laf?popMenu=ov&csmSeq=1406&ccfNo=3&cciNo=2&cnpClsNo=2' },
@@ -2853,7 +2856,7 @@ HC.restorationData = {
     'JN': { kind: 'local', org: '지방자치단체 상담 운영(언론 보도)', title: '위반건축물 맞춤형 상담센터 운영', date: '2026. 1. 8.', url: 'https://www.heraldk.com/article/2026010814144703394' },
     'BK': { unverified: true, kind: 'gov', org: '국토교통부 고시(국가법령정보센터)', title: '발코니 등의 구조변경절차 및 설치기준', date: '', url: 'https://www.law.go.kr/행정규칙/발코니등의구조변경절차및설치기준' },
     'JS': { kind: 'local', org: '지방자치단체 조치 사례(언론 보도)', title: '공동주택 전실 확장 세대 조사·시정 사례', date: '2021. 10. 28.', url: 'https://www.ytn.co.kr/_ln/0115_202110280501014921' },
-    'ML': { kind: 'gov', org: '국토교통부 발표(언론 보도)', title: '위반건축물 합리적 관리방안 발표', date: '2025. 10. 1.', url: 'https://www.mt.co.kr/estate/2025/10/01/2025100110573769101' }
+    'ML': { kind: 'press', org: '국토교통부 발표(언론 보도)', title: '위반건축물 합리적 관리방안 발표', date: '2025. 10. 1.', url: 'https://www.mt.co.kr/estate/2025/10/01/2025100110573769101' }
   },
   cases: [
     { case_id: 'VT-01', title: '옥상에 방이나 창고를 올린 경우', violation_type: '무단 증축', illustration_id: 'rooftop', where: '다세대·다가구주택, 상가주택 옥상',
@@ -3514,7 +3517,7 @@ HC.restoration = (function () {
   var NOTICE = '<p class="small muted rs-notice">일반적인 유형 안내입니다. 실제 원상복구 범위는 시정명령서와 승인도면, 현장 조건에 따라 정해집니다.</p>';
 
   function listView() {
-    return '<p class="muted">해체·원상복구 대상이 되기 쉬운 위반건축물 유형 ' + D.cases.length + '가지를 법제처·지방자치단체·국토교통부 공개 자료를 바탕으로 정리했습니다. 내 상황과 비슷한 유형을 골라 그림으로 확인하세요. 특정 건물의 사례가 아니며, 사진을 올리거나 분석하지 않습니다.</p>' + NOTICE + (HC.nj ? HC.nj.entry() : '') + '<h2 class="lg-h">유형 ' + D.cases.length + '가지</h2>' +
+    return '<p class="muted">해체·원상복구 대상이 되기 쉬운 위반건축물 유형 ' + D.cases.length + '가지를 법령과 공개 자료를 바탕으로 정리했습니다. 내 상황과 비슷한 유형을 골라 그림으로 확인하세요. 특정 건물의 사례가 아니며, 사진을 올리거나 분석하지 않습니다.</p>' + NOTICE + (HC.nj ? HC.nj.entry() : '') + '<h2 class="lg-h">유형 ' + D.cases.length + '가지</h2>' +
       '<ul class="rs-list">' + D.cases.map(function (c) {
         return '<li><button type="button" class="lg-card rs-card" data-id="' + c.case_id + '"><span class="rs-thumb" aria-hidden="true">' + svg(c, 'now', null, true) + '</span><span class="rs-card-t"><strong>' + e(c.title) + '</strong><span class="small">' + '흔한 곳: ' + e(c.where) + '</span>' + chip(c) + '</span></button></li>'; }).join('') + '</ul>' +
       '<h2 class="lg-h">위반건축물이 되면 생길 수 있는 일</h2><ul class="rs-items">' + D.effects.map(function (x) { return '<li>' + e(x) + '</li>'; }).join('') + '</ul>' +
@@ -3525,17 +3528,16 @@ HC.restoration = (function () {
   }
   var REFBTN = '<p class="ph-noprint rs-refs"><button type="button" class="btn btn-ghost rs-refs-btn">자료 출처 및 관련 법령</button></p>';
   function lawUrl(l) { return 'https://www.law.go.kr/법령/' + l.law.replace(/ /g, ''); }
-  /** 통합 참고자료 화면: 법령 / 중앙행정기관 자료 / 지방자치단체 자료 / 화면 제작 기준 */
+  /** 통합 참고자료 화면: 법령 / 중앙행정기관 자료 / 화면 제작 기준 (지방자치단체·언론 자료는 화면에 내지 않음) */
   function refsView() {
     var keys = Object.keys(D.sources), by = function (k) { return keys.filter(function (x) { return D.sources[x].kind === k; }); };
     var item = function (x) { return '<li><span class="rs-org">' + e(x.org) + '</span><a href="' + e(x.url) + '" target="_blank" rel="noopener noreferrer">' + e(x.title) + '<span class="sr-only"> (새 창)</span></a>' + (x.date ? ' <span class="small muted">' + e(x.date) + '</span>' : '') + (x.unverified ? UNV : '') + '</li>'; };
     var UNV = ' <span class="small muted">(원문 확인 필요)</span>';
     return '<button type="button" class="btn btn-ghost ph-noprint" id="rsRefsBack">← ' + (st.id || st.nj ? '안내로 돌아가기' : '유형 목록') + '</button><h2 class="rs-title">자료 출처 및 관련 법령</h2>' +
-      '<p class="muted">유형 안내에 쓴 법령과 공개 자료를 한곳에 모았습니다. 제목을 누르면 원문이 새 창으로 열립니다.</p>' +
+      '<p class="muted">유형 안내와 관련된 법령과 중앙행정기관 자료입니다. 제목을 누르면 원문이 새 창으로 열립니다.</p>' +
       '<h3 class="lg-h">법령</h3><ul class="law-list rs-src">' + Object.keys(D.laws).map(function (k) { var l = D.laws[k]; return '<li><span class="rs-org">' + e(l.title) + '</span><a href="' + e(lawUrl(l)) + '" target="_blank" rel="noopener noreferrer">' + e(l.law + ' ' + l.article) + '<span class="sr-only"> (새 창)</span></a>' + (l.unverified ? UNV : '') + '</li>'; }).join('') + '</ul>' +
       '<p class="small muted">조문은 개정될 수 있으며 최신 내용은 국가법령정보센터에서 볼 수 있습니다.</p>' +
       '<h3 class="lg-h">중앙행정기관 자료</h3><ul class="law-list rs-src">' + by('gov').map(function (k) { return item(D.sources[k]); }).join('') + '</ul>' +
-      '<h3 class="lg-h">지방자치단체 자료</h3><ul class="law-list rs-src">' + by('local').map(function (k) { return item(D.sources[k]); }).join('') + '</ul>' +
       '<h3 class="lg-h">웹 접근성 제작기법</h3><ul class="law-list rs-src">' + D.guides.map(item).join('') + '</ul>' +
       '<p class="small muted">기간·횟수·감경 기준은 지역마다 달라 싣지 않았습니다. 자료 확인일 ' + e(D.verifiedAt) + '</p>';
   }
